@@ -6,3 +6,10 @@
 //
 
 import Foundation
+
+struct MWEntity {
+    
+    let city: CityModel
+    let weather: WeatherResponse
+    
+}

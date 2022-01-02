@@ -89,10 +89,12 @@ struct R: Rswift.Validatable {
   }
 
   #if os(iOS) || os(tvOS)
-  /// This `R.storyboard` struct is generated, and contains static references to 2 storyboards.
+  /// This `R.storyboard` struct is generated, and contains static references to 3 storyboards.
   struct storyboard {
     /// Storyboard `LaunchScreen`.
     static let launchScreen = _R.storyboard.launchScreen()
+    /// Storyboard `MainWeather`.
+    static let mainWeather = _R.storyboard.mainWeather()
     /// Storyboard `Main`.
     static let main = _R.storyboard.main()
 
@@ -107,6 +109,13 @@ struct R: Rswift.Validatable {
     /// `UIStoryboard(name: "Main", bundle: ...)`
     static func main(_: Void = ()) -> UIKit.UIStoryboard {
       return UIKit.UIStoryboard(resource: R.storyboard.main)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIStoryboard(name: "MainWeather", bundle: ...)`
+    static func mainWeather(_: Void = ()) -> UIKit.UIStoryboard {
+      return UIKit.UIStoryboard(resource: R.storyboard.mainWeather)
     }
     #endif
 
@@ -170,6 +179,26 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
 
+  /// This `R.nib` struct is generated, and contains static references to 1 nibs.
+  struct nib {
+    /// Nib `DayCollectionViewCell`.
+    static let dayCollectionViewCell = _R.nib._DayCollectionViewCell()
+
+    #if os(iOS) || os(tvOS)
+    /// `UINib(name: "DayCollectionViewCell", in: bundle)`
+    @available(*, deprecated, message: "Use UINib(resource: R.nib.dayCollectionViewCell) instead")
+    static func dayCollectionViewCell(_: Void = ()) -> UIKit.UINib {
+      return UIKit.UINib(resource: R.nib.dayCollectionViewCell)
+    }
+    #endif
+
+    static func dayCollectionViewCell(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> DayCollectionViewCell? {
+      return R.nib.dayCollectionViewCell.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? DayCollectionViewCell
+    }
+
+    fileprivate init() {}
+  }
+
   fileprivate struct intern: Rswift.Validatable {
     fileprivate static func validate() throws {
       try _R.validate()
@@ -191,6 +220,23 @@ struct _R: Rswift.Validatable {
   }
 
   #if os(iOS) || os(tvOS)
+  struct nib {
+    struct _DayCollectionViewCell: Rswift.NibResourceType {
+      let bundle = R.hostingBundle
+      let name = "DayCollectionViewCell"
+
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> DayCollectionViewCell? {
+        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? DayCollectionViewCell
+      }
+
+      fileprivate init() {}
+    }
+
+    fileprivate init() {}
+  }
+  #endif
+
+  #if os(iOS) || os(tvOS)
   struct storyboard: Rswift.Validatable {
     static func validate() throws {
       #if os(iOS) || os(tvOS)
@@ -198,6 +244,9 @@ struct _R: Rswift.Validatable {
       #endif
       #if os(iOS) || os(tvOS)
       try main.validate()
+      #endif
+      #if os(iOS) || os(tvOS)
+      try mainWeather.validate()
       #endif
     }
 
@@ -219,7 +268,7 @@ struct _R: Rswift.Validatable {
 
     #if os(iOS) || os(tvOS)
     struct main: Rswift.StoryboardResourceWithInitialControllerType, Rswift.Validatable {
-      typealias InitialController = ViewController
+      typealias InitialController = UIKit.UIViewController
 
       let bundle = R.hostingBundle
       let name = "Main"
@@ -227,6 +276,26 @@ struct _R: Rswift.Validatable {
       static func validate() throws {
         if #available(iOS 11.0, tvOS 11.0, *) {
         }
+      }
+
+      fileprivate init() {}
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    struct mainWeather: Rswift.StoryboardResourceType, Rswift.Validatable {
+      let bundle = R.hostingBundle
+      let mainWeatherVC = StoryboardViewControllerResource<MWViewController>(identifier: "MainWeatherVC")
+      let name = "MainWeather"
+
+      func mainWeatherVC(_: Void = ()) -> MWViewController? {
+        return UIKit.UIStoryboard(resource: self).instantiateViewController(withResource: mainWeatherVC)
+      }
+
+      static func validate() throws {
+        if #available(iOS 11.0, tvOS 11.0, *) {
+        }
+        if _R.storyboard.mainWeather().mainWeatherVC() == nil { throw Rswift.ValidationError(description:"[R.swift] ViewController with identifier 'mainWeatherVC' could not be loaded from storyboard 'MainWeather' as 'MWViewController'.") }
       }
 
       fileprivate init() {}
