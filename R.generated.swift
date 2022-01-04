@@ -179,10 +179,12 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
 
-  /// This `R.nib` struct is generated, and contains static references to 1 nibs.
+  /// This `R.nib` struct is generated, and contains static references to 2 nibs.
   struct nib {
     /// Nib `DayCollectionViewCell`.
     static let dayCollectionViewCell = _R.nib._DayCollectionViewCell()
+    /// Nib `HourCollectionViewCell`.
+    static let hourCollectionViewCell = _R.nib._HourCollectionViewCell()
 
     #if os(iOS) || os(tvOS)
     /// `UINib(name: "DayCollectionViewCell", in: bundle)`
@@ -192,9 +194,31 @@ struct R: Rswift.Validatable {
     }
     #endif
 
+    #if os(iOS) || os(tvOS)
+    /// `UINib(name: "HourCollectionViewCell", in: bundle)`
+    @available(*, deprecated, message: "Use UINib(resource: R.nib.hourCollectionViewCell) instead")
+    static func hourCollectionViewCell(_: Void = ()) -> UIKit.UINib {
+      return UIKit.UINib(resource: R.nib.hourCollectionViewCell)
+    }
+    #endif
+
     static func dayCollectionViewCell(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> DayCollectionViewCell? {
       return R.nib.dayCollectionViewCell.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? DayCollectionViewCell
     }
+
+    static func hourCollectionViewCell(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> HourCollectionViewCell? {
+      return R.nib.hourCollectionViewCell.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? HourCollectionViewCell
+    }
+
+    fileprivate init() {}
+  }
+
+  /// This `R.reuseIdentifier` struct is generated, and contains static references to 2 reuse identifiers.
+  struct reuseIdentifier {
+    /// Reuse identifier `DayCollectionViewCellIdent`.
+    static let dayCollectionViewCellIdent: Rswift.ReuseIdentifier<DayCollectionViewCell> = Rswift.ReuseIdentifier(identifier: "DayCollectionViewCellIdent")
+    /// Reuse identifier `HourCollectionViewCellIdent`.
+    static let hourCollectionViewCellIdent: Rswift.ReuseIdentifier<HourCollectionViewCell> = Rswift.ReuseIdentifier(identifier: "HourCollectionViewCellIdent")
 
     fileprivate init() {}
   }
@@ -221,12 +245,29 @@ struct _R: Rswift.Validatable {
 
   #if os(iOS) || os(tvOS)
   struct nib {
-    struct _DayCollectionViewCell: Rswift.NibResourceType {
+    struct _DayCollectionViewCell: Rswift.NibResourceType, Rswift.ReuseIdentifierType {
+      typealias ReusableType = DayCollectionViewCell
+
       let bundle = R.hostingBundle
+      let identifier = "DayCollectionViewCellIdent"
       let name = "DayCollectionViewCell"
 
       func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> DayCollectionViewCell? {
         return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? DayCollectionViewCell
+      }
+
+      fileprivate init() {}
+    }
+
+    struct _HourCollectionViewCell: Rswift.NibResourceType, Rswift.ReuseIdentifierType {
+      typealias ReusableType = HourCollectionViewCell
+
+      let bundle = R.hostingBundle
+      let identifier = "HourCollectionViewCellIdent"
+      let name = "HourCollectionViewCell"
+
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> HourCollectionViewCell? {
+        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? HourCollectionViewCell
       }
 
       fileprivate init() {}
@@ -268,7 +309,7 @@ struct _R: Rswift.Validatable {
 
     #if os(iOS) || os(tvOS)
     struct main: Rswift.StoryboardResourceWithInitialControllerType, Rswift.Validatable {
-      typealias InitialController = UIKit.UIViewController
+      typealias InitialController = MainViewController
 
       let bundle = R.hostingBundle
       let name = "Main"

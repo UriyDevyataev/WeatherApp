@@ -11,6 +11,10 @@ import SnapKit
 
 class MWViewController: UIViewController {
     
+    @IBAction func actionPrint(_ sender: Any) {
+        print(view.frame.size)
+        print(collectionView.frame.size)
+    }
     @IBOutlet weak var collectionView: UICollectionView!
     
     @IBOutlet weak var cityLabel: UILabel!
@@ -56,8 +60,7 @@ class MWViewController: UIViewController {
     func configCollectionView(){
         collectionView.delegate = self
         collectionView.dataSource = self
-        collectionView.backgroundColor = .cyan
-//        
+        collectionView.backgroundColor = .cyan   
         collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
     }
     
@@ -106,9 +109,17 @@ extension MWViewController: UICollectionViewDataSource {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
         
+        
+        switch indexPath.row {
+        case 0:
+            addChildViewController(container: cell.contentView, controller: HourlyViewController())
+//        case 1:
+//            addChildViewController(container: cell.contentView, controller: DayViewController())
+        default: break
+        }
+        
         cell.backgroundColor = .brown
         
-        addChildViewController(container: cell.contentView, controller: HourlyViewController())
         return cell
     }
 }
@@ -116,9 +127,19 @@ extension MWViewController: UICollectionViewDataSource {
 extension MWViewController: UICollectionViewDelegateFlowLayout{
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-
-        let size = CGSize(width: collectionView.frame.size.width,
-                          height: 60)
+        
+        let width = collectionView.frame.size.width
+        let height = collectionView.frame.size.height
+                
+        var size = CGSize.zero
+        switch indexPath.row {
+        case 0:
+            size = CGSize(width: width, height: height/5)
+        case 1:
+            size = CGSize(width: width, height: 10 * 50 )
+        default: break
+        }
+        
         return size
     }
 }
