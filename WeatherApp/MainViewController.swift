@@ -32,11 +32,6 @@ class MainViewController: UIViewController {
         
         let container1 = createContainer()
         let container2 = createContainer()
-        let container3 = createContainer()
-        let container4 = createContainer()
-        
-        container2.backgroundColor = .red
-        
         
         contentView.addSubview(container1)
         contentView.addSubview(container2)
@@ -69,12 +64,6 @@ class MainViewController: UIViewController {
 //            make.height.equalTo(controller.mainHeigh)
 //        }
 //        container2.layoutIfNeeded()
-
-        
-
-        
-        
-        
         
     }
     

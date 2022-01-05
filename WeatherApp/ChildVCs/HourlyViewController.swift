@@ -11,61 +11,72 @@ import SnapKit
 
 class HourlyViewController: UIViewController {
     
-    var collectionView : UICollectionView?
-    var data = [DayWeather]()
+    private var collectionView : UICollectionView?
+    var data = [HourlyWeather]()
+    var sizeView = CGSize.zero
         
     override func viewDidLoad() {
         super.viewDidLoad()
         config()
     }
     
-    func config(){
-        view.backgroundColor = .red
+    private func config(){
+        view.backgroundColor = .clear
         configCollectionView()
     }
+    
+    func update(withData: [HourlyWeather]?) {
+        guard let data = withData else {return}
+        self.data = data
+        collectionView?.reloadData()
+    }
 
-    func configCollectionView(){
-        
+    private func configCollectionView(){
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
-        let cv = UICollectionView(frame: CGRect.zero, collectionViewLayout: layout)
-    
-        cv.backgroundColor = .blue
+        let collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: layout)
         
-        cv.delegate = self
-        cv.dataSource = self
+        collectionView.delegate = self
+        collectionView.dataSource = self
         
-        cv.showsHorizontalScrollIndicator = false
+        collectionView.showsHorizontalScrollIndicator = false
+        collectionView.backgroundColor = .clear
         
-        cv.register(
+        collectionView.register(
             UINib(nibName: "HourCollectionViewCell", bundle: nil),
             forCellWithReuseIdentifier: "HourCollectionViewCellIdent")
         
-        view.addSubview(cv)
-        cv.snp.makeConstraints { make in
+        view.addSubview(collectionView)
+        collectionView.snp.makeConstraints { make in
             make.top.bottom.equalToSuperview()
             make.leading.trailing.equalToSuperview()
         }
-        cv.layoutIfNeeded()
-        collectionView = cv
+        collectionView.layoutIfNeeded()
+    }
+
+    private func fill(cell: HourCollectionViewCell, withContent: HourlyWeather) -> UICollectionViewCell {
+        cell.hourLabel.text = withContent.dt.strHourFromUTC()
+        cell.tempLabel.text = "\(Int(withContent.temp.rounded()))\u{00B0}"
+        cell.imageView.image = UIImage()
+        return cell
     }
 }
 
 extension HourlyViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        return data.count
-        return 10
+        return data.count > 24 ? 24 : data.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        guard let cell = collectionView
+        guard let hourlyCell = collectionView
                 .dequeueReusableCell(
                     withReuseIdentifier: "HourCollectionViewCellIdent",
                     for: indexPath) as? HourCollectionViewCell
         else {return UICollectionViewCell()}
-        cell.customContentView.backgroundColor = .green
+        
+        let cell = fill(cell: hourlyCell, withContent: data[indexPath.row])
 
         return cell
     }
@@ -75,13 +86,8 @@ extension HourlyViewController: UICollectionViewDelegateFlowLayout{
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        let width = collectionView.frame.size.width
-        let height = collectionView.frame.size.height
-        
-        let size = CGSize(width: width / 6,
-                          height: height)
-        return size
+        let width = sizeView.width / 6
+        let height = sizeView.height
+        return CGSize(width: width, height: height)
     }
-    
-
 }

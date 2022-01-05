@@ -11,10 +11,10 @@ import SnapKit
 
 class DayViewController: UIViewController {
     
-    var collectionView : UICollectionView?
-    var data = [DayWeather]()
+    private var collectionView : UICollectionView?
     
-    let cellHeigh = 50
+    var data = [DailyWeather]()
+    let cellHeigh: Double = 50
     var mainHeigh = 0
         
     override func viewDidLoad() {
@@ -22,55 +22,72 @@ class DayViewController: UIViewController {
         config()
     }
     
-    func config(){
-        view.backgroundColor = .red
+    private func config(){
+        view.backgroundColor = .clear
         configCollectionView()
     }
     
-    func configCollectionView(){
-        
+    func update(withData: [DailyWeather]?) {
+        guard let data = withData else {return}
+        self.data = data
+        collectionView?.reloadData()
+    }
+    
+    private func configCollectionView(){
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
         layout.minimumLineSpacing = 0
-        let cv = UICollectionView(frame: CGRect.zero, collectionViewLayout: layout)
+        let collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: layout)
         
-        cv.backgroundColor = .blue
+        collectionView.delegate = self
+        collectionView.dataSource = self
         
-        cv.delegate = self
-        cv.dataSource = self
-        cv.isScrollEnabled = false
+        collectionView.isScrollEnabled = false
+        collectionView.backgroundColor = .clear
     
-        cv.register(
+        collectionView.register(
             UINib(nibName: "DayCollectionViewCell", bundle: nil),
             forCellWithReuseIdentifier: "DayCollectionViewCellIdent")
         
-        view.addSubview(cv)
-        cv.snp.makeConstraints { make in
+        view.addSubview(collectionView)
+        collectionView.snp.makeConstraints { make in
             make.top.bottom.equalToSuperview()
             make.leading.trailing.equalToSuperview()
         }
-        cv.layoutIfNeeded()
-        collectionView = cv
+        collectionView.layoutIfNeeded()
+    }
+    
+    private func fill(cell: DayCollectionViewCell, withContent: DailyWeather) -> UICollectionViewCell {
+        let minTemp = "\(withContent.temp.min.rounded())\u{00B0}"
+        let maxTemp = "\(withContent.temp.max.rounded())\u{00B0}"
+        let day = withContent.dt.strDayFromUTC()
+        
+        cell.dayLabel.text = day
+        cell.minTempLabel.text = minTemp
+        cell.maxTempLabel.text = maxTemp
+        cell.imageView.image = UIImage()
+    
+        return cell
     }
 }
 
 extension DayViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        return data.count
-        mainHeigh = 10 * cellHeigh
-        return 10
+        let count = data.count
+        mainHeigh = count * Int(cellHeigh)
+        return count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        guard let cell = collectionView
+        guard let dailyCell = collectionView
                 .dequeueReusableCell(
                     withReuseIdentifier: "DayCollectionViewCellIdent",
                     for: indexPath) as? DayCollectionViewCell
         else {return UICollectionViewCell()}
-        cell.customContentView.backgroundColor = .green
-
+        
+        let cell = fill(cell: dailyCell, withContent: data[indexPath.row])
         return cell
     }
 }
@@ -79,8 +96,8 @@ extension DayViewController: UICollectionViewDelegateFlowLayout{
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        let size = CGSize(width: collectionView.frame.size.width,
-                          height: 50)
-        return size
+        let width = collectionView.frame.size.width
+        let height = cellHeigh
+        return CGSize(width: width, height: height)
     }
 }

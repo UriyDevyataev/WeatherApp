@@ -9,9 +9,10 @@ import Foundation
 
 private enum Params{
     static let auth = "appid"
-    static let timePeriod = "exclude"
+    static let exclude = "exclude"
     static let latitude = "lat"
     static let longitude = "lon"
+    static let units = "units"
 }
 
 private enum Periods{
@@ -25,6 +26,7 @@ private enum Periods{
 private enum Constants {
     static var apiKey = "6519f53be1ceaac0b0a6af0aab58a215"
     static var baseUrl = "https://api.openweathermap.org/data/2.5/onecall"
+    static var metric = "metric"
 }
 
 class WeatherServiceImp: WeatherService {
@@ -33,6 +35,7 @@ class WeatherServiceImp: WeatherService {
         
         let session = URLSession.shared
         let request = URLRequest(url: prepareLoadDataRequest(forLocal: location)!)
+//        print(request)
         let task = session.dataTask(with: request) { data, response, error in
             guard let data = data else {return}
             do {
@@ -52,7 +55,8 @@ class WeatherServiceImp: WeatherService {
         components?.queryItems = [
             URLQueryItem(name: Params.latitude,value: String(forLocal.lat)),
             URLQueryItem(name: Params.longitude,value: String(forLocal.lon)),
-            URLQueryItem(name: Params.timePeriod, value: "\(Periods.minutely),\(Periods.hourly)"),
+            URLQueryItem(name: Params.exclude, value: Periods.minutely),
+            URLQueryItem(name: Params.units, value: Constants.metric),
             URLQueryItem(name: Params.auth, value: Constants.apiKey)
         ]
         return components?.url
