@@ -89,14 +89,23 @@ struct R: Rswift.Validatable {
   }
 
   #if os(iOS) || os(tvOS)
-  /// This `R.storyboard` struct is generated, and contains static references to 3 storyboards.
+  /// This `R.storyboard` struct is generated, and contains static references to 4 storyboards.
   struct storyboard {
+    /// Storyboard `ChoiseCity`.
+    static let choiseCity = _R.storyboard.choiseCity()
     /// Storyboard `LaunchScreen`.
     static let launchScreen = _R.storyboard.launchScreen()
     /// Storyboard `MainWeather`.
     static let mainWeather = _R.storyboard.mainWeather()
     /// Storyboard `Main`.
     static let main = _R.storyboard.main()
+
+    #if os(iOS) || os(tvOS)
+    /// `UIStoryboard(name: "ChoiseCity", bundle: ...)`
+    static func choiseCity(_: Void = ()) -> UIKit.UIStoryboard {
+      return UIKit.UIStoryboard(resource: R.storyboard.choiseCity)
+    }
+    #endif
 
     #if os(iOS) || os(tvOS)
     /// `UIStoryboard(name: "LaunchScreen", bundle: ...)`
@@ -179,12 +188,22 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
 
-  /// This `R.nib` struct is generated, and contains static references to 2 nibs.
+  /// This `R.nib` struct is generated, and contains static references to 3 nibs.
   struct nib {
+    /// Nib `CityTableViewCell`.
+    static let cityTableViewCell = _R.nib._CityTableViewCell()
     /// Nib `DayCollectionViewCell`.
     static let dayCollectionViewCell = _R.nib._DayCollectionViewCell()
     /// Nib `HourCollectionViewCell`.
     static let hourCollectionViewCell = _R.nib._HourCollectionViewCell()
+
+    #if os(iOS) || os(tvOS)
+    /// `UINib(name: "CityTableViewCell", in: bundle)`
+    @available(*, deprecated, message: "Use UINib(resource: R.nib.cityTableViewCell) instead")
+    static func cityTableViewCell(_: Void = ()) -> UIKit.UINib {
+      return UIKit.UINib(resource: R.nib.cityTableViewCell)
+    }
+    #endif
 
     #if os(iOS) || os(tvOS)
     /// `UINib(name: "DayCollectionViewCell", in: bundle)`
@@ -201,6 +220,10 @@ struct R: Rswift.Validatable {
       return UIKit.UINib(resource: R.nib.hourCollectionViewCell)
     }
     #endif
+
+    static func cityTableViewCell(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> CityTableViewCell? {
+      return R.nib.cityTableViewCell.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? CityTableViewCell
+    }
 
     static func dayCollectionViewCell(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> DayCollectionViewCell? {
       return R.nib.dayCollectionViewCell.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? DayCollectionViewCell
@@ -245,6 +268,17 @@ struct _R: Rswift.Validatable {
 
   #if os(iOS) || os(tvOS)
   struct nib {
+    struct _CityTableViewCell: Rswift.NibResourceType {
+      let bundle = R.hostingBundle
+      let name = "CityTableViewCell"
+
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> CityTableViewCell? {
+        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? CityTableViewCell
+      }
+
+      fileprivate init() {}
+    }
+
     struct _DayCollectionViewCell: Rswift.NibResourceType, Rswift.ReuseIdentifierType {
       typealias ReusableType = DayCollectionViewCell
 
@@ -281,6 +315,9 @@ struct _R: Rswift.Validatable {
   struct storyboard: Rswift.Validatable {
     static func validate() throws {
       #if os(iOS) || os(tvOS)
+      try choiseCity.validate()
+      #endif
+      #if os(iOS) || os(tvOS)
       try launchScreen.validate()
       #endif
       #if os(iOS) || os(tvOS)
@@ -290,6 +327,26 @@ struct _R: Rswift.Validatable {
       try mainWeather.validate()
       #endif
     }
+
+    #if os(iOS) || os(tvOS)
+    struct choiseCity: Rswift.StoryboardResourceType, Rswift.Validatable {
+      let bundle = R.hostingBundle
+      let choiseCityVC = StoryboardViewControllerResource<CCViewController>(identifier: "ChoiseCityVC")
+      let name = "ChoiseCity"
+
+      func choiseCityVC(_: Void = ()) -> CCViewController? {
+        return UIKit.UIStoryboard(resource: self).instantiateViewController(withResource: choiseCityVC)
+      }
+
+      static func validate() throws {
+        if #available(iOS 11.0, tvOS 11.0, *) {
+        }
+        if _R.storyboard.choiseCity().choiseCityVC() == nil { throw Rswift.ValidationError(description:"[R.swift] ViewController with identifier 'choiseCityVC' could not be loaded from storyboard 'ChoiseCity' as 'CCViewController'.") }
+      }
+
+      fileprivate init() {}
+    }
+    #endif
 
     #if os(iOS) || os(tvOS)
     struct launchScreen: Rswift.StoryboardResourceWithInitialControllerType, Rswift.Validatable {

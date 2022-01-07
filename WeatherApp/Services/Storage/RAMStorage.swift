@@ -1,5 +1,5 @@
 //
-//  Fizle.swift
+//  RAMStorage.swift
 //  WeatherApp
 //
 //  Created by Юрий Девятаев on 05.01.2022.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class RAMStorage: KeyValueStorage{
+final class RAMStorage: KeyValueStorage {
     
     var storage = [String: Any]()
     

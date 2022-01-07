@@ -7,23 +7,31 @@
 
 final class MWPresenterImp: MWPresenterInput {
     
+    
+    
+    
+    
     weak var view: MWPresenterOutput?
     weak var output: MWModuleOutput?
     
     var interactor: MWInteractorInput!
     var router: MWRouterInput!
     
-    func viewIsReady() {
+    func viewIsReady(with entity: MWEntity?) {
         interactor.requestAccessLocation()
-        interactor.updateEntityFor(location: nil)
+        interactor.updateEntity(entity)
     }
     
     func actionGetLocalWeather() {
-        interactor.updateEntityFor(location: nil)
+        interactor.updateEntity(nil)
     }
     
     func actionShowChoiseCity() {
-        
+        router.showCCViewController()
+    }
+    
+    func actionSave(entity: MWEntity) {
+        interactor.save(entity: entity)
     }
     
 }

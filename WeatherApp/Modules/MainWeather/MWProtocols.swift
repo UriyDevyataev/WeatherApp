@@ -5,27 +5,27 @@
 //  Created by Юрий Девятаев on 02.01.2022.
 //
 
+import CoreLocation
+
 //Router
 protocol MWRouterInput {
-    
+    func showCCViewController()
 }
 
 protocol MWRouterOutput {
-    
 }
 
 //Presenter
 protocol MWPresenterInput {
-    
     var view: MWPresenterOutput? {get set}
     
-    func viewIsReady()
+    func viewIsReady(with entity: MWEntity?)
     func actionShowChoiseCity()
     func actionGetLocalWeather()
+    func actionSave(entity: MWEntity)
 }
 
 protocol MWPresenterOutput: AnyObject {
-    
     func setState(entity: MWEntity)
 }
 
@@ -33,8 +33,9 @@ protocol MWPresenterOutput: AnyObject {
 protocol MWInteractorInput {
     
     var output: MWInteractorOutput? { get set }
-    func updateEntityFor(location: Coordinate?)
     func requestAccessLocation()
+    func updateEntity(_ entity: MWEntity?)
+    func save(entity: MWEntity)
 }
 
 protocol MWInteractorOutput: AnyObject {
@@ -43,12 +44,8 @@ protocol MWInteractorOutput: AnyObject {
 
 //Module
 protocol MWModuleInput {
-    
 }
 
 protocol MWModuleOutput: AnyObject {
-    
     func didUpdateEntityOut(entity: MWEntity)
-    
 }
-

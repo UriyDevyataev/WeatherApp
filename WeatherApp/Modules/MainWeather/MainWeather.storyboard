@@ -16,8 +16,50 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Sbe-7H-raq" userLabel="ButtonContentView">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="45"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YUu-Xf-RAG">
+                                        <rect key="frame" x="0.0" y="0.0" width="91" height="45"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="Отменить"/>
+                                        <connections>
+                                            <action selector="actionCancel:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="cdM-9i-gvW"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JXw-pa-QbH">
+                                        <rect key="frame" x="322.5" y="0.0" width="91.5" height="45"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain">
+                                            <attributedString key="attributedTitle">
+                                                <fragment content="Добавить">
+                                                    <attributes>
+                                                        <font key="NSFont" size="14" name="Helvetica-Bold"/>
+                                                    </attributes>
+                                                </fragment>
+                                            </attributedString>
+                                        </buttonConfiguration>
+                                        <connections>
+                                            <action selector="actionAdd:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="4k1-fI-tJo"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="YUu-Xf-RAG" secondAttribute="bottom" id="6tf-f6-Lqt"/>
+                                    <constraint firstAttribute="bottom" secondItem="JXw-pa-QbH" secondAttribute="bottom" id="9ho-J2-Z38"/>
+                                    <constraint firstAttribute="trailing" secondItem="JXw-pa-QbH" secondAttribute="trailing" id="FWf-Kt-UDg"/>
+                                    <constraint firstItem="JXw-pa-QbH" firstAttribute="top" secondItem="Sbe-7H-raq" secondAttribute="top" id="Pt6-ns-0xw"/>
+                                    <constraint firstItem="YUu-Xf-RAG" firstAttribute="leading" secondItem="Sbe-7H-raq" secondAttribute="leading" id="Ymw-i7-grP"/>
+                                    <constraint firstItem="JXw-pa-QbH" firstAttribute="centerY" secondItem="Sbe-7H-raq" secondAttribute="centerY" id="kdh-Co-d49"/>
+                                    <constraint firstItem="YUu-Xf-RAG" firstAttribute="centerY" secondItem="Sbe-7H-raq" secondAttribute="centerY" id="o5y-l3-paH"/>
+                                    <constraint firstItem="YUu-Xf-RAG" firstAttribute="top" secondItem="Sbe-7H-raq" secondAttribute="top" id="vcn-Ai-rOL"/>
+                                </constraints>
+                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ern-Uh-sSt" userLabel="TopContentView">
-                                <rect key="frame" x="0.0" y="44" width="414" height="251"/>
+                                <rect key="frame" x="0.0" y="45" width="414" height="251"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wkI-mI-kZd">
                                         <rect key="frame" x="20.5" y="20" width="373" height="32.5"/>
@@ -80,13 +122,13 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1RA-4u-0dc" userLabel="MiddleContentView">
-                                <rect key="frame" x="15" y="295" width="384" height="531.5"/>
+                                <rect key="frame" x="15" y="296" width="384" height="530.5"/>
                                 <subviews>
                                     <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kUA-7a-L2J">
-                                        <rect key="frame" x="0.0" y="0.0" width="384" height="531.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="384" height="530.5"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Jv-rx-o2a">
-                                                <rect key="frame" x="0.0" y="0.0" width="384" height="531.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="384" height="530.5"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </view>
                                         </subviews>
@@ -149,20 +191,25 @@
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemPurpleColor"/>
                         <constraints>
-                            <constraint firstItem="Ern-Uh-sSt" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="1wy-Yv-qgN"/>
+                            <constraint firstItem="Sbe-7H-raq" firstAttribute="height" secondItem="5EZ-qb-Rvc" secondAttribute="height" multiplier="0.05" id="3MZ-LH-b8a"/>
                             <constraint firstAttribute="bottom" secondItem="x35-WG-Pcf" secondAttribute="bottom" id="3vw-du-Sl9"/>
+                            <constraint firstItem="Ern-Uh-sSt" firstAttribute="top" secondItem="Sbe-7H-raq" secondAttribute="bottom" id="4BY-hQ-UgD"/>
                             <constraint firstAttribute="trailing" secondItem="x35-WG-Pcf" secondAttribute="trailing" id="5Ws-Lb-0Bo"/>
                             <constraint firstItem="1RA-4u-0dc" firstAttribute="top" secondItem="Ern-Uh-sSt" secondAttribute="bottom" id="Hog-hm-tQx"/>
+                            <constraint firstAttribute="trailing" secondItem="Sbe-7H-raq" secondAttribute="trailing" id="NmM-CR-WIa"/>
                             <constraint firstAttribute="trailing" secondItem="Ern-Uh-sSt" secondAttribute="trailing" id="YMz-La-64x"/>
                             <constraint firstItem="x35-WG-Pcf" firstAttribute="leading" secondItem="5EZ-qb-Rvc" secondAttribute="leading" id="ZpO-GN-pQU"/>
+                            <constraint firstItem="Sbe-7H-raq" firstAttribute="top" secondItem="5EZ-qb-Rvc" secondAttribute="top" id="a4x-Nr-8eU"/>
                             <constraint firstItem="1RA-4u-0dc" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="15" id="c5A-zJ-RXf"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="1RA-4u-0dc" secondAttribute="trailing" constant="15" id="k4R-w1-pOe"/>
                             <constraint firstItem="x35-WG-Pcf" firstAttribute="height" secondItem="5EZ-qb-Rvc" secondAttribute="height" multiplier="0.1" id="poN-pZ-oWc"/>
+                            <constraint firstItem="Sbe-7H-raq" firstAttribute="leading" secondItem="5EZ-qb-Rvc" secondAttribute="leading" id="rCg-qp-sWr"/>
                             <constraint firstItem="x35-WG-Pcf" firstAttribute="top" secondItem="1RA-4u-0dc" secondAttribute="bottom" constant="-20" id="wsD-Qe-LsL"/>
                             <constraint firstItem="Ern-Uh-sSt" firstAttribute="leading" secondItem="5EZ-qb-Rvc" secondAttribute="leading" id="x7r-cN-7l1"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="buttonContentView" destination="Sbe-7H-raq" id="j1H-1U-CRX"/>
                         <outlet property="choiseCityButton" destination="Jqq-o4-BdT" id="sj3-Lb-ory"/>
                         <outlet property="cityLabel" destination="wkI-mI-kZd" id="f90-Bi-bLY"/>
                         <outlet property="contentView" destination="4Jv-rx-o2a" id="yuy-0a-SGE"/>

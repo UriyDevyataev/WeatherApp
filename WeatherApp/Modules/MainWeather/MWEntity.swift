@@ -7,9 +7,8 @@
 
 import Foundation
 
-struct MWEntity {
+struct MWEntity: Codable{
     
     let city: CityModel
-    let weather: WeatherResponse
-    
+    let weather: WeatherResponse?
 }

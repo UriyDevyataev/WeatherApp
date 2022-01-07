@@ -1,5 +1,5 @@
 //
-//  Fssile.swift
+//  SharedStorage.swift
 //  WeatherApp
 //
 //  Created by Юрий Девятаев on 05.01.2022.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class SharedStorage: KeyValueStorage{
+final class SharedStorage: KeyValueStorage {
     
     let storage = UserDefaults.standard
     

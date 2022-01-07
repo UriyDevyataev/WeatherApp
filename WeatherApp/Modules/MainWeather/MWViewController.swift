@@ -10,7 +10,8 @@ import UIKit
 import SnapKit
 
 class MWViewController: UIViewController {
-    
+    let weatherListService: WeatherListService = WeatherListServiceImp()
+    @IBOutlet weak var buttonContentView: UIView!
     @IBOutlet weak var middleContentView: UIView!
     @IBOutlet weak var contentView: UIView!
     
@@ -31,33 +32,46 @@ class MWViewController: UIViewController {
     
     //MARK: - Actions
     
+    @IBAction func actionCancel(_ sender: UIButton) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    @IBAction func actionAdd(_ sender: UIButton) {
+        guard let entity = self.entity else {return}
+        presenter.actionSave(entity: entity)
+        self.dismiss(animated: true)
+    }
+    
     @IBAction func actionPrint(_ sender: Any) {
-        print(view.frame.size)
     }
     
     @IBAction func actionChoiseCity(_ sender: Any) {
+        presenter.actionShowChoiseCity()
     }
     
     @IBAction func actionCurrentLocaly(_ sender: Any) {
         presenter.actionGetLocalWeather()
     }
     
+    
+    
     //MARK: - App Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         config()
-        presenter.viewIsReady()
+        presenter.viewIsReady(with: entity)
     }
     
     //MARK: - Funcs configuration
     
     func config(){
-        configContentView()
+        configUI()
         configBar()
     }
-    
-    func configContentView() {
+
+    func configUI() {
+        buttonContentView.isHidden = self.modalPresentationStyle != .pageSheet
         middleContentView.corner(withRadius: 10)
     }
     
@@ -99,7 +113,7 @@ class MWViewController: UIViewController {
         containerHourly.layoutIfNeeded()
             
         let controller = HourlyViewController()
-        controller.update(withData: entity?.weather.hourly)
+        controller.update(withData: entity?.weather?.hourly)
         controller.sizeView = containerHourly.frame.size
         
         addChildViewController(container: containerHourly, controller: controller)
@@ -111,7 +125,7 @@ class MWViewController: UIViewController {
         contentView.addSubview(containerDaily)
         
         let controller = DayViewController()
-        controller.update(withData: entity?.weather.daily)
+        controller.update(withData: entity?.weather?.daily)
         
         addChildViewController(container: containerDaily, controller: controller)
         
@@ -136,7 +150,7 @@ class MWViewController: UIViewController {
     
     func updateView(with entity: MWEntity) {
         self.entity = entity
-        let weather = entity.weather
+        guard let weather = entity.weather else {return}
         
         let temp = "\(weather.current.temp.rounded())\u{00B0}"
         let feelLike = "Ощущается как: \(weather.current.feels_like.rounded())\u{00B0}"

@@ -22,29 +22,37 @@ class LocationServiceImp: LocationService{
         guard let currentCoordinate = getCurrentLocation()
         else {return}
         
-        let location = CLLocation(latitude: currentCoordinate.lat,
-                                  longitude: currentCoordinate.lon)
-
+        let location = CLLocation(latitude: currentCoordinate.latitude,
+                                  longitude: currentCoordinate.longitude)
+        
         getPlaceFrom(location: location) { place, error in
             guard let place = place?[0], error == nil else {return}
 
-            let coordinate = Coordinate(lon: location.coordinate.longitude,
-                                        lat: location.coordinate.latitude)
-
-            let city = CityModel(id: 0,
+            let city = CityModel(adminCode1: "",
+                                 lng: String(currentCoordinate.longitude),
+                                 geonameId: 0,
+                                 toponymName:"",
+                                 countryId: "",
+                                 fcl: "",
+                                 population: 1,
+                                 countryCode: place.isoCountryCode ?? "",
                                  name: place.locality ?? "",
-                                 state: "",
-                                 country: place.country ?? "",
-                                 coord: coordinate)
+                                 fclName: "",
+                                 countryName: place.country ?? "",
+                                 fcodeName: "",
+                                 adminName1: "",
+                                 lat: String(currentCoordinate.latitude),
+                                 fcode: "")
             completion(city)
         }
     }
     
-    func getCurrentLocation() -> Coordinate? {
+    func getCurrentLocation() -> CLLocationCoordinate2D? {
         locationManager.startUpdatingLocation()
         guard let loc = locationManager.location?.coordinate else {return nil}
         locationManager.stopUpdatingHeading()
-        return Coordinate(lon: loc.longitude, lat: loc.latitude)
+        return CLLocationCoordinate2D(latitude: loc.latitude,
+                                      longitude: loc.longitude)
     }
     
     private func getPlaceFrom(location: CLLocation, completion: @escaping ([CLPlacemark]?, Error?) -> Void) {

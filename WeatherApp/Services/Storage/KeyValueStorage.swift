@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  KeyValueStorage.swift
 //  WeatherApp
 //
 //  Created by Юрий Девятаев on 05.01.2022.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol KeyValueStorage{
+protocol KeyValueStorage {
     func getValue(key: String) -> String?
     func getValue(key: String) -> Data?
     

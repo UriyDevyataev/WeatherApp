@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import CoreLocation
 
 private enum Params{
     static let auth = "appid"
@@ -13,6 +14,8 @@ private enum Params{
     static let latitude = "lat"
     static let longitude = "lon"
     static let units = "units"
+    static let language = "lang"
+    
 }
 
 private enum Periods{
@@ -27,11 +30,12 @@ private enum Constants {
     static var apiKey = "6519f53be1ceaac0b0a6af0aab58a215"
     static var baseUrl = "https://api.openweathermap.org/data/2.5/onecall"
     static var metric = "metric"
+    static let rus = "ru"
 }
 
 class WeatherServiceImp: WeatherService {
     
-    func receiveWeather(for location: Coordinate, completion: @escaping (WeatherResponse) -> Void) {
+    func receiveWeather(for location: CLLocationCoordinate2D, completion: @escaping (WeatherResponse) -> Void) {
         
         let session = URLSession.shared
         let request = URLRequest(url: prepareLoadDataRequest(forLocal: location)!)
@@ -50,13 +54,14 @@ class WeatherServiceImp: WeatherService {
         task.resume()
     }
     
-    private func prepareLoadDataRequest(forLocal: Coordinate) -> URL? {
+    private func prepareLoadDataRequest(forLocal: CLLocationCoordinate2D) -> URL? {
         var components = URLComponents(string: Constants.baseUrl)
         components?.queryItems = [
-            URLQueryItem(name: Params.latitude,value: String(forLocal.lat)),
-            URLQueryItem(name: Params.longitude,value: String(forLocal.lon)),
+            URLQueryItem(name: Params.latitude,value: String(forLocal.latitude)),
+            URLQueryItem(name: Params.longitude,value: String(forLocal.longitude)),
             URLQueryItem(name: Params.exclude, value: Periods.minutely),
             URLQueryItem(name: Params.units, value: Constants.metric),
+            URLQueryItem(name: Params.language, value: Constants.rus),
             URLQueryItem(name: Params.auth, value: Constants.apiKey)
         ]
         return components?.url
