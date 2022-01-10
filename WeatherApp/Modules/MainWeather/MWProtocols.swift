@@ -22,7 +22,7 @@ protocol MWPresenterInput {
     func viewIsReady(with entity: MWEntity?)
     func actionShowChoiseCity()
     func actionGetLocalWeather()
-    func actionSave(entity: MWEntity)
+    func actionAdd(entity: MWEntity)
 }
 
 protocol MWPresenterOutput: AnyObject {
@@ -34,8 +34,9 @@ protocol MWInteractorInput {
     
     var output: MWInteractorOutput? { get set }
     func requestAccessLocation()
+    func loadEntity(atIndex: Int)
     func updateEntity(_ entity: MWEntity?)
-    func save(entity: MWEntity)
+    func addToList(entity: MWEntity)
 }
 
 protocol MWInteractorOutput: AnyObject {

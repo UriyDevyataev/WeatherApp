@@ -85,15 +85,6 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="55G-JR-aFE">
-                                        <rect key="frame" x="310" y="44" width="67" height="31"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain" title="Button"/>
-                                        <connections>
-                                            <action selector="actionPrint:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="evC-5i-rgQ"/>
-                                        </connections>
-                                    </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3LL-8W-AJk">
                                         <rect key="frame" x="20.5" y="144.5" width="373" height="25.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="21"/>
@@ -176,7 +167,7 @@
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemIndigoColor"/>
+                                <color key="backgroundColor" systemColor="systemGrayColor"/>
                                 <constraints>
                                     <constraint firstItem="71R-le-Mky" firstAttribute="height" secondItem="Jqq-o4-BdT" secondAttribute="height" multiplier="0.696629" id="0Qx-QD-Yoy"/>
                                     <constraint firstItem="Jqq-o4-BdT" firstAttribute="height" secondItem="x35-WG-Pcf" secondAttribute="height" multiplier="0.5" id="1dv-nA-oz3"/>
@@ -189,7 +180,7 @@
                             </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
-                        <color key="backgroundColor" systemColor="systemPurpleColor"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="Sbe-7H-raq" firstAttribute="height" secondItem="5EZ-qb-Rvc" secondAttribute="height" multiplier="0.05" id="3MZ-LH-b8a"/>
                             <constraint firstAttribute="bottom" secondItem="x35-WG-Pcf" secondAttribute="bottom" id="3vw-du-Sl9"/>
@@ -209,6 +200,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="bottomContentView" destination="x35-WG-Pcf" id="Vrq-XL-YIL"/>
                         <outlet property="buttonContentView" destination="Sbe-7H-raq" id="j1H-1U-CRX"/>
                         <outlet property="choiseCityButton" destination="Jqq-o4-BdT" id="sj3-Lb-ory"/>
                         <outlet property="cityLabel" destination="wkI-mI-kZd" id="f90-Bi-bLY"/>
@@ -227,11 +219,8 @@
         </scene>
     </scenes>
     <resources>
-        <systemColor name="systemIndigoColor">
-            <color red="0.34509803921568627" green="0.33725490196078434" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-        <systemColor name="systemPurpleColor">
-            <color red="0.68627450980392157" green="0.32156862745098042" blue="0.87058823529411766" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <systemColor name="systemGrayColor">
+            <color red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

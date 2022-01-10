@@ -9,6 +9,12 @@ import Foundation
 
 final class CCInteractorImp: CCInteractorInput {
     
+    let weatherListService: WeatherListService = WeatherListServiceImp.shared
+    
+    func getWeatherList() -> [MWEntity]? {
+        return weatherListService.loadList()
+    }
+    
     weak var output: CCInteractorOutput?
     
     let cityService = CitiesServiceImp()
@@ -43,7 +49,7 @@ final class CCInteractorImp: CCInteractorInput {
 //                array.append(city.name)
 //            }
             
-            let entity = CCEntity(cityDict: dict)
+            let entity = CCEntity(isCityChoising: true, cityDict: dict, weatherList: [MWEntity]())
             self.output?.didUpdateEntity(entity: entity)
         }
     }

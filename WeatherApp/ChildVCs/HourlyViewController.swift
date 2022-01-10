@@ -51,7 +51,6 @@ class HourlyViewController: UIViewController {
             make.top.bottom.equalToSuperview()
             make.leading.trailing.equalToSuperview()
         }
-        collectionView.layoutIfNeeded()
     }
 
     private func fill(cell: HourCollectionViewCell, withContent: HourlyWeather) -> UICollectionViewCell {
@@ -62,8 +61,8 @@ class HourlyViewController: UIViewController {
     }
 }
 
-extension HourlyViewController: UICollectionViewDataSource {
-    
+extension HourlyViewController: UICollectionViewDataSource, UICollectionViewDelegate {
+
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return data.count > 24 ? 24 : data.count
     }

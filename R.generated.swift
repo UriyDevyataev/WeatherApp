@@ -188,7 +188,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
 
-  /// This `R.nib` struct is generated, and contains static references to 3 nibs.
+  /// This `R.nib` struct is generated, and contains static references to 4 nibs.
   struct nib {
     /// Nib `CityTableViewCell`.
     static let cityTableViewCell = _R.nib._CityTableViewCell()
@@ -196,6 +196,8 @@ struct R: Rswift.Validatable {
     static let dayCollectionViewCell = _R.nib._DayCollectionViewCell()
     /// Nib `HourCollectionViewCell`.
     static let hourCollectionViewCell = _R.nib._HourCollectionViewCell()
+    /// Nib `WeatherTableViewCell`.
+    static let weatherTableViewCell = _R.nib._WeatherTableViewCell()
 
     #if os(iOS) || os(tvOS)
     /// `UINib(name: "CityTableViewCell", in: bundle)`
@@ -221,6 +223,14 @@ struct R: Rswift.Validatable {
     }
     #endif
 
+    #if os(iOS) || os(tvOS)
+    /// `UINib(name: "WeatherTableViewCell", in: bundle)`
+    @available(*, deprecated, message: "Use UINib(resource: R.nib.weatherTableViewCell) instead")
+    static func weatherTableViewCell(_: Void = ()) -> UIKit.UINib {
+      return UIKit.UINib(resource: R.nib.weatherTableViewCell)
+    }
+    #endif
+
     static func cityTableViewCell(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> CityTableViewCell? {
       return R.nib.cityTableViewCell.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? CityTableViewCell
     }
@@ -233,15 +243,21 @@ struct R: Rswift.Validatable {
       return R.nib.hourCollectionViewCell.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? HourCollectionViewCell
     }
 
+    static func weatherTableViewCell(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> WeatherTableViewCell? {
+      return R.nib.weatherTableViewCell.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? WeatherTableViewCell
+    }
+
     fileprivate init() {}
   }
 
-  /// This `R.reuseIdentifier` struct is generated, and contains static references to 2 reuse identifiers.
+  /// This `R.reuseIdentifier` struct is generated, and contains static references to 3 reuse identifiers.
   struct reuseIdentifier {
     /// Reuse identifier `DayCollectionViewCellIdent`.
     static let dayCollectionViewCellIdent: Rswift.ReuseIdentifier<DayCollectionViewCell> = Rswift.ReuseIdentifier(identifier: "DayCollectionViewCellIdent")
     /// Reuse identifier `HourCollectionViewCellIdent`.
     static let hourCollectionViewCellIdent: Rswift.ReuseIdentifier<HourCollectionViewCell> = Rswift.ReuseIdentifier(identifier: "HourCollectionViewCellIdent")
+    /// Reuse identifier `WeatherTableViewCellIdentifire`.
+    static let weatherTableViewCellIdentifire: Rswift.ReuseIdentifier<WeatherTableViewCell> = Rswift.ReuseIdentifier(identifier: "WeatherTableViewCellIdentifire")
 
     fileprivate init() {}
   }
@@ -302,6 +318,20 @@ struct _R: Rswift.Validatable {
 
       func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> HourCollectionViewCell? {
         return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? HourCollectionViewCell
+      }
+
+      fileprivate init() {}
+    }
+
+    struct _WeatherTableViewCell: Rswift.NibResourceType, Rswift.ReuseIdentifierType {
+      typealias ReusableType = WeatherTableViewCell
+
+      let bundle = R.hostingBundle
+      let identifier = "WeatherTableViewCellIdentifire"
+      let name = "WeatherTableViewCell"
+
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> WeatherTableViewCell? {
+        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? WeatherTableViewCell
       }
 
       fileprivate init() {}

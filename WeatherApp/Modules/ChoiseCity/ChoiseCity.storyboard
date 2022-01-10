@@ -4,6 +4,7 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -15,38 +16,37 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r8N-Rx-XBV">
-                                <rect key="frame" x="174" y="403" width="67" height="31"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="Button"/>
-                                <connections>
-                                    <action selector="actionBack:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="k7w-8m-lCm"/>
-                                </connections>
-                            </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="udh-49-ysg">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Погода" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="udh-49-ysg">
                                 <rect key="frame" x="20" y="64" width="374" height="35"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="29"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <searchBar contentMode="redraw" placeholder="search" translatesAutoresizingMaskIntoConstraints="NO" id="OjB-Yb-xnw">
-                                <rect key="frame" x="5" y="119" width="404" height="51"/>
+                            <searchBar contentMode="redraw" searchBarStyle="minimal" placeholder="search" translatesAutoresizingMaskIntoConstraints="NO" id="OjB-Yb-xnw">
+                                <rect key="frame" x="5" y="109" width="404" height="51"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <color key="barTintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="tintColor" systemColor="tintColor"/>
+                                <color key="barTintColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <scopeButtonTitles>
                                     <string>Title</string>
                                     <string>Title</string>
                                 </scopeButtonTitles>
                             </searchBar>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" estimatedSectionHeaderHeight="-1" sectionFooterHeight="28" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="b8q-o3-6A5">
+                                <rect key="frame" x="15" y="160" width="384" height="736"/>
+                            </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
-                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="OjB-Yb-xnw" firstAttribute="top" secondItem="udh-49-ysg" secondAttribute="bottom" constant="20" id="EBx-d3-55p"/>
+                            <constraint firstItem="OjB-Yb-xnw" firstAttribute="top" secondItem="udh-49-ysg" secondAttribute="bottom" constant="10" id="EBx-d3-55p"/>
                             <constraint firstItem="udh-49-ysg" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="20" id="P1n-aU-akX"/>
+                            <constraint firstItem="b8q-o3-6A5" firstAttribute="top" secondItem="OjB-Yb-xnw" secondAttribute="bottom" id="WUK-E3-KXN"/>
+                            <constraint firstAttribute="trailing" secondItem="b8q-o3-6A5" secondAttribute="trailing" constant="15" id="cEo-oD-Dds"/>
+                            <constraint firstItem="b8q-o3-6A5" firstAttribute="leading" secondItem="5EZ-qb-Rvc" secondAttribute="leading" constant="15" id="cp5-zw-yCQ"/>
                             <constraint firstAttribute="trailing" secondItem="OjB-Yb-xnw" secondAttribute="trailing" constant="5" id="dPn-xB-aE4"/>
+                            <constraint firstAttribute="bottom" secondItem="b8q-o3-6A5" secondAttribute="bottom" id="i8e-wb-3Qr"/>
                             <constraint firstItem="OjB-Yb-xnw" firstAttribute="leading" secondItem="5EZ-qb-Rvc" secondAttribute="leading" constant="5" id="iKy-C2-1Ep"/>
                             <constraint firstAttribute="trailing" secondItem="udh-49-ysg" secondAttribute="trailing" constant="20" id="mb4-7D-bgc"/>
                             <constraint firstItem="udh-49-ysg" firstAttribute="leading" secondItem="5EZ-qb-Rvc" secondAttribute="leading" constant="20" id="p8x-QO-caY"/>
@@ -54,6 +54,7 @@
                     </view>
                     <connections>
                         <outlet property="searchBar" destination="OjB-Yb-xnw" id="sOo-8r-y6n"/>
+                        <outlet property="tableView" destination="b8q-o3-6A5" id="VNy-Gz-bFF"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -61,4 +62,9 @@
             <point key="canvasLocation" x="15.942028985507248" y="67.633928571428569"/>
         </scene>
     </scenes>
+    <resources>
+        <systemColor name="tintColor">
+            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
 </document>

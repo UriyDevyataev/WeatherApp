@@ -8,6 +8,7 @@
 import Foundation
 
 struct CCEntity {
-//    let cityList: [String]
+    var isCityChoising: Bool
     let cityDict: [String: CityModel]
+    let weatherList: [MWEntity]
 }

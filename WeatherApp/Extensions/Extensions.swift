@@ -21,6 +21,13 @@ extension UIView {
     
     func corner(withRadius: CGFloat) {
         layer.cornerRadius = withRadius
+        if self is UIImageView || self is UITextField || self is UILabel {
+            clipsToBounds = true
+        }
+    }
+    
+    func cornerAll(withRadius: CGFloat) {
+        layer.cornerRadius = withRadius
         layer.sublayers?.forEach{ $0.cornerRadius = withRadius}
         if self is UIImageView || self is UITextField || self is UILabel {
             clipsToBounds = true

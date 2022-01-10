@@ -10,5 +10,5 @@ import Foundation
 struct MWEntity: Codable{
     
     let city: CityModel
-    let weather: WeatherResponse?
+    var weather: WeatherResponse?
 }

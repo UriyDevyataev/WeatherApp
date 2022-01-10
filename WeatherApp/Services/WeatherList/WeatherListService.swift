@@ -8,6 +8,11 @@
 import Foundation
 
 protocol WeatherListService {
-    func save(list: [MWEntity])
     func loadList() -> [MWEntity]?
+//    func save(list: [MWEntity])
+    
+//    func add(entity: MWEntity)
+    func updateLocaly(entity: MWEntity)
+    func updateList(entity: MWEntity)
+    func delete(index: Int)
 }

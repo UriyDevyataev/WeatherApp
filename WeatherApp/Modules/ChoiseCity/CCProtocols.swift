@@ -34,6 +34,8 @@ protocol CCPresenterOutput: AnyObject {
 //Interactor
 protocol CCInteractorInput {
     
+    func getWeatherList() -> [MWEntity]?
+    
     func reloadCityList(for searchText: String)
 }
 

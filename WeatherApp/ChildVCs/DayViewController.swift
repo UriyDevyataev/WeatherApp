@@ -14,8 +14,11 @@ class DayViewController: UIViewController {
     private var collectionView : UICollectionView?
     
     var data = [DailyWeather]()
+//    let cellSize = CGSize.zero
     let cellHeigh: Double = 50
     var mainHeigh = 0
+    
+//    var dataSource: UICollectionViewDataSource?
         
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,10 +33,12 @@ class DayViewController: UIViewController {
     func update(withData: [DailyWeather]?) {
         guard let data = withData else {return}
         self.data = data
+        mainHeigh = data.count * Int(cellHeigh)
         collectionView?.reloadData()
     }
     
     private func configCollectionView(){
+        
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
         layout.minimumLineSpacing = 0
@@ -50,14 +55,17 @@ class DayViewController: UIViewController {
             forCellWithReuseIdentifier: "DayCollectionViewCellIdent")
         
         view.addSubview(collectionView)
+        
         collectionView.snp.makeConstraints { make in
-            make.top.bottom.equalToSuperview()
-            make.leading.trailing.equalToSuperview()
+            make.leading.equalToSuperview().offset(0)
+            make.trailing.equalToSuperview().offset(0)
+            make.top.equalToSuperview().offset(0)
+            make.bottom.equalToSuperview().offset(0)
         }
-        collectionView.layoutIfNeeded()
     }
     
     private func fill(cell: DayCollectionViewCell, withContent: DailyWeather) -> UICollectionViewCell {
+        
         let minTemp = "\(withContent.temp.min.rounded())\u{00B0}"
         let maxTemp = "\(withContent.temp.max.rounded())\u{00B0}"
         let day = withContent.dt.strDayFromUTC()
@@ -74,9 +82,7 @@ class DayViewController: UIViewController {
 extension DayViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        let count = data.count
-        mainHeigh = count * Int(cellHeigh)
-        return count
+        return data.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

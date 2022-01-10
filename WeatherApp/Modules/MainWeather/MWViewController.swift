@@ -10,9 +10,10 @@ import UIKit
 import SnapKit
 
 class MWViewController: UIViewController {
-    let weatherListService: WeatherListService = WeatherListServiceImp()
+
     @IBOutlet weak var buttonContentView: UIView!
     @IBOutlet weak var middleContentView: UIView!
+    @IBOutlet weak var bottomContentView: UIView!
     @IBOutlet weak var contentView: UIView!
     
     @IBOutlet weak var cityLabel: UILabel!
@@ -38,7 +39,7 @@ class MWViewController: UIViewController {
     
     @IBAction func actionAdd(_ sender: UIButton) {
         guard let entity = self.entity else {return}
-        presenter.actionSave(entity: entity)
+        presenter.actionAdd(entity: entity)
         self.dismiss(animated: true)
     }
     
@@ -52,9 +53,7 @@ class MWViewController: UIViewController {
     @IBAction func actionCurrentLocaly(_ sender: Any) {
         presenter.actionGetLocalWeather()
     }
-    
-    
-    
+
     //MARK: - App Life Cycle
     
     override func viewDidLoad() {
@@ -71,7 +70,9 @@ class MWViewController: UIViewController {
     }
 
     func configUI() {
-        buttonContentView.isHidden = self.modalPresentationStyle != .pageSheet
+        let isHidden = self.modalPresentationStyle != .pageSheet
+        buttonContentView.isHidden = isHidden
+        bottomContentView.isHidden = !isHidden
         middleContentView.corner(withRadius: 10)
     }
     
@@ -127,8 +128,6 @@ class MWViewController: UIViewController {
         let controller = DayViewController()
         controller.update(withData: entity?.weather?.daily)
         
-        addChildViewController(container: containerDaily, controller: controller)
-        
         containerDaily.snp.makeConstraints { make in
             make.top.equalTo(containerHourly.snp.bottom).offset(15)
             make.leading.equalToSuperview().offset(0)
@@ -137,6 +136,7 @@ class MWViewController: UIViewController {
             make.height.equalTo(controller.mainHeigh)
         }
         containerDaily.layoutIfNeeded()
+        addChildViewController(container: containerDaily, controller: controller)
     }
         
     func addChildViewController(container: UIView, controller: UIViewController) {
@@ -150,6 +150,7 @@ class MWViewController: UIViewController {
     
     func updateView(with entity: MWEntity) {
         self.entity = entity
+        
         guard let weather = entity.weather else {return}
         
         let temp = "\(weather.current.temp.rounded())\u{00B0}"

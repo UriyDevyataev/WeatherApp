@@ -7,10 +7,6 @@
 
 final class MWPresenterImp: MWPresenterInput {
     
-    
-    
-    
-    
     weak var view: MWPresenterOutput?
     weak var output: MWModuleOutput?
     
@@ -19,21 +15,25 @@ final class MWPresenterImp: MWPresenterInput {
     
     func viewIsReady(with entity: MWEntity?) {
         interactor.requestAccessLocation()
-        interactor.updateEntity(entity)
+        
+        if let _ = entity?.city {
+            interactor.updateEntity(entity)
+        } else {
+            interactor.loadEntity(atIndex: 0)
+        }
     }
     
     func actionGetLocalWeather() {
-        interactor.updateEntity(nil)
+//        interactor.updateEntity(nil)
     }
     
     func actionShowChoiseCity() {
         router.showCCViewController()
     }
     
-    func actionSave(entity: MWEntity) {
-        interactor.save(entity: entity)
+    func actionAdd(entity: MWEntity) {
+        interactor.addToList(entity: entity)
     }
-    
 }
 
 extension MWPresenterImp: MWInteractorOutput {

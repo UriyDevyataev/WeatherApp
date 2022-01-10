@@ -14,7 +14,7 @@ class CityTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         customContentView.backgroundColor = .clear
-        cityLabel.textColor = .white
+//        cityLabel.textColor = .white
         // Initialization code
     }
 
