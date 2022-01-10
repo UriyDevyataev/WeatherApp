@@ -24,7 +24,7 @@ final class MWPresenterImp: MWPresenterInput {
     }
     
     func actionGetLocalWeather() {
-//        interactor.updateEntity(nil)
+        interactor.loadEntity(atIndex: 0)
     }
     
     func actionShowChoiseCity() {

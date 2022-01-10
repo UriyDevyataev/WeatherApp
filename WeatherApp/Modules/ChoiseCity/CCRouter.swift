@@ -8,11 +8,8 @@
 import Foundation
 import UIKit
 
-
 final class CCRouterImp: CCRouterInput {
-    
-    
-    
+
     weak var view: UIViewController?
     
     func showMWViewController(with city: CityModel) {
