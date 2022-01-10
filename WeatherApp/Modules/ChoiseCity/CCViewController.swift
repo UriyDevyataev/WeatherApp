@@ -155,6 +155,7 @@ extension CCViewController: UITableViewDataSource, UITableViewDelegate {
             presenter.choisedCity(city: city)
         case false:
             let entity = weatherList[indexPath.row]
+            presenter.showMWController(entity: entity)
             print(entity.city.name)
             //show mw view controller with entity
         }

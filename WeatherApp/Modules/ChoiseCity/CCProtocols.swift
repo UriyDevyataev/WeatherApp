@@ -12,6 +12,7 @@ protocol CCRouterInput {
     
 //    func showMWViewController()
     func showMWViewController(with city: CityModel)
+    func showMWViewController(with entity: MWEntity)
 }
 
 protocol CCRouterOutput {
@@ -23,6 +24,7 @@ protocol CCPresenterInput {
     func viewIsReady()
     func changedCity(text: String)
     func choisedCity(city: CityModel)
+    func showMWController(entity: MWEntity)
     func back()
 }
 

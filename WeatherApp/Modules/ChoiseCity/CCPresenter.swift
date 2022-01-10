@@ -40,6 +40,10 @@ final class CCPresenterImp: CCPresenterInput {
     func back() {
 //        router.showMWViewController()
     }
+    
+    func showMWController(entity: MWEntity) {
+        router.showMWViewController(with: entity)
+    }
 }
 
 extension CCPresenterImp: CCInteractorOutput {
