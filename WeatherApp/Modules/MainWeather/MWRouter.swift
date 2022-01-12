@@ -15,6 +15,7 @@ final class MWRouterImp: MWRouterInput {
         guard let view = view, let controller = CCAssembly.configurateModule() else {
             return
         }
+        
         controller.modalPresentationStyle = .fullScreen
         view.present(controller, animated: true)
     }
