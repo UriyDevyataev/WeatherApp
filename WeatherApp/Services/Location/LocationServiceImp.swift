@@ -8,11 +8,12 @@
 import Foundation
 import CoreLocation
 
-class LocationServiceImp: LocationService{
+class LocationServiceImp: NSObject, LocationService {
    
     let locationManager = CLLocationManager()
     
     func requestAccess() {
+//        locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestWhenInUseAuthorization()
         locationManager.requestAlwaysAuthorization()
@@ -61,3 +62,12 @@ class LocationServiceImp: LocationService{
         }
     }
 }
+
+//extension LocationServiceImp: CLLocationManagerDelegate {
+//
+//    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+//
+//
+//
+//    }
+//}

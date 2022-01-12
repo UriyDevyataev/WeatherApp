@@ -8,9 +8,12 @@
 import Foundation
 import UIKit
 import SnapKit
+import CoreLocation
 
 class MWViewController: UIViewController {
-
+    
+    let locationManager = CLLocationManager()
+    
     @IBOutlet weak var buttonContentView: UIView!
     @IBOutlet weak var middleContentView: UIView!
     @IBOutlet weak var bottomContentView: UIView!
@@ -58,15 +61,24 @@ class MWViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         config()
-        presenter.viewIsReady(with: entity)
+//        presenter.viewIsReady(with: entity)
     }
     
     //MARK: - Funcs configuration
     
     func config(){
+        configLocation()
         configUI()
         configBar()
+    }
+    
+    func configLocation() {
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.requestAlwaysAuthorization()
     }
 
     func configUI() {
@@ -168,6 +180,13 @@ class MWViewController: UIViewController {
             self.infoLabel.text = weatherInfo
             self.maxMinLabel.text = maxMinTemp
         }
+    }
+}
+
+extension MWViewController: CLLocationManagerDelegate {
+    
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        presenter.viewIsReady(with: entity)
     }
 }
 

@@ -34,8 +34,6 @@ final class MWInteractorImp: MWInteractorInput {
         updateEntity(entity)
     }
     
-    
-    
     func updateEntity(_ entity: MWEntity?) {
         if let entity = entity {
             getWeatherFor(city: entity.city)
@@ -70,4 +68,5 @@ final class MWInteractorImp: MWInteractorInput {
 //        weatherListService.updateLocaly(entity: entity)
     }
 }
+
 
