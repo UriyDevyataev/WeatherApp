@@ -89,10 +89,12 @@ struct R: Rswift.Validatable {
   }
 
   #if os(iOS) || os(tvOS)
-  /// This `R.storyboard` struct is generated, and contains static references to 4 storyboards.
+  /// This `R.storyboard` struct is generated, and contains static references to 5 storyboards.
   struct storyboard {
     /// Storyboard `ChoiseCity`.
     static let choiseCity = _R.storyboard.choiseCity()
+    /// Storyboard `CityWeathe`.
+    static let cityWeathe = _R.storyboard.cityWeathe()
     /// Storyboard `LaunchScreen`.
     static let launchScreen = _R.storyboard.launchScreen()
     /// Storyboard `MainWeather`.
@@ -104,6 +106,13 @@ struct R: Rswift.Validatable {
     /// `UIStoryboard(name: "ChoiseCity", bundle: ...)`
     static func choiseCity(_: Void = ()) -> UIKit.UIStoryboard {
       return UIKit.UIStoryboard(resource: R.storyboard.choiseCity)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIStoryboard(name: "CityWeathe", bundle: ...)`
+    static func cityWeathe(_: Void = ()) -> UIKit.UIStoryboard {
+      return UIKit.UIStoryboard(resource: R.storyboard.cityWeathe)
     }
     #endif
 
@@ -188,8 +197,10 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
 
-  /// This `R.nib` struct is generated, and contains static references to 4 nibs.
+  /// This `R.nib` struct is generated, and contains static references to 5 nibs.
   struct nib {
+    /// Nib `AllWeatherCollectionViewCell`.
+    static let allWeatherCollectionViewCell = _R.nib._AllWeatherCollectionViewCell()
     /// Nib `CityTableViewCell`.
     static let cityTableViewCell = _R.nib._CityTableViewCell()
     /// Nib `DayCollectionViewCell`.
@@ -198,6 +209,14 @@ struct R: Rswift.Validatable {
     static let hourCollectionViewCell = _R.nib._HourCollectionViewCell()
     /// Nib `WeatherTableViewCell`.
     static let weatherTableViewCell = _R.nib._WeatherTableViewCell()
+
+    #if os(iOS) || os(tvOS)
+    /// `UINib(name: "AllWeatherCollectionViewCell", in: bundle)`
+    @available(*, deprecated, message: "Use UINib(resource: R.nib.allWeatherCollectionViewCell) instead")
+    static func allWeatherCollectionViewCell(_: Void = ()) -> UIKit.UINib {
+      return UIKit.UINib(resource: R.nib.allWeatherCollectionViewCell)
+    }
+    #endif
 
     #if os(iOS) || os(tvOS)
     /// `UINib(name: "CityTableViewCell", in: bundle)`
@@ -230,6 +249,10 @@ struct R: Rswift.Validatable {
       return UIKit.UINib(resource: R.nib.weatherTableViewCell)
     }
     #endif
+
+    static func allWeatherCollectionViewCell(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> AllWeatherCollectionViewCell? {
+      return R.nib.allWeatherCollectionViewCell.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? AllWeatherCollectionViewCell
+    }
 
     static func cityTableViewCell(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> CityTableViewCell? {
       return R.nib.cityTableViewCell.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? CityTableViewCell
@@ -284,6 +307,17 @@ struct _R: Rswift.Validatable {
 
   #if os(iOS) || os(tvOS)
   struct nib {
+    struct _AllWeatherCollectionViewCell: Rswift.NibResourceType {
+      let bundle = R.hostingBundle
+      let name = "AllWeatherCollectionViewCell"
+
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> AllWeatherCollectionViewCell? {
+        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? AllWeatherCollectionViewCell
+      }
+
+      fileprivate init() {}
+    }
+
     struct _CityTableViewCell: Rswift.NibResourceType {
       let bundle = R.hostingBundle
       let name = "CityTableViewCell"
@@ -348,6 +382,9 @@ struct _R: Rswift.Validatable {
       try choiseCity.validate()
       #endif
       #if os(iOS) || os(tvOS)
+      try cityWeathe.validate()
+      #endif
+      #if os(iOS) || os(tvOS)
       try launchScreen.validate()
       #endif
       #if os(iOS) || os(tvOS)
@@ -372,6 +409,26 @@ struct _R: Rswift.Validatable {
         if #available(iOS 11.0, tvOS 11.0, *) {
         }
         if _R.storyboard.choiseCity().choiseCityVC() == nil { throw Rswift.ValidationError(description:"[R.swift] ViewController with identifier 'choiseCityVC' could not be loaded from storyboard 'ChoiseCity' as 'CCViewController'.") }
+      }
+
+      fileprivate init() {}
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    struct cityWeathe: Rswift.StoryboardResourceType, Rswift.Validatable {
+      let bundle = R.hostingBundle
+      let cityWeatherVC = StoryboardViewControllerResource<CWViewController>(identifier: "CityWeatherVC")
+      let name = "CityWeathe"
+
+      func cityWeatherVC(_: Void = ()) -> CWViewController? {
+        return UIKit.UIStoryboard(resource: self).instantiateViewController(withResource: cityWeatherVC)
+      }
+
+      static func validate() throws {
+        if #available(iOS 11.0, tvOS 11.0, *) {
+        }
+        if _R.storyboard.cityWeathe().cityWeatherVC() == nil { throw Rswift.ValidationError(description:"[R.swift] ViewController with identifier 'cityWeatherVC' could not be loaded from storyboard 'CityWeathe' as 'CWViewController'.") }
       }
 
       fileprivate init() {}

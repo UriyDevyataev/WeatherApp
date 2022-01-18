@@ -34,15 +34,23 @@ final class CCPresenterImp: CCPresenterInput {
     }
     
     func choisedCity(city: CityModel) {
-        router.showMWViewController(with: city)
+        let entity = CWEntity(city: city, weather: nil)
+        interactor.addTemporary(entity: entity)
+        router.showCWViewController(output: self)
     }
     
     func back() {
 //        router.showMWViewController()
     }
     
-    func showMWController(entity: MWEntity) {
-        router.showMWViewController(with: entity)
+    func showMWController() {
+        
+        router.showMWViewController()
+        
+    }
+    
+    func choisedCity(index: Int) {
+        interactor.setChoisedCity(index: index)
     }
 }
 
@@ -50,6 +58,12 @@ extension CCPresenterImp: CCInteractorOutput {
     
     func didUpdateEntity(entity: CCEntity) {
         view?.setState(entity: entity)
+    }
+}
+
+extension CCPresenterImp: CCModuleInput {
+    func needUpdateOut() {
+        viewIsReady()
     }
 }
 

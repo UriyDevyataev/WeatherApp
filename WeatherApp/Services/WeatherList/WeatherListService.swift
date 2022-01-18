@@ -8,11 +8,18 @@
 import Foundation
 
 protocol WeatherListService {
-    func loadList() -> [MWEntity]?
-//    func save(list: [MWEntity])
-    
-//    func add(entity: MWEntity)
-    func updateLocaly(entity: MWEntity)
-    func updateList(entity: MWEntity)
+
+    func getCountList() -> Int
+    func getList() -> [CWEntity]?
+    func getEntity(for index: Int) -> CWEntity?
+    func getTemporaryEntity() -> CWEntity?
+    func getChoisedEntityIndex() -> Int
+
+    func updateTemporary(entity: CWEntity)
+    func saveTemporaryEntity()
+    func updateLocaly(entity: CWEntity)
+    func updateList(entity: CWEntity)
     func delete(index: Int)
+    func setChoisedEntity(index: Int)
+    
 }

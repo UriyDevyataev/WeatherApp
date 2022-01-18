@@ -8,16 +8,19 @@
 import Foundation
 
 final class CCInteractorImp: CCInteractorInput {
-    
+        
+    weak var output: CCInteractorOutput?
+
     let weatherListService: WeatherListService = WeatherListServiceImp.shared
+    let cityService = CitiesServiceImp()
     
-    func getWeatherList() -> [MWEntity]? {
-        return weatherListService.loadList()
+    func getWeatherList() -> [CWEntity]? {
+        return weatherListService.getList()
     }
     
-    weak var output: CCInteractorOutput?
-    
-    let cityService = CitiesServiceImp()
+    func addTemporary(entity: CWEntity) {
+        weatherListService.updateTemporary(entity: entity)
+    }
      
     func reloadCityList(for searchText: String) {
     
@@ -44,13 +47,13 @@ final class CCInteractorImp: CCInteractorInput {
                     dict[newKey] = city
                 }
             }
-//            var array = [String]()
-//            cities.geonames.forEach { city in
-//                array.append(city.name)
-//            }
             
-            let entity = CCEntity(isCityChoising: true, cityDict: dict, weatherList: [MWEntity]())
+            let entity = CCEntity(isCityChoising: true, cityDict: dict, weatherList: [CWEntity]())
             self.output?.didUpdateEntity(entity: entity)
         }
+    }
+    
+    func setChoisedCity(index: Int) {
+        weatherListService.setChoisedEntity(index: index)
     }
 }

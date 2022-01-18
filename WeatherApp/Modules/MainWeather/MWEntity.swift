@@ -9,6 +9,6 @@ import Foundation
 
 struct MWEntity: Codable{
     
-    let city: CityModel
-    var weather: WeatherResponse?
+    let count: Int
+    let choisedIndex: Int
 }

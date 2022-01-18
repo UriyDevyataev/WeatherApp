@@ -8,49 +8,94 @@
 import Foundation
 
 final class WeatherListServiceImp: WeatherListService {
-   
+    
+    func setChoisedEntity(index: Int) {
+        choisedEntityIndex = index
+    }
+    
+    func getChoisedEntityIndex() -> Int {
+        choisedEntityIndex
+    }
+    
+
     static var shared: WeatherListService = WeatherListServiceImp()
     
-    private var listWeather: [MWEntity]?
+    private var listWeather: [CWEntity]?
+    private var temporaryEntity: CWEntity?
+    private var choisedEntityIndex: Int = 0
     private let storageDefault: KeyValueStorage = SharedStorage()
     private let keyList = "weather_list"
     
-    func loadList() -> [MWEntity]? {
+    func getCountList() -> Int {
+        loadList()
+        guard let count = listWeather?.count else {return 0}
+        return count
+    }
+    
+    func getEntity(for index: Int) -> CWEntity? {
+        return listWeather?[index]
+    }
+    
+    func getList() -> [CWEntity]? {
+        return listWeather
+    }
+        
+    private func loadList() {
         if listWeather == nil {
             listWeather = loadListFromDefault()
         }
-        return listWeather
     }
     
-    func updateList(entity: MWEntity) {
+    func updateTemporary(entity: CWEntity) {
+        temporaryEntity = entity
+    }
+    
+    func getTemporaryEntity() -> CWEntity? {
+        return temporaryEntity
+    }
+    
+    func saveTemporaryEntity() {
+        guard let entity = temporaryEntity else {return}
+        temporaryEntity = nil
+        updateList(entity: entity)
+    }
+    
+    func updateList(entity: CWEntity) {
         
-        var newList = [MWEntity]()
-        
-        if let list = listWeather {
+        if let _ = temporaryEntity {
             
-            newList = list
-            var contains = false
-            
-            for i in 0...list.count-1 {
-                if list[i].city.geonameId == entity.city.geonameId {
-                    newList[i].weather = entity.weather
-                    contains = true
-                }
-            }
-            
-            if !contains {
-                newList.append(entity)
-            }
+            temporaryEntity = entity
             
         } else {
-            newList = [entity]
+            
+            var newList = [CWEntity]()
+            
+            if let list = listWeather {
+                
+                newList = list
+                var contains = false
+                
+                for i in 0...list.count-1 {
+                    if list[i].city.geonameId == entity.city.geonameId {
+                        newList[i].weather = entity.weather
+                        contains = true
+                    }
+                }
+                
+                if !contains {
+                    newList.append(entity)
+                }
+                
+            } else {
+                newList = [entity]
+            }
+            
+            listWeather = newList
+            saveListToDefault(list: listWeather)
         }
-        
-        listWeather = newList
-        saveListToDefault(list: listWeather)
     }
     
-    func updateLocaly(entity: MWEntity) {
+    func updateLocaly(entity: CWEntity) {
         if let _ = listWeather {
             listWeather?[0] = entity
         } else {
@@ -66,7 +111,7 @@ final class WeatherListServiceImp: WeatherListService {
         saveListToDefault(list: listWeather)
     }
     
-    private func saveListToDefault(list: [MWEntity]?) {
+    private func saveListToDefault(list: [CWEntity]?) {
         guard let list = listWeather else {return}
         let encoder = JSONEncoder()
         if let data = try? encoder.encode(list) {
@@ -74,12 +119,12 @@ final class WeatherListServiceImp: WeatherListService {
         }
     }
     
-    private func loadListFromDefault() -> [MWEntity]? {
+    private func loadListFromDefault() -> [CWEntity]? {
         let decoder = JSONDecoder()
         guard let data: Data = storageDefault
                 .getValue(key: keyList) else {return nil}
         guard let list = try? decoder.decode(
-            [MWEntity].self, from: data) else {return nil}
+            [CWEntity].self, from: data) else {return nil}
         return list
     }
 }

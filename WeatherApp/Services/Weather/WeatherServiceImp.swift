@@ -15,7 +15,6 @@ private enum Params{
     static let longitude = "lon"
     static let units = "units"
     static let language = "lang"
-    
 }
 
 private enum Periods{

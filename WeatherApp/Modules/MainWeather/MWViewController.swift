@@ -14,41 +14,16 @@ class MWViewController: UIViewController {
     
     let locationManager = CLLocationManager()
     
-    @IBOutlet weak var buttonContentView: UIView!
-    @IBOutlet weak var middleContentView: UIView!
+    @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var bottomContentView: UIView!
-    @IBOutlet weak var contentView: UIView!
-    
-    @IBOutlet weak var cityLabel: UILabel!
-    @IBOutlet weak var temperatureLabel: UILabel!
-    @IBOutlet weak var feelLikeLabel: UILabel!
-    @IBOutlet weak var infoLabel: UILabel!
-    @IBOutlet weak var maxMinLabel: UILabel!
-    
     @IBOutlet weak var choiseCityButton: UIButton!
     @IBOutlet weak var currentLocalyButton: UIButton!
     
     var presenter: MWPresenterInput!
     var entity: MWEntity?
     
-    var containerHourly = UIView()
-    var containerDaily = UIView()
-    
     //MARK: - Actions
-    
-    @IBAction func actionCancel(_ sender: UIButton) {
-        self.dismiss(animated: true, completion: nil)
-    }
-    
-    @IBAction func actionAdd(_ sender: UIButton) {
-        guard let entity = self.entity else {return}
-        presenter.actionAdd(entity: entity)
-        self.dismiss(animated: true)
-    }
-    
-    @IBAction func actionPrint(_ sender: Any) {
-    }
-    
+        
     @IBAction func actionChoiseCity(_ sender: Any) {
         presenter.actionShowChoiseCity()
     }
@@ -61,17 +36,16 @@ class MWViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         config()
-//        presenter.viewIsReady(with: entity)
+        presenter.viewIsReady()
     }
     
     //MARK: - Funcs configuration
     
     func config(){
         configLocation()
-        configUI()
         configBar()
+        configCollectionView()
     }
     
     func configLocation() {
@@ -80,12 +54,14 @@ class MWViewController: UIViewController {
         locationManager.requestWhenInUseAuthorization()
         locationManager.requestAlwaysAuthorization()
     }
-
-    func configUI() {
-        let isHidden = self.modalPresentationStyle != .pageSheet
-        buttonContentView.isHidden = isHidden
-        bottomContentView.isHidden = !isHidden
-        middleContentView.corner(withRadius: 10)
+    
+    func configCollectionView() {
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        collectionView.backgroundColor = .blue
+        collectionView.isPagingEnabled = true
+        
+        collectionView.register(AllWeatherCollectionViewCell.nib(), forCellWithReuseIdentifier: AllWeatherCollectionViewCell.identifier)
     }
     
     func configBar(){
@@ -100,59 +76,13 @@ class MWViewController: UIViewController {
     
     //MARK: - Funcs Other
     
-    func fillScrollView() {
-        createHourlyView()
-        createDailyView()
-    }
-    
-    func createContainer() -> UIView {
-        let container = UIView(frame: CGRect.zero)
-        container.backgroundColor = .black
-        container.corner(withRadius: 10)
-        return container
-    }
-    
-    func createHourlyView() {
-        containerHourly.removeFromSuperview()
-        containerHourly = createContainer()
-        contentView.addSubview(containerHourly)
-        
-        containerHourly.snp.makeConstraints { make in
-            make.top.equalToSuperview()
-            make.leading.equalToSuperview().offset(0)
-            make.trailing.equalToSuperview().offset(0)
-            make.height.equalTo(100)
-        }
-        containerHourly.layoutIfNeeded()
-            
-        let controller = HourlyViewController()
-        controller.update(withData: entity?.weather?.hourly)
-        controller.sizeView = containerHourly.frame.size
-        
-        addChildViewController(container: containerHourly, controller: controller)
-    }
-    
-    func createDailyView() {
-        containerDaily.removeFromSuperview()
-        containerDaily = createContainer()
-        contentView.addSubview(containerDaily)
-        
-        let controller = DayViewController()
-        controller.update(withData: entity?.weather?.daily)
-        
-        containerDaily.snp.makeConstraints { make in
-            make.top.equalTo(containerHourly.snp.bottom).offset(15)
-            make.leading.equalToSuperview().offset(0)
-            make.trailing.equalToSuperview().offset(0)
-            make.bottom.equalToSuperview().offset(-40)
-            make.height.equalTo(controller.mainHeigh)
-        }
-        containerDaily.layoutIfNeeded()
-        addChildViewController(container: containerDaily, controller: controller)
-    }
-        
     func addChildViewController(container: UIView, controller: UIViewController) {
         addChild(controller)
+        
+        container.subviews.forEach{view in
+            view.removeFromSuperview()
+        }
+        
         container.addSubview(controller.view)
         controller.view.snp.makeConstraints { make in
             make.top.bottom.leading.trailing.equalToSuperview()
@@ -162,31 +92,50 @@ class MWViewController: UIViewController {
     
     func updateView(with entity: MWEntity) {
         self.entity = entity
+        self.collectionView.reloadData()
         
-        guard let weather = entity.weather else {return}
-        
-        let temp = "\(weather.current.temp.rounded())\u{00B0}"
-        let feelLike = "Ощущается как: \(weather.current.feels_like.rounded())\u{00B0}"
-        let maxTemp = "Макс.: \(weather.daily[0].temp.max.rounded())\u{00B0}"
-        let minTemp = "мин.: \(weather.daily[0].temp.min.rounded())\u{00B0}"
-        let maxMinTemp = "\(maxTemp), \(minTemp)"
-        let weatherInfo = weather.current.weather[0].description.capitalized
-        
-        DispatchQueue.main.async {
-            self.fillScrollView()
-            self.cityLabel.text = entity.city.name
-            self.temperatureLabel.text = temp
-            self.feelLikeLabel.text = feelLike
-            self.infoLabel.text = weatherInfo
-            self.maxMinLabel.text = maxMinTemp
+        DispatchQueue.main.asyncAfter(deadline: .now()+1) {
+            self.collectionView.scrollToItem(
+                at: IndexPath(item: entity.choisedIndex, section: 0),
+                at: .left,
+                animated: false)
         }
+    }
+}
+
+extension MWViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return entity?.count ?? 0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        guard let cell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: AllWeatherCollectionViewCell.identifier,
+            for: indexPath) as? AllWeatherCollectionViewCell
+        else {return UICollectionViewCell()}
+        
+        cell.backgroundColor = .green
+        guard let controller = CWAssembly.configurateModule(output: nil) else {return cell}
+        
+        cell.containerView.backgroundColor = .red
+        controller.index = indexPath.row
+    
+        addChildViewController(container: cell.containerView, controller: controller)
+        return cell
+    }
+}
+
+extension MWViewController: UICollectionViewDelegateFlowLayout  {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return collectionView.frame.size
     }
 }
 
 extension MWViewController: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        presenter.viewIsReady(with: entity)
+//        presenter.viewIsReady()
     }
 }
 
@@ -194,8 +143,7 @@ extension MWViewController: CLLocationManagerDelegate {
 
 extension MWViewController: MWPresenterOutput{
     func setState(entity: MWEntity) {
-        
+        print("MW_setState")
         updateView(with: entity)
-        print("setState")
     }
 }

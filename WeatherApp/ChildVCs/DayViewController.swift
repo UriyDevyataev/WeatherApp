@@ -13,13 +13,9 @@ class DayViewController: UIViewController {
     
     private var collectionView : UICollectionView?
     
-    var data = [DailyWeather]()
-//    let cellSize = CGSize.zero
+    var data: [DailyWeather]?
     let cellHeigh: Double = 50
-    var mainHeigh = 0
     
-//    var dataSource: UICollectionViewDataSource?
-        
     override func viewDidLoad() {
         super.viewDidLoad()
         config()
@@ -33,7 +29,6 @@ class DayViewController: UIViewController {
     func update(withData: [DailyWeather]?) {
         guard let data = withData else {return}
         self.data = data
-        mainHeigh = data.count * Int(cellHeigh)
         collectionView?.reloadData()
     }
     
@@ -62,6 +57,7 @@ class DayViewController: UIViewController {
             make.top.equalToSuperview().offset(0)
             make.bottom.equalToSuperview().offset(0)
         }
+        self.collectionView = collectionView
     }
     
     private func fill(cell: DayCollectionViewCell, withContent: DailyWeather) -> UICollectionViewCell {
@@ -82,7 +78,8 @@ class DayViewController: UIViewController {
 extension DayViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return data.count
+        guard let count = data?.count else {return 0}
+        return count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -93,6 +90,7 @@ extension DayViewController: UICollectionViewDataSource {
                     for: indexPath) as? DayCollectionViewCell
         else {return UICollectionViewCell()}
         
+        guard let data = data else {return dailyCell}
         let cell = fill(cell: dailyCell, withContent: data[indexPath.row])
         return cell
     }

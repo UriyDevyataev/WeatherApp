@@ -54,7 +54,7 @@ class MainViewController: UIViewController {
         }
         container2.layoutIfNeeded()
         
-        let controller = DayViewController()
+//        let controller = DayViewController()
 //        addChildViewController(container: container2, controller: controller)
         
 //        print(controller.mainHeigh)
@@ -76,19 +76,6 @@ class MainViewController: UIViewController {
         container.backgroundColor = .cyan
         
         return container
+        
     }
-    
-    
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

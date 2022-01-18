@@ -12,7 +12,7 @@ import SnapKit
 class HourlyViewController: UIViewController {
     
     private var collectionView : UICollectionView?
-    var data = [HourlyWeather]()
+    var data: [HourlyWeather]?
     var sizeView = CGSize.zero
         
     override func viewDidLoad() {
@@ -51,6 +51,7 @@ class HourlyViewController: UIViewController {
             make.top.bottom.equalToSuperview()
             make.leading.trailing.equalToSuperview()
         }
+        self.collectionView = collectionView
     }
 
     private func fill(cell: HourCollectionViewCell, withContent: HourlyWeather) -> UICollectionViewCell {
@@ -64,7 +65,8 @@ class HourlyViewController: UIViewController {
 extension HourlyViewController: UICollectionViewDataSource, UICollectionViewDelegate {
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return data.count > 24 ? 24 : data.count
+        guard let count = data?.count else {return 0}
+        return count > 24 ? 24 : count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -74,6 +76,8 @@ extension HourlyViewController: UICollectionViewDataSource, UICollectionViewDele
                     withReuseIdentifier: "HourCollectionViewCellIdent",
                     for: indexPath) as? HourCollectionViewCell
         else {return UICollectionViewCell()}
+        
+        guard let data = data else {return hourlyCell}
         
         let cell = fill(cell: hourlyCell, withContent: data[indexPath.row])
 

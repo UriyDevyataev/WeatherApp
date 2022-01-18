@@ -44,6 +44,17 @@
 		CBB968972786083600924738 /* CCRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB968962786083600924738 /* CCRouter.swift */; };
 		CBB968992786084200924738 /* CCEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB968982786084200924738 /* CCEntity.swift */; };
 		CBB9689B2786085400924738 /* CCAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB9689A2786085400924738 /* CCAssembly.swift */; };
+		CBD03057278F3FA50011DE70 /* CityWeathe.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CBD03056278F3FA50011DE70 /* CityWeathe.storyboard */; };
+		CBD03059278F3FEF0011DE70 /* CWProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD03058278F3FEF0011DE70 /* CWProtocol.swift */; };
+		CBD0305B278F3FFB0011DE70 /* CWPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD0305A278F3FFB0011DE70 /* CWPresenter.swift */; };
+		CBD0305D278F40070011DE70 /* CWInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD0305C278F40070011DE70 /* CWInteractor.swift */; };
+		CBD0305F278F40170011DE70 /* CWAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD0305E278F40170011DE70 /* CWAssembly.swift */; };
+		CBD03061278F402A0011DE70 /* CWViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD03060278F402A0011DE70 /* CWViewController.swift */; };
+		CBD03063278F403B0011DE70 /* CWEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD03062278F403B0011DE70 /* CWEntity.swift */; };
+		CBD03065278F404F0011DE70 /* CWRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD03064278F404F0011DE70 /* CWRouter.swift */; };
+		CBD0306A278F52540011DE70 /* 1BigWeatherCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD03069278F52540011DE70 /* 1BigWeatherCollectionViewCell.swift */; };
+		CBD0306D278F5C820011DE70 /* AllWeatherCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD0306B278F5C820011DE70 /* AllWeatherCollectionViewCell.swift */; };
+		CBD0306E278F5C820011DE70 /* AllWeatherCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CBD0306C278F5C820011DE70 /* AllWeatherCollectionViewCell.xib */; };
 		CBDA83F92786E83D0035CE67 /* CitiesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDA83F82786E83D0035CE67 /* CitiesService.swift */; };
 		CBDA83FB2786E84B0035CE67 /* CitiesServiceImp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDA83FA2786E84B0035CE67 /* CitiesServiceImp.swift */; };
 		CBDA83FF2786FEAA0035CE67 /* CityTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDA83FD2786FEAA0035CE67 /* CityTableViewCell.swift */; };
@@ -100,6 +111,17 @@
 		CBB968962786083600924738 /* CCRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CCRouter.swift; sourceTree = "<group>"; };
 		CBB968982786084200924738 /* CCEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CCEntity.swift; sourceTree = "<group>"; };
 		CBB9689A2786085400924738 /* CCAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CCAssembly.swift; sourceTree = "<group>"; };
+		CBD03056278F3FA50011DE70 /* CityWeathe.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CityWeathe.storyboard; sourceTree = "<group>"; };
+		CBD03058278F3FEF0011DE70 /* CWProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CWProtocol.swift; sourceTree = "<group>"; };
+		CBD0305A278F3FFB0011DE70 /* CWPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CWPresenter.swift; sourceTree = "<group>"; };
+		CBD0305C278F40070011DE70 /* CWInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CWInteractor.swift; sourceTree = "<group>"; };
+		CBD0305E278F40170011DE70 /* CWAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CWAssembly.swift; sourceTree = "<group>"; };
+		CBD03060278F402A0011DE70 /* CWViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CWViewController.swift; sourceTree = "<group>"; };
+		CBD03062278F403B0011DE70 /* CWEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CWEntity.swift; sourceTree = "<group>"; };
+		CBD03064278F404F0011DE70 /* CWRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CWRouter.swift; sourceTree = "<group>"; };
+		CBD03069278F52540011DE70 /* 1BigWeatherCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = 1BigWeatherCollectionViewCell.swift; sourceTree = "<group>"; };
+		CBD0306B278F5C820011DE70 /* AllWeatherCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllWeatherCollectionViewCell.swift; sourceTree = "<group>"; };
+		CBD0306C278F5C820011DE70 /* AllWeatherCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AllWeatherCollectionViewCell.xib; sourceTree = "<group>"; };
 		CBDA83F82786E83D0035CE67 /* CitiesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CitiesService.swift; sourceTree = "<group>"; };
 		CBDA83FA2786E84B0035CE67 /* CitiesServiceImp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CitiesServiceImp.swift; sourceTree = "<group>"; };
 		CBDA83FD2786FEAA0035CE67 /* CityTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityTableViewCell.swift; sourceTree = "<group>"; };
@@ -186,6 +208,7 @@
 			isa = PBXGroup;
 			children = (
 				CB4798DE2781C0D80006C86A /* MainWeather */,
+				CBD03055278F3EAC0011DE70 /* CityWeather */,
 				CB4798E02781C0F10006C86A /* ChoiseCity */,
 			);
 			path = Modules;
@@ -194,8 +217,8 @@
 		CB4798DE2781C0D80006C86A /* MainWeather */ = {
 			isa = PBXGroup;
 			children = (
-				CB4798E32781C1F80006C86A /* MWPresenter.swift */,
 				CB4798E12781C1890006C86A /* MWProtocols.swift */,
+				CB4798E32781C1F80006C86A /* MWPresenter.swift */,
 				CB4798ED2781C2D10006C86A /* MWAssembly.swift */,
 				CB4798E72781C2100006C86A /* MWRouter.swift */,
 				CB4798E52781C2040006C86A /* MWInteractor.swift */,
@@ -263,6 +286,7 @@
 		CB4799072781F7620006C86A /* XIB Models */ = {
 			isa = PBXGroup;
 			children = (
+				CBD03068278F52180011DE70 /* BigWeatherCell */,
 				CBFF328E2789EBDE00B6E7BF /* WeatherCell */,
 				CBDA83FC2786FE890035CE67 /* CityCell */,
 				CBDFDE6B278350C80098971B /* HourlyCell */,
@@ -314,6 +338,31 @@
 				CBAE28602788408A00D8BFB0 /* WeatherListServiceImp.swift */,
 			);
 			path = WeatherList;
+			sourceTree = "<group>";
+		};
+		CBD03055278F3EAC0011DE70 /* CityWeather */ = {
+			isa = PBXGroup;
+			children = (
+				CBD03058278F3FEF0011DE70 /* CWProtocol.swift */,
+				CBD0305E278F40170011DE70 /* CWAssembly.swift */,
+				CBD0305A278F3FFB0011DE70 /* CWPresenter.swift */,
+				CBD0305C278F40070011DE70 /* CWInteractor.swift */,
+				CBD03064278F404F0011DE70 /* CWRouter.swift */,
+				CBD03060278F402A0011DE70 /* CWViewController.swift */,
+				CBD03056278F3FA50011DE70 /* CityWeathe.storyboard */,
+				CBD03062278F403B0011DE70 /* CWEntity.swift */,
+			);
+			path = CityWeather;
+			sourceTree = "<group>";
+		};
+		CBD03068278F52180011DE70 /* BigWeatherCell */ = {
+			isa = PBXGroup;
+			children = (
+				CBD03069278F52540011DE70 /* 1BigWeatherCollectionViewCell.swift */,
+				CBD0306B278F5C820011DE70 /* AllWeatherCollectionViewCell.swift */,
+				CBD0306C278F5C820011DE70 /* AllWeatherCollectionViewCell.xib */,
+			);
+			path = BigWeatherCell;
 			sourceTree = "<group>";
 		};
 		CBDA83F72786E8150035CE67 /* Cities */ = {
@@ -416,6 +465,8 @@
 				CB4798D32781BF010006C86A /* LaunchScreen.storyboard in Resources */,
 				CB4798D02781BF010006C86A /* Assets.xcassets in Resources */,
 				CBDA84002786FEAA0035CE67 /* CityTableViewCell.xib in Resources */,
+				CBD0306E278F5C820011DE70 /* AllWeatherCollectionViewCell.xib in Resources */,
+				CBD03057278F3FA50011DE70 /* CityWeathe.storyboard in Resources */,
 				CB479915278221F00006C86A /* DayCollectionViewCell.xib in Resources */,
 				CB4798F02781C2ED0006C86A /* MainWeather.storyboard in Resources */,
 				CBDFDE6F278350EC0098971B /* HourCollectionViewCell.xib in Resources */,
@@ -494,19 +545,25 @@
 			buildActionMask = 2147483647;
 			files = (
 				CBAE28612788408A00D8BFB0 /* WeatherListServiceImp.swift in Sources */,
+				CBD0306D278F5C820011DE70 /* AllWeatherCollectionViewCell.swift in Sources */,
 				CBAE285F2788408000D8BFB0 /* WeatherListService.swift in Sources */,
 				CB91D92527844E6B0008CE78 /* Extensions.swift in Sources */,
 				CB91D92C2785DC4B0008CE78 /* SharedStorage.swift in Sources */,
+				CBD03061278F402A0011DE70 /* CWViewController.swift in Sources */,
 				CB4798E82781C2100006C86A /* MWRouter.swift in Sources */,
+				CBD0305F278F40170011DE70 /* CWAssembly.swift in Sources */,
 				CBDFDE71278367210098971B /* MainViewController.swift in Sources */,
 				CB4798E22781C1890006C86A /* MWProtocols.swift in Sources */,
 				CB4798E62781C2040006C86A /* MWInteractor.swift in Sources */,
 				CB4798F72781D7F10006C86A /* WeatherResponse.swift in Sources */,
 				CBB968912786081700924738 /* CCProtocols.swift in Sources */,
+				CBD03065278F404F0011DE70 /* CWRouter.swift in Sources */,
 				CBB9689B2786085400924738 /* CCAssembly.swift in Sources */,
 				CB4798EC2781C25F0006C86A /* MWEntity.swift in Sources */,
 				CBDFDE6A2783507F0098971B /* DayViewController.swift in Sources */,
 				CB4798C72781BF000006C86A /* AppDelegate.swift in Sources */,
+				CBD0305D278F40070011DE70 /* CWInteractor.swift in Sources */,
+				CBD0306A278F52540011DE70 /* 1BigWeatherCollectionViewCell.swift in Sources */,
 				CBB968992786084200924738 /* CCEntity.swift in Sources */,
 				CBDA83FB2786E84B0035CE67 /* CitiesServiceImp.swift in Sources */,
 				CB479914278221F00006C86A /* DayCollectionViewCell.swift in Sources */,
@@ -530,7 +587,10 @@
 				CB47990B27821D9C0006C86A /* HourlyViewController.swift in Sources */,
 				CB4798FB2781DAD40006C86A /* WeatherService.swift in Sources */,
 				CBB968972786083600924738 /* CCRouter.swift in Sources */,
+				CBD03063278F403B0011DE70 /* CWEntity.swift in Sources */,
 				CB4798E42781C1F80006C86A /* MWPresenter.swift in Sources */,
+				CBD0305B278F3FFB0011DE70 /* CWPresenter.swift in Sources */,
+				CBD03059278F3FEF0011DE70 /* CWProtocol.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

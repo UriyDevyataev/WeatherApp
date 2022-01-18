@@ -5,7 +5,7 @@
 //  Created by Юрий Девятаев on 02.01.2022.
 //
 
-import CoreLocation
+//import CoreLocation
 
 //Router
 protocol MWRouterInput {
@@ -19,10 +19,9 @@ protocol MWRouterOutput {
 protocol MWPresenterInput {
     var view: MWPresenterOutput? {get set}
     
-    func viewIsReady(with entity: MWEntity?)
+    func viewIsReady()
     func actionShowChoiseCity()
     func actionGetLocalWeather()
-    func actionAdd(entity: MWEntity)
 }
 
 protocol MWPresenterOutput: AnyObject {
@@ -33,20 +32,23 @@ protocol MWPresenterOutput: AnyObject {
 protocol MWInteractorInput {
     
     var output: MWInteractorOutput? { get set }
+    
     func requestAccessLocation()
-    func loadEntity(atIndex: Int)
-    func updateEntity(_ entity: MWEntity?)
-    func addToList(entity: MWEntity)
+    func loadEntity()
+    func createLocalEntityCW()
+//    func loadWeather()
+//    func updateEntity(_ entity: MWEntity?)
+
 }
 
 protocol MWInteractorOutput: AnyObject {
     func didUpdateEntity(entity: MWEntity)
 }
 
-//Module
-protocol MWModuleInput {
-}
-
-protocol MWModuleOutput: AnyObject {
-    func didUpdateEntityOut(entity: MWEntity)
-}
+////Module
+//protocol MWModuleInput {
+//}
+//
+//protocol MWModuleOutput: AnyObject {
+//    func didUpdateEntityOut(entity: MWEntity)
+//}

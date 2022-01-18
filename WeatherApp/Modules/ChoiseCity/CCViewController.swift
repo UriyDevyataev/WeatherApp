@@ -14,12 +14,10 @@ class CCViewController: UIViewController {
     
     var presenter: CCPresenterInput!
     
-    var entity = CCEntity(isCityChoising: false,
-                          cityDict: [String: CityModel](),
-                          weatherList: [MWEntity]())
+    var entity: CCEntity?
     
     var cityList = [String]()
-    var weatherList = [MWEntity]()
+    var weatherList = [CWEntity]()
         
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -63,54 +61,57 @@ class CCViewController: UIViewController {
     }
     
     func updateControls(entity: CCEntity) {
+        
         self.entity = entity
+        
         switch entity.isCityChoising {
         case true:
             cityList.removeAll()
-            
             entity.cityDict.forEach { (key: String, value: CityModel) in
                 cityList.append(key)
             }
         case false:
             weatherList = entity.weatherList
         }
+        
         DispatchQueue.main.async {
             self.tableView.reloadData()
         }
     }
     
-    private func fill(cell: WeatherTableViewCell, withContent: MWEntity) -> UITableViewCell {
-        
+    private func fill(cell: WeatherTableViewCell, withContent: CWEntity) -> UITableViewCell {
+
         guard let weather = withContent.weather else {return UITableViewCell()}
-        
+
         let cityName = withContent.city.name
         let temp = "\(weather.current.temp.rounded())\u{00B0}"
-        
-        
+
+
         let maxTemp = "Макс.: \(weather.daily[0].temp.max.rounded())\u{00B0}"
         let minTemp = "мин.: \(weather.daily[0].temp.min.rounded())\u{00B0}"
-    
+
         let maxMinTemp = "\(maxTemp), \(minTemp)"
-        
+
         var info = ""
         if let alerts = weather.alerts {
             alerts.forEach { alert in
                 info += alert.event
             }
         }
-        
+
         cell.cityLabel.text = cityName
         cell.timeLabel.text = "time"
         cell.tempLabel.text = temp
         cell.infoLabel.text = info
         cell.maxMinTempLabel.text = maxMinTemp
-        
+
         return cell
     }
 }
 
 extension CCViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        guard let entity = self.entity else {return 0}
         return  entity.isCityChoising ? cityList.count : weatherList.count
     }
     
@@ -118,12 +119,14 @@ extension CCViewController: UITableViewDataSource, UITableViewDelegate {
         
         var cell = UITableViewCell()
         
+        guard let entity = self.entity else {return cell}
+        
         switch entity.isCityChoising {
         case true:
             guard let cityCell = tableView.dequeueReusableCell(
                 withIdentifier: "CityTableViewCellIdentifire",
                 for: indexPath) as? CityTableViewCell else {
-                    return UITableViewCell()
+                    return cell
                 }
             
             let nameCity = cityList[indexPath.row]
@@ -135,7 +138,7 @@ extension CCViewController: UITableViewDataSource, UITableViewDelegate {
             guard let weatherCell = tableView.dequeueReusableCell(
                 withIdentifier: "WeatherTableViewCellIdentifire",
                 for: indexPath) as? WeatherTableViewCell else {
-                    return UITableViewCell()
+                    return cell
                 }
             
             let content = weatherList[indexPath.row]
@@ -146,6 +149,7 @@ extension CCViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
+        guard let entity = self.entity else {return}
         switch entity.isCityChoising {
         case true:
             guard let cell = tableView.cellForRow(
@@ -154,14 +158,14 @@ extension CCViewController: UITableViewDataSource, UITableViewDelegate {
             guard let city = entity.cityDict[cell.cityLabel.text ?? ""] else {return}
             presenter.choisedCity(city: city)
         case false:
-            let entity = weatherList[indexPath.row]
-            presenter.showMWController(entity: entity)
-            print(entity.city.name)
-            //show mw view controller with entity
+            presenter.choisedCity(index: indexPath.row)
+            presenter.showMWController()
+            
         }
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        guard let entity = self.entity else {return 0}
         return entity.isCityChoising ? 40 : 100
     }
 }
@@ -169,7 +173,6 @@ extension CCViewController: UITableViewDataSource, UITableViewDelegate {
 extension CCViewController: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-//        entity.isCityChoising = searchText.count != 0
         presenter.changedCity(text: searchText)
     }
     
@@ -178,7 +181,7 @@ extension CCViewController: UISearchBarDelegate {
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        entity.isCityChoising = false
+        entity?.isCityChoising = false
         
         searchBar.showsCancelButton = false
         searchBar.text = ""
@@ -196,6 +199,7 @@ extension CCViewController: UISearchBarDelegate {
 
 extension CCViewController: CCPresenterOutput {
     func setState(entity: CCEntity) {
+        print("CC_setState")
         updateControls(entity: entity)
     }
 }

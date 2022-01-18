@@ -10,9 +10,8 @@ import Foundation
 //Router
 protocol CCRouterInput {
     
-//    func showMWViewController()
-    func showMWViewController(with city: CityModel)
-    func showMWViewController(with entity: MWEntity)
+    func showCWViewController(output: CCModuleInput?)
+    func showMWViewController()
 }
 
 protocol CCRouterOutput {
@@ -24,8 +23,9 @@ protocol CCPresenterInput {
     func viewIsReady()
     func changedCity(text: String)
     func choisedCity(city: CityModel)
-    func showMWController(entity: MWEntity)
-    func back()
+    func choisedCity(index: Int)
+    func showMWController()
+//    func back()
 }
 
 protocol CCPresenterOutput: AnyObject {
@@ -36,9 +36,10 @@ protocol CCPresenterOutput: AnyObject {
 //Interactor
 protocol CCInteractorInput {
     
-    func getWeatherList() -> [MWEntity]?
-    
+    func getWeatherList() -> [CWEntity]?
+    func addTemporary(entity: CWEntity)
     func reloadCityList(for searchText: String)
+    func setChoisedCity(index: Int)
 }
 
 protocol CCInteractorOutput: AnyObject {
@@ -47,7 +48,8 @@ protocol CCInteractorOutput: AnyObject {
 }
 
 //Module
-protocol CCModuleInput {
+protocol CCModuleInput: AnyObject {
+    func needUpdateOut()
 }
 
 protocol CCModuleOutput: AnyObject {
