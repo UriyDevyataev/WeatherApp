@@ -166,6 +166,129 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
 
+  /// This `R.file` struct is generated, and contains static references to 6 files.
+  struct file {
+    /// Resource file `Clouds.sks`.
+    static let cloudsSks = Rswift.FileResource(bundle: R.hostingBundle, name: "Clouds", pathExtension: "sks")
+    /// Resource file `Mist.sks`.
+    static let mistSks = Rswift.FileResource(bundle: R.hostingBundle, name: "Mist", pathExtension: "sks")
+    /// Resource file `Night.sks`.
+    static let nightSks = Rswift.FileResource(bundle: R.hostingBundle, name: "Night", pathExtension: "sks")
+    /// Resource file `RainLight.sks`.
+    static let rainLightSks = Rswift.FileResource(bundle: R.hostingBundle, name: "RainLight", pathExtension: "sks")
+    /// Resource file `SnowLight.sks`.
+    static let snowLightSks = Rswift.FileResource(bundle: R.hostingBundle, name: "SnowLight", pathExtension: "sks")
+    /// Resource file `Sun.sks`.
+    static let sunSks = Rswift.FileResource(bundle: R.hostingBundle, name: "Sun", pathExtension: "sks")
+
+    /// `bundle.url(forResource: "Clouds", withExtension: "sks")`
+    static func cloudsSks(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.cloudsSks
+      return fileResource.bundle.url(forResource: fileResource)
+    }
+
+    /// `bundle.url(forResource: "Mist", withExtension: "sks")`
+    static func mistSks(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.mistSks
+      return fileResource.bundle.url(forResource: fileResource)
+    }
+
+    /// `bundle.url(forResource: "Night", withExtension: "sks")`
+    static func nightSks(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.nightSks
+      return fileResource.bundle.url(forResource: fileResource)
+    }
+
+    /// `bundle.url(forResource: "RainLight", withExtension: "sks")`
+    static func rainLightSks(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.rainLightSks
+      return fileResource.bundle.url(forResource: fileResource)
+    }
+
+    /// `bundle.url(forResource: "SnowLight", withExtension: "sks")`
+    static func snowLightSks(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.snowLightSks
+      return fileResource.bundle.url(forResource: fileResource)
+    }
+
+    /// `bundle.url(forResource: "Sun", withExtension: "sks")`
+    static func sunSks(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.sunSks
+      return fileResource.bundle.url(forResource: fileResource)
+    }
+
+    fileprivate init() {}
+  }
+
+  /// This `R.image` struct is generated, and contains static references to 7 images.
+  struct image {
+    /// Image `bokeh`.
+    static let bokeh = Rswift.ImageResource(bundle: R.hostingBundle, name: "bokeh")
+    /// Image `cloudss`.
+    static let cloudss = Rswift.ImageResource(bundle: R.hostingBundle, name: "cloudss")
+    /// Image `mist2`.
+    static let mist2 = Rswift.ImageResource(bundle: R.hostingBundle, name: "mist2")
+    /// Image `mist`.
+    static let mist = Rswift.ImageResource(bundle: R.hostingBundle, name: "mist")
+    /// Image `spark`.
+    static let spark = Rswift.ImageResource(bundle: R.hostingBundle, name: "spark")
+    /// Image `sun2`.
+    static let sun2 = Rswift.ImageResource(bundle: R.hostingBundle, name: "sun2")
+    /// Image `sun`.
+    static let sun = Rswift.ImageResource(bundle: R.hostingBundle, name: "sun")
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "bokeh", bundle: ..., traitCollection: ...)`
+    static func bokeh(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.bokeh, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "cloudss", bundle: ..., traitCollection: ...)`
+    static func cloudss(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.cloudss, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "mist", bundle: ..., traitCollection: ...)`
+    static func mist(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.mist, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "mist2", bundle: ..., traitCollection: ...)`
+    static func mist2(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.mist2, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "spark", bundle: ..., traitCollection: ...)`
+    static func spark(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.spark, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "sun", bundle: ..., traitCollection: ...)`
+    static func sun(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.sun, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "sun2", bundle: ..., traitCollection: ...)`
+    static func sun2(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.sun2, compatibleWith: traitCollection)
+    }
+    #endif
+
+    fileprivate init() {}
+  }
+
   /// This `R.info` struct is generated, and contains static references to 1 properties.
   struct info {
     struct uiApplicationSceneManifest {
@@ -453,7 +576,7 @@ struct _R: Rswift.Validatable {
 
     #if os(iOS) || os(tvOS)
     struct main: Rswift.StoryboardResourceWithInitialControllerType, Rswift.Validatable {
-      typealias InitialController = MainViewController
+      typealias InitialController = ViewController
 
       let bundle = R.hostingBundle
       let name = "Main"

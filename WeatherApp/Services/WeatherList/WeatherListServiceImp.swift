@@ -9,15 +9,6 @@ import Foundation
 
 final class WeatherListServiceImp: WeatherListService {
     
-    func setChoisedEntity(index: Int) {
-        choisedEntityIndex = index
-    }
-    
-    func getChoisedEntityIndex() -> Int {
-        choisedEntityIndex
-    }
-    
-
     static var shared: WeatherListService = WeatherListServiceImp()
     
     private var listWeather: [CWEntity]?
@@ -32,26 +23,35 @@ final class WeatherListServiceImp: WeatherListService {
         return count
     }
     
+    func getList() -> [CWEntity] {
+        guard let listWeather = listWeather else {
+            return [CWEntity]()
+        }
+        return listWeather
+    }
+    
     func getEntity(for index: Int) -> CWEntity? {
         return listWeather?[index]
     }
     
-    func getList() -> [CWEntity]? {
-        return listWeather
-    }
-        
-    private func loadList() {
-        if listWeather == nil {
-            listWeather = loadListFromDefault()
-        }
+    func getCurrentEntityIndex() -> Int {
+        choisedEntityIndex
     }
     
-    func updateTemporary(entity: CWEntity) {
-        temporaryEntity = entity
+    func getCurrentWeather() -> String {
+        guard let entity = listWeather?[choisedEntityIndex]
+        else {return ""}
+        guard let string = entity.weather?.current.weather[0].icon
+        else {return ""}
+        return string
     }
     
     func getTemporaryEntity() -> CWEntity? {
         return temporaryEntity
+    }
+    
+    func setTemporary(entity: CWEntity) {
+        temporaryEntity = entity
     }
     
     func saveTemporaryEntity() {
@@ -59,6 +59,20 @@ final class WeatherListServiceImp: WeatherListService {
         temporaryEntity = nil
         updateList(entity: entity)
     }
+    
+    func updateLocaly(entity: CWEntity) {
+        if let _ = listWeather {
+            listWeather?[0] = entity
+        } else {
+            listWeather = [entity]
+        }
+        saveListToDefault(list: listWeather)
+    }
+    
+    func updateCurrentEntity(index: Int) {
+        choisedEntityIndex = index
+    }
+    
     
     func updateList(entity: CWEntity) {
         
@@ -95,20 +109,17 @@ final class WeatherListServiceImp: WeatherListService {
         }
     }
     
-    func updateLocaly(entity: CWEntity) {
-        if let _ = listWeather {
-            listWeather?[0] = entity
-        } else {
-            listWeather = [entity]
-        }
-        saveListToDefault(list: listWeather)
-    }
-    
     func delete(index: Int) {
         if index != 0 {
             listWeather?.remove(at: index)
         }
         saveListToDefault(list: listWeather)
+    }
+    
+    private func loadList() {
+        if listWeather == nil {
+            listWeather = loadListFromDefault()
+        }
     }
     
     private func saveListToDefault(list: [CWEntity]?) {

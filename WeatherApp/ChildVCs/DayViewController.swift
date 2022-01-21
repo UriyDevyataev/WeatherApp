@@ -21,6 +21,10 @@ class DayViewController: UIViewController {
         config()
     }
     
+    deinit {
+        print("deinit DayViewController")
+    }
+    
     private func config(){
         view.backgroundColor = .clear
         configCollectionView()
@@ -66,10 +70,14 @@ class DayViewController: UIViewController {
         let maxTemp = "\(withContent.temp.max.rounded())\u{00B0}"
         let day = withContent.dt.strDayFromUTC()
         
+        var nameImage = withContent.weather[0].icon
+        nameImage = "\(nameImage.dropLast())d"
+        let image = UIImage(named: nameImage)
+        
         cell.dayLabel.text = day
         cell.minTempLabel.text = minTemp
         cell.maxTempLabel.text = maxTemp
-        cell.imageView.image = UIImage()
+        cell.imageView.image = image
     
         return cell
     }

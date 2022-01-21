@@ -54,13 +54,15 @@ class WeatherServiceImp: WeatherService {
     }
     
     private func prepareLoadDataRequest(forLocal: CLLocationCoordinate2D) -> URL? {
+        
+        let lang = Locale.preferredLanguages.first?.dropLast(3).description
         var components = URLComponents(string: Constants.baseUrl)
         components?.queryItems = [
             URLQueryItem(name: Params.latitude,value: String(forLocal.latitude)),
             URLQueryItem(name: Params.longitude,value: String(forLocal.longitude)),
             URLQueryItem(name: Params.exclude, value: Periods.minutely),
             URLQueryItem(name: Params.units, value: Constants.metric),
-            URLQueryItem(name: Params.language, value: Constants.rus),
+            URLQueryItem(name: Params.language, value: lang),
             URLQueryItem(name: Params.auth, value: Constants.apiKey)
         ]
         return components?.url

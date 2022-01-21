@@ -14,18 +14,17 @@ final class CCInteractorImp: CCInteractorInput {
     let weatherListService: WeatherListService = WeatherListServiceImp.shared
     let cityService = CitiesServiceImp()
     
-    func getWeatherList() -> [CWEntity]? {
+    func getWeatherList() -> [CWEntity] {
         return weatherListService.getList()
     }
     
-    func addTemporary(entity: CWEntity) {
-        weatherListService.updateTemporary(entity: entity)
+    func updateTemporary(entity: CWEntity) {
+        weatherListService.setTemporary(entity: entity)
     }
      
-    func reloadCityList(for searchText: String) {
-    
-        cityService.receiveCities(for: searchText) { cities in
-            
+    func getCityList(for searchText: String) {
+        
+        self.cityService.receiveCities(for: searchText) { cities in
             var dict = [String: CityModel]()
             cities.forEach { city in
                 
@@ -47,13 +46,16 @@ final class CCInteractorImp: CCInteractorInput {
                     dict[newKey] = city
                 }
             }
+                
             
-            let entity = CCEntity(isCityChoising: true, cityDict: dict, weatherList: [CWEntity]())
+            let entity = CCEntity(isCityChoising: true,
+                                  cityDict: dict,
+                                  weatherList: nil)
             self.output?.didUpdateEntity(entity: entity)
         }
     }
     
-    func setChoisedCity(index: Int) {
-        weatherListService.setChoisedEntity(index: index)
+    func updateCurrentIndex(index: Int) {
+        weatherListService.updateCurrentEntity(index: index)
     }
 }

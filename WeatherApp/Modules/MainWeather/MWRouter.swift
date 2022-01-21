@@ -11,8 +11,8 @@ final class MWRouterImp: MWRouterInput {
     
     weak var view: UIViewController?
     
-    func showCCViewController() {
-        guard let view = view, let controller = CCAssembly.configurateModule() else {
+    func showCCViewController(output: MWModuleInput?) {
+        guard let view = view, let controller = CCAssembly.configurateModule(output: output) else {
             return
         }
         

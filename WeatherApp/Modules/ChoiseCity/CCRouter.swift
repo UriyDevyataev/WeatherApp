@@ -13,23 +13,10 @@ final class CCRouterImp: CCRouterInput {
     weak var view: UIViewController?
     
     func showCWViewController(output: CCModuleInput?) {
-
         guard let view = view,
               let controller = CWAssembly.configurateModule(output: output) else {return}
 
         controller.modalPresentationStyle = .formSheet
-        view.present(controller, animated: true)
-    }
-    
-    func showMWViewController() {
-        
-        guard let view = view,
-              let controller = MWAssembly
-                .configurateModule() else {return}
-        
-        
-        
-        controller.modalPresentationStyle = .fullScreen
         view.present(controller, animated: true)
     }
 }

@@ -8,18 +8,12 @@
 import Foundation
 import CoreLocation
 
-class LocationServiceImp: NSObject, LocationService {
-   
+class LocationServiceImp: LocationService {
+    
     let locationManager = CLLocationManager()
-    
-    func requestAccess() {
-//        locationManager.delegate = self
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.requestWhenInUseAuthorization()
-        locationManager.requestAlwaysAuthorization()
-    }
-    
+
     func getCurrentLocalCity(completion: @escaping(CityModel) -> Void) {
+        
         guard let currentCoordinate = getCurrentLocation()
         else {return}
         
@@ -63,11 +57,4 @@ class LocationServiceImp: NSObject, LocationService {
     }
 }
 
-//extension LocationServiceImp: CLLocationManagerDelegate {
-//
-//    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-//
-//
-//
-//    }
-//}
+

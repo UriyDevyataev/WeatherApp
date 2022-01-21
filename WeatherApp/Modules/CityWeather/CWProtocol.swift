@@ -5,22 +5,14 @@
 //  Created by Юрий Девятаев on 12.01.2022.
 //
 
-//Router
-//protocol CWRouterInput {
-//    func showCCViewController()
-//}
-//
-//protocol CWRouterOutput {
-//}
-
 //Presenter
-protocol CWPresenterInput {
+protocol CWPresenterInput: AnyObject  {
     
     var view: CWPresenterOutput? {get set}
     
-    func viewIsReady(index: Int?)
-    func actionAdd()
-    func actionCancel()
+    func viewIsReady(index: Int?)   // ok
+    func actionAdd()                //ok
+    func actionCancel()             // ok (not use)
 }
 
 protocol CWPresenterOutput: AnyObject {
@@ -32,13 +24,18 @@ protocol CWInteractorInput {
     
     var output: CWInteractorOutput? { get set }
     
-    func loadEntity(atIndex: Int?) -> CWEntity?
-    func updateEntity(_ entity: CWEntity)
-    func addTeporaryEntity()
+    func loadEntity(atIndex: Int?) -> CWEntity?     // ok
+    func updateEntity(_ entity: CWEntity)           // ok
+    func addTemporaryEntity()                       // ok
 }
 
 protocol CWInteractorOutput: AnyObject {
-    func didUpdateEntity(entity: CWEntity)
+    func didUpdateEntity(entity: CWEntity) // ok
+}
+
+protocol CWRouterInput {
+}
+protocol CWRouterOutput {
 }
 
 //Module

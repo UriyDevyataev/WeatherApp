@@ -20,6 +20,10 @@ class HourlyViewController: UIViewController {
         config()
     }
     
+    deinit {
+        print("deinit HourlyViewController")
+    }
+    
     private func config(){
         view.backgroundColor = .clear
         configCollectionView()
@@ -55,9 +59,17 @@ class HourlyViewController: UIViewController {
     }
 
     private func fill(cell: HourCollectionViewCell, withContent: HourlyWeather) -> UICollectionViewCell {
-        cell.hourLabel.text = withContent.dt.strHourFromUTC()
-        cell.tempLabel.text = "\(Int(withContent.temp.rounded()))\u{00B0}"
-        cell.imageView.image = UIImage()
+        
+        let hour = withContent.dt.strHourFromUTC()
+        let temp = "\(Int(withContent.temp.rounded()))\u{00B0}"
+        
+        var nameImage = withContent.weather[0].icon
+        nameImage = "\(nameImage.dropLast())d"
+        let image = UIImage(named: nameImage)
+        
+        cell.hourLabel.text = hour
+        cell.tempLabel.text = temp
+        cell.imageView.image = image
         return cell
     }
 }

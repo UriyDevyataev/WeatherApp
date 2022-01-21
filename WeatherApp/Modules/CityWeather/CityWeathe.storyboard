@@ -158,6 +158,7 @@
                         <outlet property="infoLabel" destination="i40-ZZ-yH5" id="rUC-iG-TEr"/>
                         <outlet property="maxMinLabel" destination="tOZ-Rl-z7T" id="fqD-lL-Sir"/>
                         <outlet property="temperatureLabel" destination="iIQ-n5-RdF" id="HEj-hX-8ES"/>
+                        <outlet property="topContentView" destination="gnY-NW-STJ" id="I6t-g9-ZaW"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vJb-Rm-dl2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

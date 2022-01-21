@@ -8,21 +8,23 @@
 import Foundation
 
 class CWPresenterImp: CWPresenterInput {
-    
 
     weak var view: CWPresenterOutput?
     var interactor: CWInteractorInput!
     weak var output: CCModuleInput?
+    
+//    var interactor: CWInteractorInput!
 
     func viewIsReady(index: Int?) {
         
-        guard let entity = interactor.loadEntity(atIndex: index) else {return}
+        guard let entity = interactor?.loadEntity(atIndex: index)
+        else {return}
         view?.setState(entity: entity)
-        interactor.updateEntity(entity)
+        interactor?.updateEntity(entity)
     }
     
     func actionAdd() {
-        interactor.addTeporaryEntity()
+        interactor?.addTemporaryEntity()
         output?.needUpdateOut()
     }
     

@@ -9,7 +9,7 @@
 
 //Router
 protocol MWRouterInput {
-    func showCCViewController()
+    func showCCViewController(output: MWModuleInput?)
 }
 
 protocol MWRouterOutput {
@@ -17,15 +17,18 @@ protocol MWRouterOutput {
 
 //Presenter
 protocol MWPresenterInput {
+    
     var view: MWPresenterOutput? {get set}
     
-    func viewIsReady()
+    func viewIsReady() //ok
     func actionShowChoiseCity()
     func actionGetLocalWeather()
+    func swipeListTo(index: Int) //ok
 }
 
 protocol MWPresenterOutput: AnyObject {
-    func setState(entity: MWEntity)
+    func setState(entity: MWEntity) //ok
+    func updateBackground(background: Background)
 }
 
 //Interactor
@@ -33,22 +36,22 @@ protocol MWInteractorInput {
     
     var output: MWInteractorOutput? { get set }
     
-    func requestAccessLocation()
-    func loadEntity()
-    func createLocalEntityCW()
-//    func loadWeather()
-//    func updateEntity(_ entity: MWEntity?)
-
+    func requestAccessLocation() // not ok
+    func getEntity() -> MWEntity // ok
+    func updateCurrentIndex(index: Int) // ok
+    func getNewBackGround() -> Background
+    
 }
 
 protocol MWInteractorOutput: AnyObject {
-    func didUpdateEntity(entity: MWEntity)
+    func didUpdateEntity(entity: MWEntity) // ok
+    func didChangeAuthorizationLocation()
 }
 
-////Module
-//protocol MWModuleInput {
-//}
-//
-//protocol MWModuleOutput: AnyObject {
-//    func didUpdateEntityOut(entity: MWEntity)
-//}
+protocol MWModuleInput {
+    func needUpdateOut()
+    
+}
+
+protocol MWModuleOutput {
+}

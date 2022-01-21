@@ -9,14 +9,9 @@ import UIKit
 
 class CCAssembly {
     
-    static func configurateModule() -> UIViewController? {
+    static func configurateModule(output: MWModuleInput?) -> UIViewController? {
         
-        let storyboard = UIStoryboard(name: "ChoiseCity", bundle: nil)
-        guard let controller = storyboard.instantiateViewController(
-            withIdentifier: "ChoiseCityVC") as? CCViewController else {
-                return nil
-            }
-        
+        let controller = R.storyboard.choiseCity.choiseCityVC()
         let presenter = CCPresenterImp()
         let interactor = CCInteractorImp()
         let router = CCRouterImp()
@@ -24,11 +19,11 @@ class CCAssembly {
         presenter.interactor = interactor
         presenter.router = router
         presenter.view = controller
-        //        presenter.output =
+        presenter.output = output
         
         interactor.output = presenter
         router.view = controller
-        controller.presenter = presenter
+        controller?.presenter = presenter
         
         return controller
     }

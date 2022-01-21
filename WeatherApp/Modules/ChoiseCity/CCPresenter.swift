@@ -12,45 +12,31 @@ final class CCPresenterImp: CCPresenterInput {
     weak var view: CCPresenterOutput?
     var interactor: CCInteractorInput!
     var router: CCRouterImp!
+    var output: MWModuleInput?
     
     func viewIsReady() {
-        guard let list = interactor.getWeatherList() else {return}
+        let list = interactor.getWeatherList()
         let entity = CCEntity(isCityChoising: false,
-                              cityDict: [String: CityModel](),
+                              cityDict: nil,
                               weatherList: list)
         view?.setState(entity: entity)
     }
     
     func changedCity(text: String) {
-        if text == "" {
-            guard let list = interactor.getWeatherList() else {return}
-            let entity = CCEntity(isCityChoising: false,
-                                  cityDict: [String: CityModel](),
-                                  weatherList: list)
-            view?.setState(entity: entity)
-        } else {
-            interactor.reloadCityList(for: text)
-        }
+        
+        interactor.getCityList(for: text)
     }
     
     func choisedCity(city: CityModel) {
         let entity = CWEntity(city: city, weather: nil)
-        interactor.addTemporary(entity: entity)
+        interactor.updateTemporary(entity: entity)
         router.showCWViewController(output: self)
     }
     
-    func back() {
-//        router.showMWViewController()
-    }
-    
-    func showMWController() {
-        
-        router.showMWViewController()
-        
-    }
     
     func choisedCity(index: Int) {
-        interactor.setChoisedCity(index: index)
+        interactor.updateCurrentIndex(index: index)
+        output?.needUpdateOut()
     }
 }
 

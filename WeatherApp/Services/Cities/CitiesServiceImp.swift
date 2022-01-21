@@ -22,12 +22,16 @@ private enum Constants {
     static var ppl = "PPL"
     static var pplc = "PPLC"
     static var json = "json"
-    static var cities = "cities1000"
+    static var cities = "cities5000"
     static var countRows = "1000"
 }
 class CitiesServiceImp: CitiesService {
+
+    var currentTack: URLSessionTask?
     
     func receiveCities(for prefix: String, completion: @escaping ([CityModel]) -> Void) {
+        
+        currentTack?.cancel()
         
         let session = URLSession.shared
         let request = URLRequest(url: prepareLoadDataRequest(for: prefix)!)
@@ -42,7 +46,13 @@ class CitiesServiceImp: CitiesService {
                 print(error)
             }
         }
-        task.resume()
+        
+        if prefix == "" {
+            completion([CityModel]())
+        } else {
+            currentTack = task
+            task.resume()
+        }
     }
     
     private func prepareLoadDataRequest(for prefix: String) -> URL? {

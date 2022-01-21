@@ -10,7 +10,7 @@ import CoreLocation
 
 protocol LocationService {
     
-    func requestAccess()
     func getCurrentLocalCity(completion: @escaping(CityModel) -> Void)
 //    func getCurrentLocation() -> Coordinate?
 }
+

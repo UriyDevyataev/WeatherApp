@@ -29,6 +29,10 @@
 		CB47990B27821D9C0006C86A /* HourlyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB47990A27821D9C0006C86A /* HourlyViewController.swift */; };
 		CB479914278221F00006C86A /* DayCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB479912278221F00006C86A /* DayCollectionViewCell.swift */; };
 		CB479915278221F00006C86A /* DayCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CB479913278221F00006C86A /* DayCollectionViewCell.xib */; };
+		CB668952279710DE0078D00D /* Mist.sks in Resources */ = {isa = PBXBuildFile; fileRef = CB668951279710DE0078D00D /* Mist.sks */; };
+		CB66895527971DA10078D00D /* BackGroundService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB66895427971DA10078D00D /* BackGroundService.swift */; };
+		CB66895727971DF80078D00D /* BackGroundServiceImp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB66895627971DF80078D00D /* BackGroundServiceImp.swift */; };
+		CB66895D2797226F0078D00D /* Night.sks in Resources */ = {isa = PBXBuildFile; fileRef = CB66895C2797226F0078D00D /* Night.sks */; };
 		CB91D92527844E6B0008CE78 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB91D92427844E6B0008CE78 /* Extensions.swift */; };
 		CB91D9282785DC370008CE78 /* KeyValueStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB91D9272785DC370008CE78 /* KeyValueStorage.swift */; };
 		CB91D92A2785DC440008CE78 /* RAMStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB91D9292785DC440008CE78 /* RAMStorage.swift */; };
@@ -44,6 +48,12 @@
 		CBB968972786083600924738 /* CCRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB968962786083600924738 /* CCRouter.swift */; };
 		CBB968992786084200924738 /* CCEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB968982786084200924738 /* CCEntity.swift */; };
 		CBB9689B2786085400924738 /* CCAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB9689A2786085400924738 /* CCAssembly.swift */; };
+		CBC4DD57279688620069B99E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBC4DD56279688620069B99E /* ViewController.swift */; };
+		CBC4DD5B2796BEF80069B99E /* RainLight.sks in Resources */ = {isa = PBXBuildFile; fileRef = CBC4DD592796BEF80069B99E /* RainLight.sks */; };
+		CBC4DD5C2796BEF80069B99E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CBC4DD5A2796BEF80069B99E /* Assets.xcassets */; };
+		CBC4DD602796DAD40069B99E /* SnowLight.sks in Resources */ = {isa = PBXBuildFile; fileRef = CBC4DD5F2796DAD40069B99E /* SnowLight.sks */; };
+		CBC4DD6E2796E3470069B99E /* Clouds.sks in Resources */ = {isa = PBXBuildFile; fileRef = CBC4DD6D2796E3470069B99E /* Clouds.sks */; };
+		CBC4DD722796E36E0069B99E /* Sun.sks in Resources */ = {isa = PBXBuildFile; fileRef = CBC4DD712796E36E0069B99E /* Sun.sks */; };
 		CBD03057278F3FA50011DE70 /* CityWeathe.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CBD03056278F3FA50011DE70 /* CityWeathe.storyboard */; };
 		CBD03059278F3FEF0011DE70 /* CWProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD03058278F3FEF0011DE70 /* CWProtocol.swift */; };
 		CBD0305B278F3FFB0011DE70 /* CWPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD0305A278F3FFB0011DE70 /* CWPresenter.swift */; };
@@ -95,6 +105,10 @@
 		CB47990A27821D9C0006C86A /* HourlyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourlyViewController.swift; sourceTree = "<group>"; };
 		CB479912278221F00006C86A /* DayCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayCollectionViewCell.swift; sourceTree = "<group>"; };
 		CB479913278221F00006C86A /* DayCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DayCollectionViewCell.xib; sourceTree = "<group>"; };
+		CB668951279710DE0078D00D /* Mist.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Mist.sks; sourceTree = "<group>"; };
+		CB66895427971DA10078D00D /* BackGroundService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackGroundService.swift; sourceTree = "<group>"; };
+		CB66895627971DF80078D00D /* BackGroundServiceImp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackGroundServiceImp.swift; sourceTree = "<group>"; };
+		CB66895C2797226F0078D00D /* Night.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Night.sks; sourceTree = "<group>"; };
 		CB91D92427844E6B0008CE78 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		CB91D9272785DC370008CE78 /* KeyValueStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyValueStorage.swift; sourceTree = "<group>"; };
 		CB91D9292785DC440008CE78 /* RAMStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RAMStorage.swift; sourceTree = "<group>"; };
@@ -111,6 +125,12 @@
 		CBB968962786083600924738 /* CCRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CCRouter.swift; sourceTree = "<group>"; };
 		CBB968982786084200924738 /* CCEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CCEntity.swift; sourceTree = "<group>"; };
 		CBB9689A2786085400924738 /* CCAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CCAssembly.swift; sourceTree = "<group>"; };
+		CBC4DD56279688620069B99E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		CBC4DD592796BEF80069B99E /* RainLight.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = RainLight.sks; sourceTree = "<group>"; };
+		CBC4DD5A2796BEF80069B99E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		CBC4DD5F2796DAD40069B99E /* SnowLight.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = SnowLight.sks; sourceTree = "<group>"; };
+		CBC4DD6D2796E3470069B99E /* Clouds.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Clouds.sks; sourceTree = "<group>"; };
+		CBC4DD712796E36E0069B99E /* Sun.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Sun.sks; sourceTree = "<group>"; };
 		CBD03056278F3FA50011DE70 /* CityWeathe.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CityWeathe.storyboard; sourceTree = "<group>"; };
 		CBD03058278F3FEF0011DE70 /* CWProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CWProtocol.swift; sourceTree = "<group>"; };
 		CBD0305A278F3FFB0011DE70 /* CWPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CWPresenter.swift; sourceTree = "<group>"; };
@@ -186,6 +206,7 @@
 		CB4798C52781BF000006C86A /* WeatherApp */ = {
 			isa = PBXGroup;
 			children = (
+				CBC4DD582796BDEA0069B99E /* SpriteKitFiles */,
 				CBA85C61278E0FD60023F7FC /* R.generated.swift */,
 				CB4798C62781BF000006C86A /* AppDelegate.swift */,
 				CB4798C82781BF000006C86A /* SceneDelegate.swift */,
@@ -196,6 +217,7 @@
 				CB4798F52781D7DD0006C86A /* Models */,
 				CB4798F82781DA8E0006C86A /* Services */,
 				CB4798CC2781BF000006C86A /* Main.storyboard */,
+				CBC4DD56279688620069B99E /* ViewController.swift */,
 				CBDFDE70278367210098971B /* MainViewController.swift */,
 				CB4798CF2781BF010006C86A /* Assets.xcassets */,
 				CB4798D12781BF010006C86A /* LaunchScreen.storyboard */,
@@ -257,6 +279,7 @@
 			isa = PBXGroup;
 			children = (
 				CBAE285D2788405200D8BFB0 /* WeatherList */,
+				CB66895327971D850078D00D /* BackGround */,
 				CB4799022781DF5F0006C86A /* Location */,
 				CB4798F92781DAAF0006C86A /* Weather */,
 				CBDA83F72786E8150035CE67 /* Cities */,
@@ -313,6 +336,15 @@
 			path = ChildVCs;
 			sourceTree = "<group>";
 		};
+		CB66895327971D850078D00D /* BackGround */ = {
+			isa = PBXGroup;
+			children = (
+				CB66895427971DA10078D00D /* BackGroundService.swift */,
+				CB66895627971DF80078D00D /* BackGroundServiceImp.swift */,
+			);
+			path = BackGround;
+			sourceTree = "<group>";
+		};
 		CB91D92327844E590008CE78 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -338,6 +370,20 @@
 				CBAE28602788408A00D8BFB0 /* WeatherListServiceImp.swift */,
 			);
 			path = WeatherList;
+			sourceTree = "<group>";
+		};
+		CBC4DD582796BDEA0069B99E /* SpriteKitFiles */ = {
+			isa = PBXGroup;
+			children = (
+				CBC4DD592796BEF80069B99E /* RainLight.sks */,
+				CBC4DD5F2796DAD40069B99E /* SnowLight.sks */,
+				CBC4DD6D2796E3470069B99E /* Clouds.sks */,
+				CBC4DD712796E36E0069B99E /* Sun.sks */,
+				CB668951279710DE0078D00D /* Mist.sks */,
+				CB66895C2797226F0078D00D /* Night.sks */,
+				CBC4DD5A2796BEF80069B99E /* Assets.xcassets */,
+			);
+			path = SpriteKitFiles;
 			sourceTree = "<group>";
 		};
 		CBD03055278F3EAC0011DE70 /* CityWeather */ = {
@@ -468,10 +514,17 @@
 				CBD0306E278F5C820011DE70 /* AllWeatherCollectionViewCell.xib in Resources */,
 				CBD03057278F3FA50011DE70 /* CityWeathe.storyboard in Resources */,
 				CB479915278221F00006C86A /* DayCollectionViewCell.xib in Resources */,
+				CBC4DD5C2796BEF80069B99E /* Assets.xcassets in Resources */,
 				CB4798F02781C2ED0006C86A /* MainWeather.storyboard in Resources */,
 				CBDFDE6F278350EC0098971B /* HourCollectionViewCell.xib in Resources */,
+				CBC4DD602796DAD40069B99E /* SnowLight.sks in Resources */,
 				CBB9688F278607D900924738 /* ChoiseCity.storyboard in Resources */,
+				CB668952279710DE0078D00D /* Mist.sks in Resources */,
 				CBFF32922789EC0B00B6E7BF /* WeatherTableViewCell.xib in Resources */,
+				CB66895D2797226F0078D00D /* Night.sks in Resources */,
+				CBC4DD722796E36E0069B99E /* Sun.sks in Resources */,
+				CBC4DD6E2796E3470069B99E /* Clouds.sks in Resources */,
+				CBC4DD5B2796BEF80069B99E /* RainLight.sks in Resources */,
 				CB4798CE2781BF000006C86A /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -546,6 +599,7 @@
 			files = (
 				CBAE28612788408A00D8BFB0 /* WeatherListServiceImp.swift in Sources */,
 				CBD0306D278F5C820011DE70 /* AllWeatherCollectionViewCell.swift in Sources */,
+				CB66895727971DF80078D00D /* BackGroundServiceImp.swift in Sources */,
 				CBAE285F2788408000D8BFB0 /* WeatherListService.swift in Sources */,
 				CB91D92527844E6B0008CE78 /* Extensions.swift in Sources */,
 				CB91D92C2785DC4B0008CE78 /* SharedStorage.swift in Sources */,
@@ -571,9 +625,11 @@
 				CB4798FF2781DB480006C86A /* CitiesResponse.swift in Sources */,
 				CBDA83FF2786FEAA0035CE67 /* CityTableViewCell.swift in Sources */,
 				CB91D9282785DC370008CE78 /* KeyValueStorage.swift in Sources */,
+				CB66895527971DA10078D00D /* BackGroundService.swift in Sources */,
 				CB91D92A2785DC440008CE78 /* RAMStorage.swift in Sources */,
 				CBDFDE6E278350EC0098971B /* HourCollectionViewCell.swift in Sources */,
 				CB4798EA2781C2360006C86A /* MWViewController.swift in Sources */,
+				CBC4DD57279688620069B99E /* ViewController.swift in Sources */,
 				CBFF32912789EC0B00B6E7BF /* WeatherTableViewCell.swift in Sources */,
 				CBA85C62278E0FD60023F7FC /* R.generated.swift in Sources */,
 				CBB968932786082300924738 /* CCPresenter.swift in Sources */,

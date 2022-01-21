@@ -9,21 +9,23 @@ import UIKit
 
 class CCViewController: UIViewController {
     
-    @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var searchBar: UISearchBar!
-    
     var presenter: CCPresenterInput!
-    
     var entity: CCEntity?
     
     var cityList = [String]()
     var weatherList = [CWEntity]()
-        
+    
+    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var searchBar: UISearchBar!
+
     override func viewDidLoad() {
         super.viewDidLoad()
         config()
     }
     
+    deinit {
+        print("deinit CCViewController")
+    }
     func config() {
         configSearcBar()
         configTableView()
@@ -60,18 +62,24 @@ class CCViewController: UIViewController {
             forCellReuseIdentifier: "WeatherTableViewCellIdentifire")
     }
     
-    func updateControls(entity: CCEntity) {
+    func updateView(entity: CCEntity) {
         
         self.entity = entity
         
         switch entity.isCityChoising {
         case true:
             cityList.removeAll()
-            entity.cityDict.forEach { (key: String, value: CityModel) in
+            entity.cityDict?.forEach { (key: String, value: CityModel) in
                 cityList.append(key)
             }
         case false:
-            weatherList = entity.weatherList
+            weatherList = entity.weatherList ?? [CWEntity]()
+            
+            DispatchQueue.main.async {
+                self.searchBar.text = ""
+                self.searchBar.showsCancelButton = false
+                self.searchBar.resignFirstResponder()
+            }
         }
         
         DispatchQueue.main.async {
@@ -81,11 +89,15 @@ class CCViewController: UIViewController {
     
     private func fill(cell: WeatherTableViewCell, withContent: CWEntity) -> UITableViewCell {
 
+        
         guard let weather = withContent.weather else {return UITableViewCell()}
-
+                
         let cityName = withContent.city.name
+//        print(weather.current.dt.strTimeFromUTC())
+//        print(weather.timezone_offset.strTimeFromUTC())
+//        let time = (weather.current.dt + weather.timezone_offset).strTimeFromUTC()
+        let time = weather.current.dt.strTimeFromUTC()
         let temp = "\(weather.current.temp.rounded())\u{00B0}"
-
 
         let maxTemp = "Макс.: \(weather.daily[0].temp.max.rounded())\u{00B0}"
         let minTemp = "мин.: \(weather.daily[0].temp.min.rounded())\u{00B0}"
@@ -94,13 +106,13 @@ class CCViewController: UIViewController {
 
         var info = ""
         if let alerts = weather.alerts {
-            alerts.forEach { alert in
-                info += alert.event
-            }
+            info = alerts.count > 1 ? alerts[1].event : alerts[0].event
+        } else {
+            info = weather.current.weather[0].description
         }
 
         cell.cityLabel.text = cityName
-        cell.timeLabel.text = "time"
+        cell.timeLabel.text = time
         cell.tempLabel.text = temp
         cell.infoLabel.text = info
         cell.maxMinTempLabel.text = maxMinTemp
@@ -154,13 +166,13 @@ extension CCViewController: UITableViewDataSource, UITableViewDelegate {
         case true:
             guard let cell = tableView.cellForRow(
                 at: indexPath) as? CityTableViewCell else {return}
-            
-            guard let city = entity.cityDict[cell.cityLabel.text ?? ""] else {return}
+            guard let city = entity.cityDict?[cell.cityLabel.text ?? ""]
+            else {return}
             presenter.choisedCity(city: city)
         case false:
             presenter.choisedCity(index: indexPath.row)
-            presenter.showMWController()
-            
+            self.dismiss(animated: true)
+//
         }
     }
     
@@ -200,7 +212,7 @@ extension CCViewController: UISearchBarDelegate {
 extension CCViewController: CCPresenterOutput {
     func setState(entity: CCEntity) {
         print("CC_setState")
-        updateControls(entity: entity)
+        updateView(entity: entity)
     }
 }
 

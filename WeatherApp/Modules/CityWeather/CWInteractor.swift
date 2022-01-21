@@ -10,8 +10,6 @@ import CoreLocation
 
 class CWInteractorImp: CWInteractorInput {
     
-    
-    
     weak var output: CWInteractorOutput?
     
     let weatherService: WeatherService = WeatherServiceImp()
@@ -37,7 +35,7 @@ class CWInteractorImp: CWInteractorInput {
         }
     }
     
-    func addTeporaryEntity() {
+    func addTemporaryEntity() {
         weatherListService.saveTemporaryEntity()
     }
 }

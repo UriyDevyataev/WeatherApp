@@ -20,6 +20,7 @@ class CWViewController: UIViewController {
     var controllerHourly: HourlyViewController?
     var controllerDaily: DayViewController?
     
+    @IBOutlet weak var topContentView: UIView!
     @IBOutlet weak var buttonContentView: UIView!
     @IBOutlet weak var cityLabel: UILabel!
     @IBOutlet weak var temperatureLabel: UILabel!
@@ -42,13 +43,18 @@ class CWViewController: UIViewController {
         presenter.viewIsReady(index: index)
     }
     
+    deinit {
+        print("deinit CWViewController")
+    }
+    
     func configUI() {
-        
+        topContentView.isHidden = true
+        view.backgroundColor = .clear
         buttonContentView.isHidden = true
         if modalPresentationStyle == .formSheet {
             buttonContentView.isHidden = false
+            view.backgroundColor = .gray
         }
-        
         fillScrollView()
     }
     
@@ -115,8 +121,8 @@ class CWViewController: UIViewController {
     
     func createContainer() -> UIView {
         let container = UIView(frame: CGRect.zero)
-        container.backgroundColor = .black
-        container.corner(withRadius: 10)
+        container.backgroundColor = .black.withAlphaComponent(0.5)
+        container.corner(withRadius: 15)
         return container
     }
     
@@ -130,8 +136,7 @@ class CWViewController: UIViewController {
     }
     
     func updateView(with entity: CWEntity) {
-        self.entity = entity
-        
+        self.entity = entity        
         guard let weather = entity.weather else {return}
         
         let temp = "\(weather.current.temp.rounded())\u{00B0}"
@@ -141,6 +146,7 @@ class CWViewController: UIViewController {
         let weatherInfo = weather.current.weather[0].description.capitalized
         
         DispatchQueue.main.async {
+            self.topContentView.isHidden = false
             self.fillScrollView()
             self.cityLabel.text = entity.city.name
             self.temperatureLabel.text = temp
