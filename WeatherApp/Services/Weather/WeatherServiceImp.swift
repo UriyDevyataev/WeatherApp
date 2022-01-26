@@ -34,21 +34,19 @@ private enum Constants {
 
 class WeatherServiceImp: WeatherService {
     
-    func receiveWeather(for location: CLLocationCoordinate2D, completion: @escaping (WeatherResponse) -> Void) {
+    func receiveWeather(for location: CLLocationCoordinate2D, completion: @escaping (WeatherResponse?) -> Void) {
         
         let session = URLSession.shared
         let request = URLRequest(url: prepareLoadDataRequest(forLocal: location)!)
 //        print(request)
         let task = session.dataTask(with: request) { data, response, error in
-            guard let data = data else {return}
+            guard let data = data, error == nil else {return}
             do {
                 let mapped = try JSONDecoder().decode(WeatherResponse.self, from: data)
 //                print(String(data: data, encoding: .utf8))
 //                print(mapped)
                 completion(mapped)
-            } catch let error {
-                print(error)
-            }
+            } catch _ {}
         }
         task.resume()
     }

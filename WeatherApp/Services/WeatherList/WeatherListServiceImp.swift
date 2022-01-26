@@ -30,15 +30,11 @@ final class WeatherListServiceImp: WeatherListService {
         return listWeather
     }
     
-    func getEntity(for index: Int) -> CWEntity? {
-        return listWeather?[index]
-    }
-    
-    func getCurrentEntityIndex() -> Int {
+    func getCurrentIndex() -> Int {
         choisedEntityIndex
     }
     
-    func getCurrentWeather() -> String {
+    func getCurrentWeatherConditions() -> String {
         guard let entity = listWeather?[choisedEntityIndex]
         else {return ""}
         guard let string = entity.weather?.current.weather[0].icon
@@ -69,29 +65,29 @@ final class WeatherListServiceImp: WeatherListService {
         saveListToDefault(list: listWeather)
     }
     
-    func updateCurrentEntity(index: Int) {
-        choisedEntityIndex = index
+    func updateCurrentIndex(value: Int) {
+        let count = getCountList()
+        if value < count {
+            choisedEntityIndex = value
+        }        
     }
-    
     
     func updateList(entity: CWEntity) {
         
         if let _ = temporaryEntity {
-            
             temporaryEntity = entity
             
         } else {
-            
             var newList = [CWEntity]()
             
             if let list = listWeather {
-                
                 newList = list
                 var contains = false
                 
                 for i in 0...list.count-1 {
                     if list[i].city.geonameId == entity.city.geonameId {
                         newList[i].weather = entity.weather
+                        newList[i].background = entity.background
                         contains = true
                     }
                 }
@@ -109,8 +105,9 @@ final class WeatherListServiceImp: WeatherListService {
         }
     }
     
-    func delete(index: Int) {
-        if index != 0 {
+    func deleteEntity(for index: Int) {
+        let count = getCountList()
+        if index != 0, index < count {
             listWeather?.remove(at: index)
         }
         saveListToDefault(list: listWeather)

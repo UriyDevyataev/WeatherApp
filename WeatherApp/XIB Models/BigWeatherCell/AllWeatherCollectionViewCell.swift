@@ -22,6 +22,10 @@ class AllWeatherCollectionViewCell: UICollectionViewCell {
         super.awakeFromNib()
         config()
     }
+    
+//    override func prepareForReuse() {
+//        <#code#>
+//    }
 
     private func config() {
         configСontainerView()

@@ -41,6 +41,7 @@ extension Int {
     func strDateFromUTC() -> String {
         let unixTime = Date(timeIntervalSince1970: TimeInterval(self))
         let formatter = DateFormatter()
+        
         formatter.dateFormat = "EEEE, MMM d"
         let str = formatter.string(from: unixTime)
         let strArr = str.components(separatedBy: ", ")
@@ -58,7 +59,7 @@ extension Int {
     func strHourFromUTC() -> String {
         let unixTime = Date(timeIntervalSince1970: TimeInterval(self))
         let formatter = DateFormatter()
-        formatter.dateFormat = "HH"
+        formatter.dateFormat = "HH:mm"
         let str = formatter.string(from: unixTime)
         return str
     }
@@ -66,17 +67,38 @@ extension Int {
     func strDayFromUTC() -> String {
         let unixTime = Date(timeIntervalSince1970: TimeInterval(self))
         let formatter = DateFormatter()
+        let lang = Locale.preferredLanguages.first?.dropLast(3).description
+        formatter.locale = Locale(identifier: lang ?? "en-En")
         formatter.dateFormat = "EE d"
         
         let strUnixTime = formatter.string(from: unixTime)
         let strNowTime = formatter.string(from: Date())
         
         if strUnixTime == strNowTime {
-            return "Сегодня"
+            return R.string.localizable.dayToday()
         } else {
             formatter.dateFormat = "EE"
             return formatter.string(from: unixTime)
         }
+    }
+    
+    func strTimeFromNow() -> String {
+        let unixTime = Date(timeIntervalSinceNow: TimeInterval(self))
+        let formatter = DateFormatter()
+        formatter.timeZone = TimeZone(abbreviation: "UTC")
+        formatter.dateFormat = "HH:mm"
+        let str = formatter.string(from: unixTime)
+        return str
+    }
+    
+    func strHourFromUTC(offset: Int) -> String {
+        let date = Date(timeIntervalSince1970: TimeInterval(self))
+        let unixTime = Date(timeInterval: TimeInterval(offset), since: date)
+        let formatter = DateFormatter()
+        formatter.timeZone = TimeZone(abbreviation: "UTC")
+        formatter.dateFormat = "HH:mm"
+        let str = formatter.string(from: unixTime)
+        return str
     }
 }
 
@@ -122,6 +144,18 @@ extension UIColor {
                                 blue:.random(in: 0...1),
                                 alpha:.random(in: 0.5...1))
 //                                alpha:1)
+    }
+}
+
+extension UIView {
+    func findViewController() -> UIViewController? {
+        if let nextResponder = self.next as? UIViewController {
+            return nextResponder
+        } else if let nextResponder = self.next as? UIView {
+            return nextResponder.findViewController()
+        } else {
+            return nil
+        }
     }
 }
 

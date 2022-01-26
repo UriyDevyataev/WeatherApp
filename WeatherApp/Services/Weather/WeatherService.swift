@@ -9,5 +9,5 @@ import Foundation
 import CoreLocation
 
 protocol WeatherService {
-    func receiveWeather(for location: CLLocationCoordinate2D, completion: @escaping (WeatherResponse) -> Void)
+    func receiveWeather(for location: CLLocationCoordinate2D, completion: @escaping (WeatherResponse?) -> Void)
 }

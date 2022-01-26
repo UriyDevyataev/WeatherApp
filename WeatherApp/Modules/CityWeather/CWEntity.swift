@@ -8,8 +8,8 @@
 import Foundation
 
 
-struct CWEntity: Codable{
-    
+struct CWEntity: Codable {
     let city: CityModel
     var weather: WeatherResponse?
+    var background: Background?
 }

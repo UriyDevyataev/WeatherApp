@@ -21,6 +21,7 @@ protocol CCPresenterInput {
     func changedCity(text: String)      // ok
     func choisedCity(city: CityModel)   // ok
     func choisedCity(index: Int)        // ok
+    func deleteRow(at IndexPathRow: Int)
 }
 
 protocol CCPresenterOutput: AnyObject {
@@ -33,6 +34,8 @@ protocol CCInteractorInput {
     func getCityList(for searchText: String)    // ok
     func updateTemporary(entity: CWEntity)      // ok
     func updateCurrentIndex(index: Int)         // ok
+    func updateWeatherList()
+    func deleteEntity(index: Int)
 }
 
 protocol CCInteractorOutput: AnyObject {

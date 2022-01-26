@@ -11,20 +11,17 @@ protocol WeatherListService {
 
     func getCountList() -> Int                      //ok
     func getList() -> [CWEntity]                    //ok
+    func updateList(entity: CWEntity)               //ok
     
-    func getCurrentEntityIndex() -> Int             //ok
-    func updateCurrentEntity(index: Int)            //ok
+    func getCurrentIndex() -> Int                   //ok
+    func updateCurrentIndex(value: Int)             //ok
+    func getCurrentWeatherConditions() -> String    //ok
     
-    func getEntity(for index: Int) -> CWEntity?     //ok
+    func deleteEntity(for index: Int)
     
     func getTemporaryEntity() -> CWEntity?          //ok
-    func setTemporary(entity: CWEntity)          //ok
+    func setTemporary(entity: CWEntity)             //ok
     func saveTemporaryEntity()                      //ok
     
-    
-    func getCurrentWeather() -> String
-    func updateLocaly(entity: CWEntity)
-    func updateList(entity: CWEntity)
-    func delete(index: Int)
-    
+    func updateLocaly(entity: CWEntity)             //ok
 }

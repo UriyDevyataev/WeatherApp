@@ -21,7 +21,6 @@ final class MWPresenterImp: MWPresenterInput {
     
     func actionGetLocalWeather() {
 //        interactor.loadEntity(atIndex: 0)
-        
     }
     
     func swipeListTo(index: Int) {

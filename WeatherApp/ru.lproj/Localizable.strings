@@ -1,0 +1,12 @@
+/* 
+  Localizable.strings
+  WeatherApp
+
+  Created by Юрий Девятаев on 21.01.2022.
+  
+*/
+
+"max.min.label" = "Макс.: %@, мин.: %@";
+"day.today" = "Сегодня";
+"searh.bar.clear" = "Удалить";
+"searh.bar.placeholder" = "поиск";

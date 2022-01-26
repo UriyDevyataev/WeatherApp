@@ -14,7 +14,7 @@ class MWViewController: UIViewController {
     
     //UI
     var collectionView: UICollectionView?
-    var bottomContentView: UIView?
+    var barView: UIView?
     var pageControl: UIPageControl?
     var localyButton: UIButton?
     var listButton: UIButton?
@@ -88,10 +88,21 @@ class MWViewController: UIViewController {
     }
     
     func configBar(){
-        let barView = UIView(frame: .zero)
-        barView.backgroundColor = .gray
-        view.addSubview(barView)
-        bottomContentView = barView
+        let bar = UIView(frame: .zero)
+        bar.backgroundColor = .clear
+        view.addSubview(bar)
+        
+        let blurEffect = UIBlurEffect(style: .systemUltraThinMaterialLight)
+        let blurredEffectView = UIVisualEffectView(effect: blurEffect)
+        blurredEffectView.backgroundColor = .lightGray.withAlphaComponent(0.1)
+        
+        bar.addSubview(blurredEffectView)
+        
+        blurredEffectView.snp.makeConstraints { make in
+            make.leading.trailing.bottom.top.equalToSuperview()
+        }
+
+        barView = bar
         createButtons()
         createPageControll()
     }
@@ -102,7 +113,7 @@ class MWViewController: UIViewController {
         locBut.setImage(UIImage(systemName: "location"), for: .normal)
         locBut.tintColor = .black
         locBut.addTarget(self, action: #selector(actionLocaly), for: .touchUpInside)
-        bottomContentView?.addSubview(locBut)
+        barView?.addSubview(locBut)
         localyButton = locBut
         
         let listBut = UIButton(frame: .zero)
@@ -110,7 +121,7 @@ class MWViewController: UIViewController {
         listBut.setImage(UIImage(systemName: "list.bullet"), for: .normal)
         listBut.tintColor = .black
         listBut.addTarget(self, action: #selector(actionList), for: .touchUpInside)
-        bottomContentView?.addSubview(listBut)
+        barView?.addSubview(listBut)
         listButton = listBut
     }
     
@@ -118,17 +129,17 @@ class MWViewController: UIViewController {
         let pageC = UIPageControl(frame: .zero)
         pageC.pageIndicatorTintColor = UIColor.black
         pageC.currentPageIndicatorTintColor = UIColor.white
-        bottomContentView?.addSubview(pageC)
+        barView?.addSubview(pageC)
         pageControl = pageC
     }
     
     func configConstaraint() {
         
-        guard let barView = bottomContentView else {return}
+        guard let barView = barView else {return}
         guard let localyBut = localyButton else {return}
         guard let listBut = listButton else {return}
         
-        bottomContentView?.snp.makeConstraints { make in
+        barView.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview()
             make.bottom.equalToSuperview()
             make.height.equalTo(view.snp.height).multipliedBy(0.1)
@@ -164,7 +175,9 @@ class MWViewController: UIViewController {
     //MARK: - Actions
     
     @objc func actionLocaly() {
-        collectionView?.scrollToItem(at: IndexPath(row: 0, section: 0), at: .centeredVertically, animated: false)
+//        collectionView?.scrollToItem(at: IndexPath(row: 0, section: 0), at: .centeredVertically, animated: false)
+//        entity?.choisedIndex = 0
+//        updatePageControl()
 //        presenter.actionGetLocalWeather()
     }
     
@@ -178,10 +191,7 @@ class MWViewController: UIViewController {
         
         container.subviews.forEach { view in
             view.removeFromSuperview()
-        }
-                
-        self.children.forEach { child in
-            child.removeFromParent()
+            view.findViewController()?.removeFromParent()
         }
         
         addChild(controller)
@@ -198,9 +208,11 @@ class MWViewController: UIViewController {
         DispatchQueue.main.async {
             self.collectionView?.reloadData()
             self.entity = entity
-            self.collectionView?.scrollToItem(
-                at: IndexPath(row: entity.choisedIndex, section: 0),
-                at: .centeredVertically, animated: false)
+            if entity.count != 0 {
+                self.collectionView?.scrollToItem(
+                    at: IndexPath(row: entity.choisedIndex, section: 0),
+                    at: .centeredVertically, animated: false)
+            }
             self.updatePageControl()
             self.presenter.swipeListTo(index: entity.choisedIndex)
         }
@@ -230,18 +242,14 @@ extension MWViewController: UICollectionViewDelegate, UICollectionViewDataSource
             for: indexPath)
         
         guard let controller = CWAssembly.configurateModule(output: nil) else {return cell}
-        
         controller.index = indexPath.row
-        
         addChildViewController(container: cell.contentView, controller: controller)
-        
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        
-        guard let currIndexPath = collectionView.indexPathsForVisibleItems.first else {return}
     
+        guard let currIndexPath = collectionView.indexPathsForVisibleItems.first else {return}
         entity?.choisedIndex = currIndexPath.row
         updatePageControl()
         presenter.swipeListTo(index: currIndexPath.row)
@@ -268,3 +276,4 @@ extension MWViewController: MWPresenterOutput{
         configBackgroud(background)
     }
 }
+

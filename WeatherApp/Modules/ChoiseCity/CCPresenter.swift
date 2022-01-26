@@ -19,6 +19,7 @@ final class CCPresenterImp: CCPresenterInput {
         let entity = CCEntity(isCityChoising: false,
                               cityDict: nil,
                               weatherList: list)
+        interactor.updateWeatherList()
         view?.setState(entity: entity)
     }
     
@@ -28,15 +29,23 @@ final class CCPresenterImp: CCPresenterInput {
     }
     
     func choisedCity(city: CityModel) {
-        let entity = CWEntity(city: city, weather: nil)
+        let entity = CWEntity(city: city, weather: nil, background: nil)
         interactor.updateTemporary(entity: entity)
         router.showCWViewController(output: self)
     }
     
-    
     func choisedCity(index: Int) {
         interactor.updateCurrentIndex(index: index)
         output?.needUpdateOut()
+    }
+    
+    func deleteRow(at IndexPathRow: Int) {
+        interactor.deleteEntity(index: IndexPathRow)
+        let list = interactor.getWeatherList()
+        let entity = CCEntity(isCityChoising: false,
+                              cityDict: nil,
+                              weatherList: list)
+        view?.setState(entity: entity)
     }
 }
 

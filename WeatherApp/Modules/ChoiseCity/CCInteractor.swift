@@ -6,13 +6,16 @@
 //
 
 import Foundation
+import CoreLocation
 
 final class CCInteractorImp: CCInteractorInput {
-        
+    
     weak var output: CCInteractorOutput?
 
+    let weatherService: WeatherService = WeatherServiceImp()
     let weatherListService: WeatherListService = WeatherListServiceImp.shared
     let cityService = CitiesServiceImp()
+    let backGroundService: BackGroundService = BackGroundServiceImp()
     
     func getWeatherList() -> [CWEntity] {
         return weatherListService.getList()
@@ -47,7 +50,6 @@ final class CCInteractorImp: CCInteractorInput {
                 }
             }
                 
-            
             let entity = CCEntity(isCityChoising: true,
                                   cityDict: dict,
                                   weatherList: nil)
@@ -56,6 +58,45 @@ final class CCInteractorImp: CCInteractorInput {
     }
     
     func updateCurrentIndex(index: Int) {
-        weatherListService.updateCurrentEntity(index: index)
+        weatherListService.updateCurrentIndex(value: index)
+    }
+    
+    func updateWeatherList() {
+        let list = weatherListService.getList()
+        let group = DispatchGroup()
+        
+        list.forEach { entityCW in
+            var newEntity = entityCW
+            let location = CLLocationCoordinate2D(
+                latitude: Double(entityCW.city.lat) ?? 0,
+                longitude: Double(entityCW.city.lng) ?? 0)
+            
+            group.enter()
+            weatherService.receiveWeather(for: location) {[weak self] weather in
+                guard let self = self else {return}
+                
+                let condition = weather?.current.weather[0].icon ?? ""
+                let background = self.backGroundService.configFor(condition: condition)
+                
+                newEntity.weather = weather
+                newEntity.background = background
+                
+                self.weatherListService.updateList(entity: newEntity)
+                group.leave()
+            }
+        }
+        
+        group.notify(queue: .global(qos: .userInteractive)) {
+            print("notify")
+            let list = self.weatherListService.getList()
+            let entity = CCEntity(isCityChoising: false,
+                                  cityDict: nil,
+                                  weatherList: list)
+            self.output?.didUpdateEntity(entity: entity)
+        }
+    }
+    
+    func deleteEntity(index: Int) {
+        weatherListService.deleteEntity(for: index)
     }
 }

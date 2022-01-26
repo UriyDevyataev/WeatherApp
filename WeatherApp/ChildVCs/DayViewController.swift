@@ -14,6 +14,8 @@ class DayViewController: UIViewController {
     private var collectionView : UICollectionView?
     
     var data: [DailyWeather]?
+//    var data: WeatherResponse?
+    
     let cellHeigh: Double = 50
     
     override func viewDidLoad() {

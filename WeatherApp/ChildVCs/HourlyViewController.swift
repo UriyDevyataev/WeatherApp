@@ -12,7 +12,8 @@ import SnapKit
 class HourlyViewController: UIViewController {
     
     private var collectionView : UICollectionView?
-    var data: [HourlyWeather]?
+//    var data: [HourlyWeather]?
+    var data: WeatherResponse?
     var sizeView = CGSize.zero
         
     override func viewDidLoad() {
@@ -29,7 +30,7 @@ class HourlyViewController: UIViewController {
         configCollectionView()
     }
     
-    func update(withData: [HourlyWeather]?) {
+    func update(withData: WeatherResponse?) {
         guard let data = withData else {return}
         self.data = data
         collectionView?.reloadData()
@@ -58,12 +59,15 @@ class HourlyViewController: UIViewController {
         self.collectionView = collectionView
     }
 
-    private func fill(cell: HourCollectionViewCell, withContent: HourlyWeather) -> UICollectionViewCell {
+    private func fill(cell: HourCollectionViewCell, withContent: WeatherResponse, index: Int) -> UICollectionViewCell {
+        let offset = withContent.timezone_offset
+        let hourData = withContent.hourly[index]
+
+        let hour = hourData.dt.strHourFromUTC(offset: offset)
+//        let hour = withContent.hourly[index].dt.strHourFromUTC()
+        let temp = "\(Int(hourData.temp.rounded()))\u{00B0}"
         
-        let hour = withContent.dt.strHourFromUTC()
-        let temp = "\(Int(withContent.temp.rounded()))\u{00B0}"
-        
-        var nameImage = withContent.weather[0].icon
+        var nameImage = hourData.weather[0].icon
         nameImage = "\(nameImage.dropLast())d"
         let image = UIImage(named: nameImage)
         
@@ -77,7 +81,7 @@ class HourlyViewController: UIViewController {
 extension HourlyViewController: UICollectionViewDataSource, UICollectionViewDelegate {
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        guard let count = data?.count else {return 0}
+        guard let count = data?.hourly.count else {return 0}
         return count > 24 ? 24 : count
     }
     
@@ -91,7 +95,7 @@ extension HourlyViewController: UICollectionViewDataSource, UICollectionViewDele
         
         guard let data = data else {return hourlyCell}
         
-        let cell = fill(cell: hourlyCell, withContent: data[indexPath.row])
+        let cell = fill(cell: hourlyCell, withContent: data, index: indexPath.row)
 
         return cell
     }

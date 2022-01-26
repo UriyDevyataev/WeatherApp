@@ -6,11 +6,16 @@
 //
 
 import UIKit
+import SpriteKit
 
 class CWViewController: UIViewController {
     
-    var presenter: CWPresenterInput!
+    @IBOutlet weak var skView: SKView!
     
+    var presenter: CWPresenterInput!
+    var scene: SKScene?
+    
+    @IBOutlet weak var scrollView: UIScrollView!
     var index: Int?
     var entity: CWEntity?
     
@@ -39,12 +44,36 @@ class CWViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+//        prepareView()
         configUI()
         presenter.viewIsReady(index: index)
     }
     
+    @objc func panAction(_ sender: UIPanGestureRecognizer) {
+        print(sender.location(in: self.view))
+    }
+    
     deinit {
         print("deinit CWViewController")
+    }
+    
+    private func prepareView() {
+        let scene = SKScene(size: view.frame.size)
+        skView.presentScene(scene)
+        self.scene = scene
+    }
+    
+    private func configBackgroud(_ backGround: Background?) {
+        guard let backGround = backGround else {return}
+        scene?.removeAllChildren()
+        scene?.backgroundColor = UIColor.init(backGround.timesOfDay)
+        let nodes = backGround.nodes
+        nodes.forEach { nodeEntity in
+            guard let node = SKSpriteNode(fileNamed: nodeEntity.name) else { return }
+            node.position = nodeEntity.position
+            self.scene?.addChild(node)
+        }
     }
     
     func configUI() {
@@ -53,6 +82,7 @@ class CWViewController: UIViewController {
         buttonContentView.isHidden = true
         if modalPresentationStyle == .formSheet {
             buttonContentView.isHidden = false
+//            prepareView()
             view.backgroundColor = .gray
         }
         fillScrollView()
@@ -61,6 +91,7 @@ class CWViewController: UIViewController {
     func fillScrollView() {
         createHourlyView()
         createDailyView()
+        
     }
     
     func createHourlyView() {
@@ -78,12 +109,12 @@ class CWViewController: UIViewController {
             containerHourly = container
             
             let controller = HourlyViewController()
-            controller.data = entity?.weather?.hourly
+            controller.data = entity?.weather
             controller.sizeView = container.frame.size
             controllerHourly = controller
             addChildViewController(container: container, controller: controller)
         } else {
-            let data = entity?.weather?.hourly
+            let data = entity?.weather
             controllerHourly?.update(withData: data)
         }
     }
@@ -121,8 +152,18 @@ class CWViewController: UIViewController {
     
     func createContainer() -> UIView {
         let container = UIView(frame: CGRect.zero)
-        container.backgroundColor = .black.withAlphaComponent(0.5)
+        container.backgroundColor = .clear
+        container.clipsToBounds = true
         container.corner(withRadius: 15)
+
+        let blurEffect = UIBlurEffect(style: .regular)
+        let blurredEffectView = UIVisualEffectView(effect: blurEffect)
+        blurredEffectView.alpha = 1
+        container.addSubview(blurredEffectView)
+        
+        blurredEffectView.snp.makeConstraints { make in
+            make.leading.trailing.bottom.top.equalToSuperview()
+        }
         return container
     }
     
@@ -140,10 +181,12 @@ class CWViewController: UIViewController {
         guard let weather = entity.weather else {return}
         
         let temp = "\(weather.current.temp.rounded())\u{00B0}"
-        let maxTemp = "Макс.: \(weather.daily[0].temp.max.rounded())\u{00B0}"
-        let minTemp = "мин.: \(weather.daily[0].temp.min.rounded())\u{00B0}"
-        let maxMinTemp = "\(maxTemp), \(minTemp)"
+        let maxTemp = String(weather.daily[0].temp.max.rounded())
+        let minTemp = String(weather.daily[0].temp.min.rounded())
+        let maxMinTemp = R.string.localizable.maxMinLabel(maxTemp, minTemp)
         let weatherInfo = weather.current.weather[0].description.capitalized
+        
+        
         
         DispatchQueue.main.async {
             self.topContentView.isHidden = false
@@ -152,6 +195,11 @@ class CWViewController: UIViewController {
             self.temperatureLabel.text = temp
             self.infoLabel.text = weatherInfo
             self.maxMinLabel.text = maxMinTemp
+            
+            if self.modalPresentationStyle == .formSheet {
+//                self.configBackgroud(entity.background)
+            }
+            
         }
     }
 }
@@ -161,4 +209,12 @@ extension CWViewController: CWPresenterOutput {
         print("CW_setState")
         updateView(with: entity)
     }
+}
+
+extension CWViewController: UIScrollViewDelegate {
+    
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        print(scrollView.panGestureRecognizer.location(in: self.view))
+    }
+    
 }

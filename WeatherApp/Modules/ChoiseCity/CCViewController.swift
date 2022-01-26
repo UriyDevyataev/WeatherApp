@@ -27,6 +27,7 @@ class CCViewController: UIViewController {
         print("deinit CCViewController")
     }
     func config() {
+        self.view.backgroundColor = .black
         configSearcBar()
         configTableView()
         presenter.viewIsReady()
@@ -35,16 +36,26 @@ class CCViewController: UIViewController {
     func configSearcBar() {
         searchBar.delegate = self
         
+        //textField
         let textField = searchBar.searchTextField
         textField.textColor = .white
-        textField.backgroundColor = .black
+        textField.backgroundColor = .darkGray
         
+        let attributes : [NSAttributedString.Key: Any] = [
+            NSAttributedString.Key.foregroundColor: UIColor.lightGray]
+        let attributedText = NSMutableAttributedString(
+            string: R.string.localizable.searhBarPlaceholder(),
+            attributes: attributes)
+        textField.attributedPlaceholder = attributedText
+        
+        //placeholder
         guard let glassIconView = textField.leftView
                 as? UIImageView else {return}
-        glassIconView.tintColor = .white
+        glassIconView.tintColor = .lightGray
         
-        UIBarButtonItem.appearance(whenContainedInInstancesOf: [UISearchBar.self]).title = "Удалить"
-        UIBarButtonItem.appearance(whenContainedInInstancesOf: [UISearchBar.self]).tintColor = .black
+        //button
+        UIBarButtonItem.appearance(whenContainedInInstancesOf: [UISearchBar.self]).title = R.string.localizable.searhBarClear()
+        UIBarButtonItem.appearance(whenContainedInInstancesOf: [UISearchBar.self]).tintColor = .white
     }
     
     func configTableView(){
@@ -89,24 +100,26 @@ class CCViewController: UIViewController {
     
     private func fill(cell: WeatherTableViewCell, withContent: CWEntity) -> UITableViewCell {
 
-        
         guard let weather = withContent.weather else {return UITableViewCell()}
                 
         let cityName = withContent.city.name
-//        print(weather.current.dt.strTimeFromUTC())
-//        print(weather.timezone_offset.strTimeFromUTC())
-//        let time = (weather.current.dt + weather.timezone_offset).strTimeFromUTC()
-        let time = weather.current.dt.strTimeFromUTC()
+        let time = weather.timezone_offset.strTimeFromNow()
         let temp = "\(weather.current.temp.rounded())\u{00B0}"
+        let maxTemp = String(weather.daily[0].temp.max.rounded())
+        let minTemp = String(weather.daily[0].temp.min.rounded())
+        let maxMinTemp = R.string.localizable.maxMinLabel(maxTemp, minTemp)
 
-        let maxTemp = "Макс.: \(weather.daily[0].temp.max.rounded())\u{00B0}"
-        let minTemp = "мин.: \(weather.daily[0].temp.min.rounded())\u{00B0}"
-
-        let maxMinTemp = "\(maxTemp), \(minTemp)"
-
+        let lang = Locale.preferredLanguages.first?.dropLast(3).description
         var info = ""
+        
         if let alerts = weather.alerts {
-            info = alerts.count > 1 ? alerts[1].event : alerts[0].event
+            
+            if lang == "en" {
+                info = alerts[0].event
+            } else {
+                info = alerts.count > 1 ? alerts[1].event : alerts[0].event
+            }
+            
         } else {
             info = weather.current.weather[0].description
         }
@@ -116,6 +129,7 @@ class CCViewController: UIViewController {
         cell.tempLabel.text = temp
         cell.infoLabel.text = info
         cell.maxMinTempLabel.text = maxMinTemp
+        cell.configBackgroud(withContent.background)
 
         return cell
     }
@@ -146,7 +160,6 @@ extension CCViewController: UITableViewDataSource, UITableViewDelegate {
             cell = cityCell
             
         case false:
-            
             guard let weatherCell = tableView.dequeueReusableCell(
                 withIdentifier: "WeatherTableViewCellIdentifire",
                 for: indexPath) as? WeatherTableViewCell else {
@@ -155,6 +168,7 @@ extension CCViewController: UITableViewDataSource, UITableViewDelegate {
             
             let content = weatherList[indexPath.row]
             cell = fill(cell: weatherCell, withContent: content)
+            cell.selectionStyle = UITableViewCell.SelectionStyle.none
         }
         return cell
     }
@@ -171,14 +185,31 @@ extension CCViewController: UITableViewDataSource, UITableViewDelegate {
             presenter.choisedCity(city: city)
         case false:
             presenter.choisedCity(index: indexPath.row)
+            
             self.dismiss(animated: true)
-//
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return indexPath.row != 0
+    }
+    
+
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        
+        if indexPath.row != 0 {
+            if editingStyle == .delete {
+                print("deleting")
+                presenter.deleteRow(at: indexPath.row)
+                tableView.deleteRows(at: [indexPath], with: .fade)
+            }
         }
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         guard let entity = self.entity else {return 0}
-        return entity.isCityChoising ? 40 : 100
+        return entity.isCityChoising ? 40 : 120
     }
 }
 
@@ -211,7 +242,7 @@ extension CCViewController: UISearchBarDelegate {
 
 extension CCViewController: CCPresenterOutput {
     func setState(entity: CCEntity) {
-        print("CC_setState")
+        print("CC_setState - \(Date.now)")
         updateView(entity: entity)
     }
 }

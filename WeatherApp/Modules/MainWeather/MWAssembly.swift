@@ -12,8 +12,7 @@ class MWAssembly {
     static func configurateModule() -> UIViewController? {
         
         let controller = R.storyboard.mainWeather.mainWeatherVC()
-        
-        controller?.modalPresentationStyle = .fullScreen
+//        controller?.modalPresentationStyle = .fullScreen
         let presenter = MWPresenterImp()
         let interactor = MWInteractorImp()
         let router = MWRouterImp()

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import CoreLocation
 
 class ViewController: UIPageViewController {
 
@@ -15,27 +16,56 @@ class ViewController: UIPageViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configNavigationButton()
-        self.view.backgroundColor = .orange
-        self.delegate = self
-        self.dataSource = self
-        let _ = weatherListService.getCountList()
-        let entArr = weatherListService.getList()
         
-    
         
-        entArr.forEach{ entity in
-            let vc = CWAssembly.configurateModule(output: nil)!
-//            guard let vc = UIStoryboard(name: "CityWeathe", bundle: nil).instantiateViewController(withIdentifier: "CityWeatherVC") as? CWViewController else {return}
-            vc.entity = entity
-            vc.view.backgroundColor = .clear
-            vcArr.append(vc)
-        }
         
-        print(vcArr.count)
+//        Affeltrangen
+//        47.52581
+//        9.03307
+//        Fgura
+//        35.87028
+//        14.51333
         
-//        let vc = vcArr[0] as! UIViewController
-        setViewControllers([vcArr[1]], direction: .forward, animated: true, completion: nil)
+//        Купертино
+//        37.33233141
+//        -122.0312186
+        
+//        var location = CLLocation(latitude: 35.87028,
+//                               longitude: 14.51333)
+//
+//        getPlaceFrom(location: location) { place, error in
+////            guard let place = place?[0], error == nil else {return}
+//            print(place)
+//        }
+//
+//        location = CLLocation(latitude: 37.33233141,
+//                               longitude: -122.0312186)
+//
+//        getPlaceFrom(location: location) { place, error in
+////            guard let place = place?[0], error == nil else {return}
+//            print(place)
+//        }
+//        configNavigationButton()
+//        self.view.backgroundColor = .orange
+//        self.delegate = self
+//        self.dataSource = self
+//        let _ = weatherListService.getCountList()
+//        let entArr = weatherListService.getList()
+//
+//
+//
+//        entArr.forEach{ entity in
+//            let vc = CWAssembly.configurateModule(output: nil)!
+////            guard let vc = UIStoryboard(name: "CityWeathe", bundle: nil).instantiateViewController(withIdentifier: "CityWeatherVC") as? CWViewController else {return}
+//            vc.entity = entity
+//            vc.view.backgroundColor = .clear
+//            vcArr.append(vc)
+//        }
+//
+//        print(vcArr.count)
+//
+////        let vc = vcArr[0] as! UIViewController
+//        setViewControllers([vcArr[1]], direction: .forward, animated: true, completion: nil)
         
         
     }
@@ -78,6 +108,12 @@ class ViewController: UIPageViewController {
     
     @objc func actionBack(){
         print("actionBack")
+    }
+    
+    private func getPlaceFrom(location: CLLocation, completion: @escaping ([CLPlacemark]?, Error?) -> Void) {
+        CLGeocoder().reverseGeocodeLocation(location) { place, error in
+            completion(place, error)
+        }
     }
 
 }

@@ -408,6 +408,95 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
 
+  /// This `R.string` struct is generated, and contains static references to 1 localization tables.
+  struct string {
+    /// This `R.string.localizable` struct is generated, and contains static references to 4 localization keys.
+    struct localizable {
+      /// en translation: Delete
+      ///
+      /// Locales: en, ru
+      static let searhBarClear = Rswift.StringResource(key: "searh.bar.clear", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ru"], comment: nil)
+      /// en translation: Max.: %@, min.: %@
+      ///
+      /// Locales: en, ru
+      static let maxMinLabel = Rswift.StringResource(key: "max.min.label", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ru"], comment: nil)
+      /// en translation: Today
+      ///
+      /// Locales: en, ru
+      static let dayToday = Rswift.StringResource(key: "day.today", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ru"], comment: nil)
+      /// en translation: search
+      ///
+      /// Locales: en, ru
+      static let searhBarPlaceholder = Rswift.StringResource(key: "searh.bar.placeholder", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ru"], comment: nil)
+
+      /// en translation: Delete
+      ///
+      /// Locales: en, ru
+      static func searhBarClear(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("searh.bar.clear", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Localizable", preferredLanguages: preferredLanguages) else {
+          return "searh.bar.clear"
+        }
+
+        return NSLocalizedString("searh.bar.clear", bundle: bundle, comment: "")
+      }
+
+      /// en translation: Max.: %@, min.: %@
+      ///
+      /// Locales: en, ru
+      static func maxMinLabel(_ value1: String, _ value2: String, preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          let format = NSLocalizedString("max.min.label", bundle: hostingBundle, comment: "")
+          return String(format: format, locale: applicationLocale, value1, value2)
+        }
+
+        guard let (locale, bundle) = localeBundle(tableName: "Localizable", preferredLanguages: preferredLanguages) else {
+          return "max.min.label"
+        }
+
+        let format = NSLocalizedString("max.min.label", bundle: bundle, comment: "")
+        return String(format: format, locale: locale, value1, value2)
+      }
+
+      /// en translation: Today
+      ///
+      /// Locales: en, ru
+      static func dayToday(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("day.today", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Localizable", preferredLanguages: preferredLanguages) else {
+          return "day.today"
+        }
+
+        return NSLocalizedString("day.today", bundle: bundle, comment: "")
+      }
+
+      /// en translation: search
+      ///
+      /// Locales: en, ru
+      static func searhBarPlaceholder(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("searh.bar.placeholder", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Localizable", preferredLanguages: preferredLanguages) else {
+          return "searh.bar.placeholder"
+        }
+
+        return NSLocalizedString("searh.bar.placeholder", bundle: bundle, comment: "")
+      }
+
+      fileprivate init() {}
+    }
+
+    fileprivate init() {}
+  }
+
   fileprivate struct intern: Rswift.Validatable {
     fileprivate static func validate() throws {
       try _R.validate()
@@ -576,7 +665,7 @@ struct _R: Rswift.Validatable {
 
     #if os(iOS) || os(tvOS)
     struct main: Rswift.StoryboardResourceWithInitialControllerType, Rswift.Validatable {
-      typealias InitialController = ViewController
+      typealias InitialController = UIKit.UINavigationController
 
       let bundle = R.hostingBundle
       let name = "Main"

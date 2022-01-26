@@ -96,7 +96,6 @@ class BackGroundServiceImp: BackGroundService {
         case "RainLight" :  node.position = CGPoint(x: 0, y: height)
         case "SnowLight" :  node.position = CGPoint(x: 0, y: height)
         case "Mist" :       node.position = CGPoint(x: 100, y: height - 100)
-        
         default:            break
         }
         

@@ -28,7 +28,7 @@ protocol MWPresenterInput {
 
 protocol MWPresenterOutput: AnyObject {
     func setState(entity: MWEntity) //ok
-    func updateBackground(background: Background)
+    func updateBackground(background: Background) //ok
 }
 
 //Interactor
@@ -39,7 +39,7 @@ protocol MWInteractorInput {
     func requestAccessLocation() // not ok
     func getEntity() -> MWEntity // ok
     func updateCurrentIndex(index: Int) // ok
-    func getNewBackGround() -> Background
+    func getNewBackGround() -> Background //ok
     
 }
 
