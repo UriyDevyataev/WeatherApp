@@ -12,7 +12,7 @@ import SnapKit
 class HourlyViewController: UIViewController {
     
     private var collectionView : UICollectionView?
-    var data = [HourlyWeather]()
+    var data: WeatherResponse?
     var sizeView = CGSize.zero
         
     override func viewDidLoad() {
@@ -20,12 +20,16 @@ class HourlyViewController: UIViewController {
         config()
     }
     
+    deinit {
+//        print("deinit HourlyViewController")
+    }
+    
     private func config(){
         view.backgroundColor = .clear
         configCollectionView()
     }
     
-    func update(withData: [HourlyWeather]?) {
+    func update(withData: WeatherResponse?) {
         guard let data = withData else {return}
         self.data = data
         collectionView?.reloadData()
@@ -51,12 +55,23 @@ class HourlyViewController: UIViewController {
             make.top.bottom.equalToSuperview()
             make.leading.trailing.equalToSuperview()
         }
+        self.collectionView = collectionView
     }
 
-    private func fill(cell: HourCollectionViewCell, withContent: HourlyWeather) -> UICollectionViewCell {
-        cell.hourLabel.text = withContent.dt.strHourFromUTC()
-        cell.tempLabel.text = "\(Int(withContent.temp.rounded()))\u{00B0}"
-        cell.imageView.image = UIImage()
+    private func fill(cell: HourCollectionViewCell, withContent: WeatherResponse, index: Int) -> UICollectionViewCell {
+        let offset = withContent.timezone_offset
+        let hourData = withContent.hourly[index]
+
+        let hour = hourData.dt.strHourFromUTC(offset: offset)
+        let temp = "\(Int(hourData.temp.rounded()))\u{00B0}"
+        
+        var nameImage = hourData.weather[0].icon
+        nameImage = "\(nameImage.dropLast())d"
+        let image = UIImage(named: nameImage)
+        
+        cell.hourLabel.text = hour
+        cell.tempLabel.text = temp
+        cell.imageView.image = image
         return cell
     }
 }
@@ -64,7 +79,8 @@ class HourlyViewController: UIViewController {
 extension HourlyViewController: UICollectionViewDataSource, UICollectionViewDelegate {
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return data.count > 24 ? 24 : data.count
+        guard let count = data?.hourly.count else {return 0}
+        return count > 24 ? 24 : count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -75,7 +91,9 @@ extension HourlyViewController: UICollectionViewDataSource, UICollectionViewDele
                     for: indexPath) as? HourCollectionViewCell
         else {return UICollectionViewCell()}
         
-        let cell = fill(cell: hourlyCell, withContent: data[indexPath.row])
+        guard let data = data else {return hourlyCell}
+        
+        let cell = fill(cell: hourlyCell, withContent: data, index: indexPath.row)
 
         return cell
     }

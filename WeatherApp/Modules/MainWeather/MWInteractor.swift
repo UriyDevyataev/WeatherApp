@@ -7,65 +7,76 @@
 
 import CoreLocation
 import UIKit
-import SnapKit
 import Rswift
 
-final class MWInteractorImp: MWInteractorInput {
-
+final class MWInteractorImp: NSObject, MWInteractorInput {
+    
     weak var output: MWInteractorOutput?
+    let locationManager = CLLocationManager()
     
-    let weatherService: WeatherService = WeatherServiceImp()
-    let locationService: LocationService = LocationServiceImp()
-    let weatherListService: WeatherListService = WeatherListServiceImp.shared
-
+    var weatherService: WeatherService!
+    var locationService: LocationService!
+    var weatherListService: WeatherListService!
+    var backGroundService: BackGroundService!
+    
     func requestAccessLocation() {
-        locationService.requestAccess()
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.requestAlwaysAuthorization()
+        locationManager.requestWhenInUseAuthorization()
     }
     
-    func loadEntity(atIndex: Int) {
-        let list = weatherListService.loadList()
-        var entity = list?[atIndex]
-        if let entity = entity {
-            output?.didUpdateEntity(entity: entity)
+    func getEntity() -> MWEntity {
+        let count = weatherListService.getCountList()
+        let index = weatherListService.getCurrentIndex()
+        if count == 0 {
+            createLocalEntityCW()
         }
-        if atIndex == 0 {
-            entity = nil
-        }
-        updateEntity(entity)
+        return MWEntity(count: count, choisedIndex: index)
     }
     
-    func updateEntity(_ entity: MWEntity?) {
-        if let entity = entity {
-            getWeatherFor(city: entity.city)
-        } else {
-            updateLocalyEntity()
-        }
+    func updateCurrentIndex(index: Int) {
+        weatherListService.updateCurrentIndex(value: index)
     }
     
-    private func updateLocalyEntity() {
-        locationService.getCurrentLocalCity {[weak self] city in
+    func getNewBackGround() -> Background {
+        let condition = weatherListService.getCurrentWeatherConditions()
+        let backGround = backGroundService.configFor(condition: condition)
+        return backGround
+    }
+    
+    private func createLocalEntityCW() {
+        
+        locationService.getCurrentLocalCity { [weak self] city in
             guard let self = self else {return}
-            let entity = MWEntity(city: city, weather: nil)
-            self.weatherListService.updateLocaly(entity: entity)
-            self.getWeatherFor(city: entity.city)
+            let location = CLLocationCoordinate2D(
+                latitude: Double(city.lat) ?? 0,
+                longitude: Double(city.lng) ?? 0)
+            self.weatherService.receiveWeather(for: location) {weather in
+                
+                let condition = weather?.current.weather[0].icon ?? ""
+                let background = self.backGroundService.configFor(condition: condition)
+                
+                let entityCW = CWEntity(city: city,
+                                        weather: weather,
+                                        background: background)
+                
+                self.weatherListService.addtoList(entity: entityCW)
+                
+                let entityMW = MWEntity(count: 1, choisedIndex: 0)
+                self.output?.didUpdateEntity(entity: entityMW)
+            } error: { _ in }
         }
     }
+}
+
+extension MWInteractorImp: CLLocationManagerDelegate {
     
-    private func getWeatherFor(city: CityModel) {
-        let coordinate = CLLocationCoordinate2D(
-            latitude: Double(city.lat) ?? 0,
-            longitude: Double(city.lng) ?? 0)
-        weatherService.receiveWeather(for: coordinate) {[weak self] weather in
-            guard let self = self else {return}
-            let entity = MWEntity(city: city, weather: weather)
-            self.weatherListService.updateList(entity: entity)
-            self.output?.didUpdateEntity(entity: entity)
+    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+        if manager.authorizationStatus == .authorizedWhenInUse ||
+            manager.authorizationStatus == .authorizedAlways {
+            output?.didChangeAuthorizationLocation()
         }
-    }
-    
-    func addToList(entity: MWEntity) {
-        weatherListService.updateList(entity: entity)
-//        weatherListService.updateLocaly(entity: entity)
     }
 }
 

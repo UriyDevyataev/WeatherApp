@@ -7,6 +7,17 @@
 
 import Foundation
 
+protocol KeyValueStorage {
+    
+    func getValue(key: String) -> String?
+    func getValue(key: String) -> Data?
+    
+    func setValue(key: String, value: String)
+    func setValue(key: String, value: Data)
+    
+    func clear()
+}
+
 final class SharedStorage: KeyValueStorage {
     
     let storage = UserDefaults.standard

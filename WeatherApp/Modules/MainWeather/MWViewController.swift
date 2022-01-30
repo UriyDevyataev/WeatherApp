@@ -8,151 +8,201 @@
 import Foundation
 import UIKit
 import SnapKit
-import CoreLocation
+import SpriteKit
 
 class MWViewController: UIViewController {
     
-    let locationManager = CLLocationManager()
+    //UI
+    var collectionView: UICollectionView?
+    var barView: UIView?
+    var pageControl: UIPageControl?
+    var localyButton: UIButton?
+    var listButton: UIButton?
+    var scene: SKScene?
     
-    @IBOutlet weak var buttonContentView: UIView!
-    @IBOutlet weak var middleContentView: UIView!
-    @IBOutlet weak var bottomContentView: UIView!
-    @IBOutlet weak var contentView: UIView!
-    
-    @IBOutlet weak var cityLabel: UILabel!
-    @IBOutlet weak var temperatureLabel: UILabel!
-    @IBOutlet weak var feelLikeLabel: UILabel!
-    @IBOutlet weak var infoLabel: UILabel!
-    @IBOutlet weak var maxMinLabel: UILabel!
-    
-    @IBOutlet weak var choiseCityButton: UIButton!
-    @IBOutlet weak var currentLocalyButton: UIButton!
-    
+    //Viper
     var presenter: MWPresenterInput!
     var entity: MWEntity?
     
-    var containerHourly = UIView()
-    var containerDaily = UIView()
-    
-    //MARK: - Actions
-    
-    @IBAction func actionCancel(_ sender: UIButton) {
-        self.dismiss(animated: true, completion: nil)
-    }
-    
-    @IBAction func actionAdd(_ sender: UIButton) {
-        guard let entity = self.entity else {return}
-        presenter.actionAdd(entity: entity)
-        self.dismiss(animated: true)
-    }
-    
-    @IBAction func actionPrint(_ sender: Any) {
-    }
-    
-    @IBAction func actionChoiseCity(_ sender: Any) {
-        presenter.actionShowChoiseCity()
-    }
-    
-    @IBAction func actionCurrentLocaly(_ sender: Any) {
-        presenter.actionGetLocalWeather()
-    }
-
     //MARK: - App Life Cycle
+    
+    override func loadView() {
+        super.loadView()
+        prepareView()
+    }
+    
+    private func prepareView() {
+        view = SKView(frame: view.frame)
+        var skView: SKView { view as! SKView }
+        
+        let scene = SKScene(size: view.frame.size)
+        scene.backgroundColor = .black
+
+        skView.presentScene(scene)
+        self.scene = scene
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         config()
-//        presenter.viewIsReady(with: entity)
+        presenter.viewIsReady()
+    }
+    
+    deinit {
+        print("deinit MWViewController")
     }
     
     //MARK: - Funcs configuration
     
     func config(){
-        configLocation()
-        configUI()
+        configCollectionView()
         configBar()
+        configConstaraint()
     }
     
-    func configLocation() {
-        locationManager.delegate = self
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.requestWhenInUseAuthorization()
-        locationManager.requestAlwaysAuthorization()
+    func updatePageControl(){
+        guard let count = entity?.count else {return}
+        guard let index = entity?.choisedIndex else {return}
+        self.pageControl?.numberOfPages = count
+        self.pageControl?.currentPage = index
     }
-
-    func configUI() {
-        let isHidden = self.modalPresentationStyle != .pageSheet
-        buttonContentView.isHidden = isHidden
-        bottomContentView.isHidden = !isHidden
-        middleContentView.corner(withRadius: 10)
+    
+    func configCollectionView() {
+        
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        layout.minimumLineSpacing = 0
+        let cv = UICollectionView(frame: CGRect.zero, collectionViewLayout: layout)
+        
+        cv.delegate = self
+        cv.dataSource = self
+        cv.backgroundColor = .clear
+        cv.isPagingEnabled = true
+        cv.contentInsetAdjustmentBehavior = .never
+        cv.showsHorizontalScrollIndicator = false
+        
+        cv.register(AllWeatherCollectionViewCell.nib(), forCellWithReuseIdentifier: AllWeatherCollectionViewCell.identifier)
+        
+        view.addSubview(cv)
+        collectionView = cv
     }
     
     func configBar(){
-        currentLocalyButton.setTitle("", for: .normal)
-        currentLocalyButton.setImage(UIImage(systemName: "location"), for: .normal)
-        currentLocalyButton.tintColor = .black
+        let bar = UIView(frame: .zero)
+        bar.backgroundColor = .clear
+        view.addSubview(bar)
+        
+        let blurEffect = UIBlurEffect(style: .systemUltraThinMaterialLight)
+        let blurredEffectView = UIVisualEffectView(effect: blurEffect)
+        blurredEffectView.backgroundColor = .lightGray.withAlphaComponent(0.1)
+        
+        bar.addSubview(blurredEffectView)
+        
+        blurredEffectView.snp.makeConstraints { make in
+            make.leading.trailing.bottom.top.equalToSuperview()
+        }
+
+        barView = bar
+        createButtons()
+        createPageControll()
+    }
     
-        choiseCityButton.setTitle("", for: .normal)
-        choiseCityButton.setImage(UIImage(systemName: "list.bullet"), for: .normal)
-        choiseCityButton.tintColor = .black
+    func createButtons() {
+        let locBut = UIButton(frame: .zero)
+        locBut.setTitle("", for: .normal)
+        locBut.setImage(UIImage(systemName: "location"), for: .normal)
+        locBut.tintColor = .black
+        locBut.addTarget(self, action: #selector(actionLocaly), for: .touchUpInside)
+        barView?.addSubview(locBut)
+        localyButton = locBut
+        
+        let listBut = UIButton(frame: .zero)
+        listBut.setTitle("", for: .normal)
+        listBut.setImage(UIImage(systemName: "list.bullet"), for: .normal)
+        listBut.tintColor = .black
+        listBut.addTarget(self, action: #selector(actionList), for: .touchUpInside)
+        barView?.addSubview(listBut)
+        listButton = listBut
+    }
+    
+    func createPageControll(){
+        let pageC = UIPageControl(frame: .zero)
+        pageC.pageIndicatorTintColor = UIColor.black
+        pageC.currentPageIndicatorTintColor = UIColor.white
+        barView?.addSubview(pageC)
+        pageControl = pageC
+    }
+    
+    func configConstaraint() {
+        
+        guard let barView = barView else {return}
+        guard let localyBut = localyButton else {return}
+        guard let listBut = listButton else {return}
+        
+        barView.snp.makeConstraints { make in
+            make.leading.trailing.equalToSuperview()
+            make.bottom.equalToSuperview()
+            make.height.equalTo(view.snp.height).multipliedBy(0.1)
+        }
+        
+        localyButton?.snp.makeConstraints { make in
+            make.leading.equalToSuperview().offset(15)
+            make.top.equalToSuperview().offset(10)
+            make.height.equalTo(barView.snp.height).multipliedBy(0.6)
+            make.width.equalTo(localyBut.snp.height).multipliedBy(1.0 / 1.0)
+        }
+        
+        listButton?.snp.makeConstraints { make in
+            make.trailing.equalToSuperview().offset(-15)
+            make.top.equalToSuperview().offset(10)
+            make.height.equalTo(barView.snp.height).multipliedBy(0.6)
+            make.width.equalTo(listBut.snp.height).multipliedBy(1.0 / 1.0)
+        }
+        
+        pageControl?.snp.makeConstraints { make in
+            make.leading.equalTo(localyBut.snp.trailing).offset(10)
+            make.trailing.equalTo(listBut.snp.leading).offset(-10)
+            make.centerY.equalTo(listBut.snp.centerY)
+        }
+        
+        collectionView?.snp.makeConstraints { make in
+            make.leading.trailing.equalToSuperview()
+            make.top.equalToSuperview()
+            make.bottom.equalTo(barView.snp.top)
+        }
+    }
+    
+    //MARK: - Actions
+    
+    @objc func actionLocaly() {
+        presenter.actionShowLocalCity()
+        
+//        collectionView?.scrollToItem(at: IndexPath(row: 0, section: 0), at: .centeredVertically, animated: true) {
+//
+//        }
+        
+       
+        
+//        entity?.choisedIndex = 0
+//        updatePageControl()
+//        presenter.actionGetLocalWeather()
+    }
+    
+    @objc func actionList() {
+        presenter.actionShowChoiseCity()
     }
     
     //MARK: - Funcs Other
     
-    func fillScrollView() {
-        createHourlyView()
-        createDailyView()
-    }
-    
-    func createContainer() -> UIView {
-        let container = UIView(frame: CGRect.zero)
-        container.backgroundColor = .black
-        container.corner(withRadius: 10)
-        return container
-    }
-    
-    func createHourlyView() {
-        containerHourly.removeFromSuperview()
-        containerHourly = createContainer()
-        contentView.addSubview(containerHourly)
-        
-        containerHourly.snp.makeConstraints { make in
-            make.top.equalToSuperview()
-            make.leading.equalToSuperview().offset(0)
-            make.trailing.equalToSuperview().offset(0)
-            make.height.equalTo(100)
-        }
-        containerHourly.layoutIfNeeded()
-            
-        let controller = HourlyViewController()
-        controller.update(withData: entity?.weather?.hourly)
-        controller.sizeView = containerHourly.frame.size
-        
-        addChildViewController(container: containerHourly, controller: controller)
-    }
-    
-    func createDailyView() {
-        containerDaily.removeFromSuperview()
-        containerDaily = createContainer()
-        contentView.addSubview(containerDaily)
-        
-        let controller = DayViewController()
-        controller.update(withData: entity?.weather?.daily)
-        
-        containerDaily.snp.makeConstraints { make in
-            make.top.equalTo(containerHourly.snp.bottom).offset(15)
-            make.leading.equalToSuperview().offset(0)
-            make.trailing.equalToSuperview().offset(0)
-            make.bottom.equalToSuperview().offset(-40)
-            make.height.equalTo(controller.mainHeigh)
-        }
-        containerDaily.layoutIfNeeded()
-        addChildViewController(container: containerDaily, controller: controller)
-    }
-        
     func addChildViewController(container: UIView, controller: UIViewController) {
+        
+        container.subviews.forEach { view in
+            view.removeFromSuperview()
+            view.findViewController()?.removeFromParent()
+        }
+        
         addChild(controller)
+    
         container.addSubview(controller.view)
         controller.view.snp.makeConstraints { make in
             make.top.bottom.leading.trailing.equalToSuperview()
@@ -162,40 +212,75 @@ class MWViewController: UIViewController {
     
     func updateView(with entity: MWEntity) {
         self.entity = entity
-        
-        guard let weather = entity.weather else {return}
-        
-        let temp = "\(weather.current.temp.rounded())\u{00B0}"
-        let feelLike = "Ощущается как: \(weather.current.feels_like.rounded())\u{00B0}"
-        let maxTemp = "Макс.: \(weather.daily[0].temp.max.rounded())\u{00B0}"
-        let minTemp = "мин.: \(weather.daily[0].temp.min.rounded())\u{00B0}"
-        let maxMinTemp = "\(maxTemp), \(minTemp)"
-        let weatherInfo = weather.current.weather[0].description.capitalized
-        
         DispatchQueue.main.async {
-            self.fillScrollView()
-            self.cityLabel.text = entity.city.name
-            self.temperatureLabel.text = temp
-            self.feelLikeLabel.text = feelLike
-            self.infoLabel.text = weatherInfo
-            self.maxMinLabel.text = maxMinTemp
+            
+            self.collectionView?.reloadData()
+            self.entity = entity
+            if entity.count != 0 {
+                self.collectionView?.scrollToItem(
+                    at: IndexPath(row: entity.choisedIndex, section: 0),
+                    at: .centeredVertically, animated: false)
+            }
+            self.updatePageControl()
+            self.presenter.swipeListTo(index: entity.choisedIndex)
+        }
+    }
+    
+    private func configBackgroud(_ backGround: Background) {
+        scene?.removeAllChildren()
+        scene?.backgroundColor = UIColor.init(backGround.timesOfDay)
+        let nodes = backGround.nodes
+        nodes.forEach { nodeEntity in
+            guard let node = SKSpriteNode(fileNamed: nodeEntity.name) else { return }
+            node.position = nodeEntity.position
+            self.scene?.addChild(node)
         }
     }
 }
 
-extension MWViewController: CLLocationManagerDelegate {
+extension MWViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return entity?.count ?? 0
+    }
     
-    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        presenter.viewIsReady(with: entity)
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+
+        let cell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: AllWeatherCollectionViewCell.identifier,
+            for: indexPath)
+        
+        guard let controller = CWAssembly.configurateModule(output: nil) else {return cell}
+        controller.index = indexPath.row
+        addChildViewController(container: cell.contentView, controller: controller)
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+    
+        guard let currIndexPath = collectionView.indexPathsForVisibleItems.first else {return}
+        entity?.choisedIndex = currIndexPath.row
+        updatePageControl()
+        presenter.swipeListTo(index: currIndexPath.row)
+    }
+}
+
+extension MWViewController: UICollectionViewDelegateFlowLayout  {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return collectionView.frame.size
     }
 }
 
 //MARK: - Extension MWPresenterOutput
 
 extension MWViewController: MWPresenterOutput{
+
     func setState(entity: MWEntity) {
-        
+//        print("MW_setState")
         updateView(with: entity)
-        print("setState")
+    }
+    
+    func updateBackground(background: Background) {
+        configBackgroud(background)
     }
 }
+
