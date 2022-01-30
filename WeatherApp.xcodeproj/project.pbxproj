@@ -31,6 +31,7 @@
 		CB5E1F3F279C7FC900A721C6 /* WeatherAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB5E1F3E279C7FC900A721C6 /* WeatherAppTests.swift */; };
 		CB5E1F47279C83B700A721C6 /* WeatherListServiceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB5E1F46279C83B700A721C6 /* WeatherListServiceTest.swift */; };
 		CB5E1F49279C8B8800A721C6 /* cities.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB5E1F48279C8B8800A721C6 /* cities.swift */; };
+		CB6242AE27A6A1F2004CC6F1 /* CoreDataStorageTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB6242AD27A6A1F2004CC6F1 /* CoreDataStorageTest.swift */; };
 		CB668952279710DE0078D00D /* Mist.sks in Resources */ = {isa = PBXBuildFile; fileRef = CB668951279710DE0078D00D /* Mist.sks */; };
 		CB66895727971DF80078D00D /* BackGroundService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB66895627971DF80078D00D /* BackGroundService.swift */; };
 		CB66895D2797226F0078D00D /* Night.sks in Resources */ = {isa = PBXBuildFile; fileRef = CB66895C2797226F0078D00D /* Night.sks */; };
@@ -49,7 +50,7 @@
 		CBB968972786083600924738 /* CCRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB968962786083600924738 /* CCRouter.swift */; };
 		CBB968992786084200924738 /* CCEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB968982786084200924738 /* CCEntity.swift */; };
 		CBB9689B2786085400924738 /* CCAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB9689A2786085400924738 /* CCAssembly.swift */; };
-		CBBDEA2A279DCFC80033D1F4 /* StorageTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBBDEA29279DCFC80033D1F4 /* StorageTest.swift */; };
+		CBBDEA2A279DCFC80033D1F4 /* SharedStorageTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBBDEA29279DCFC80033D1F4 /* SharedStorageTest.swift */; };
 		CBBDEA37279ECC890033D1F4 /* PresenterOutputMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBBDEA36279ECC890033D1F4 /* PresenterOutputMock.swift */; };
 		CBBDEA3A279ECCF10033D1F4 /* PresenterTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBBDEA39279ECCF10033D1F4 /* PresenterTest.swift */; };
 		CBBDEA3C279EDA730033D1F4 /* Connected.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBBDEA3B279EDA730033D1F4 /* Connected.swift */; };
@@ -126,6 +127,7 @@
 		CB5E1F3E279C7FC900A721C6 /* WeatherAppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherAppTests.swift; sourceTree = "<group>"; };
 		CB5E1F46279C83B700A721C6 /* WeatherListServiceTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherListServiceTest.swift; sourceTree = "<group>"; };
 		CB5E1F48279C8B8800A721C6 /* cities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = cities.swift; sourceTree = "<group>"; };
+		CB6242AD27A6A1F2004CC6F1 /* CoreDataStorageTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStorageTest.swift; sourceTree = "<group>"; };
 		CB668951279710DE0078D00D /* Mist.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Mist.sks; sourceTree = "<group>"; };
 		CB66895627971DF80078D00D /* BackGroundService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackGroundService.swift; sourceTree = "<group>"; };
 		CB66895C2797226F0078D00D /* Night.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Night.sks; sourceTree = "<group>"; };
@@ -145,7 +147,7 @@
 		CBB968962786083600924738 /* CCRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CCRouter.swift; sourceTree = "<group>"; };
 		CBB968982786084200924738 /* CCEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CCEntity.swift; sourceTree = "<group>"; };
 		CBB9689A2786085400924738 /* CCAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CCAssembly.swift; sourceTree = "<group>"; };
-		CBBDEA29279DCFC80033D1F4 /* StorageTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageTest.swift; sourceTree = "<group>"; };
+		CBBDEA29279DCFC80033D1F4 /* SharedStorageTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedStorageTest.swift; sourceTree = "<group>"; };
 		CBBDEA36279ECC890033D1F4 /* PresenterOutputMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresenterOutputMock.swift; sourceTree = "<group>"; };
 		CBBDEA39279ECCF10033D1F4 /* PresenterTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresenterTest.swift; sourceTree = "<group>"; };
 		CBBDEA3B279EDA730033D1F4 /* Connected.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Connected.swift; sourceTree = "<group>"; };
@@ -389,7 +391,8 @@
 			children = (
 				CB5E1F48279C8B8800A721C6 /* cities.swift */,
 				CB5E1F46279C83B700A721C6 /* WeatherListServiceTest.swift */,
-				CBBDEA29279DCFC80033D1F4 /* StorageTest.swift */,
+				CBBDEA29279DCFC80033D1F4 /* SharedStorageTest.swift */,
+				CB6242AD27A6A1F2004CC6F1 /* CoreDataStorageTest.swift */,
 			);
 			path = ServiceTest;
 			sourceTree = "<group>";
@@ -789,7 +792,8 @@
 				CBBDEA37279ECC890033D1F4 /* PresenterOutputMock.swift in Sources */,
 				CB5E1F47279C83B700A721C6 /* WeatherListServiceTest.swift in Sources */,
 				CBBDEA3A279ECCF10033D1F4 /* PresenterTest.swift in Sources */,
-				CBBDEA2A279DCFC80033D1F4 /* StorageTest.swift in Sources */,
+				CBBDEA2A279DCFC80033D1F4 /* SharedStorageTest.swift in Sources */,
+				CB6242AE27A6A1F2004CC6F1 /* CoreDataStorageTest.swift in Sources */,
 				CB5E1F49279C8B8800A721C6 /* cities.swift in Sources */,
 				CB5E1F3F279C7FC900A721C6 /* WeatherAppTests.swift in Sources */,
 			);

@@ -20,7 +20,7 @@ class WeatherListServiceTest: XCTestCase {
         let entity = cities[0]
         
         //act
-        service.updateLocaly(entity: entity)
+        service.addtoList(entity: entity)
         let countAfter = service.getCountList()
         
         //assert
@@ -35,8 +35,7 @@ class WeatherListServiceTest: XCTestCase {
         let entity = cities[1]
         
         //act
-        
-        service.updateList(entity: entity)
+        service.addtoList(entity: entity)
         let countAfter = service.getCountList()
         
         //assert
@@ -49,12 +48,13 @@ class WeatherListServiceTest: XCTestCase {
         //arrange
         let countBefore = service.getCountList()
         let list = service.getList()
-        let entityBefore = list[1]
-        
-        //act
+        let index = 1
+        let entityBefore = list[index]
         var newEntity = entityBefore
+        //act
+        
         newEntity.weather = nil
-        service.updateList(entity: newEntity)
+        service.updateList(entity: newEntity, index: index)
         let countAfter = service.getCountList()
         
         let newList = service.getList()
@@ -74,7 +74,7 @@ class WeatherListServiceTest: XCTestCase {
         let entityForDelete = list[1]
         
         //act
-        service.deleteEntity(for: 1)
+        service.deleteFromList(for: 1)
         let countAfter = service.getCountList()
         let newlist = service.getList()
         
@@ -98,7 +98,7 @@ class WeatherListServiceTest: XCTestCase {
         let deletingIndex = countBefore + 1
         
         //act
-        service.deleteEntity(for: deletingIndex)
+        service.deleteFromList(for: deletingIndex)
         let countAfter = service.getCountList()
 
         //assert
@@ -107,6 +107,8 @@ class WeatherListServiceTest: XCTestCase {
     
     func test5UpdateAndGetCurrentIndex() {
         //arrange
+        let entity = cities[2]
+        service.addtoList(entity: entity)
         let currentIndexBefore = service.getCurrentIndex()
         let newCurrentIndex = currentIndexBefore + 1
         
@@ -146,24 +148,5 @@ class WeatherListServiceTest: XCTestCase {
         //assert
         XCTAssertEqual(countBefore, countAfter)
         XCTAssertEqual(newTempEntity.city.geonameId, tempEntity?.city.geonameId)
-    }
-    
-    func test8SaveTempraryEntity() {
-        //arrange
-        let countBefore = service.getCountList()
-        let newTempEntity = cities[2]
-        
-        //act
-        service.setTemporary(entity: newTempEntity)
-        service.saveTemporaryEntity()
-        
-        let list = service.getList()
-        let lastSavedEntity = list.last
-        let countAfter = service.getCountList()
-        
-        //assert
-        XCTAssertNotEqual(countBefore, countAfter)
-        XCTAssertGreaterThan(countAfter, countBefore)
-        XCTAssertEqual(newTempEntity.city.geonameId, lastSavedEntity?.city.geonameId)
     }
 }

@@ -34,10 +34,11 @@ final class WeatherListServiceImp: WeatherListService {
     }
     
     func getCurrentWeatherConditions() -> String {
-        guard let entity = listWeather?[choisedEntityIndex]
-        else {return ""}
-        guard let string = entity.weather?.current.weather[0].icon
-        else {return ""}
+        var string = ""
+        if choisedEntityIndex < listWeather?.count ?? 0 {
+            guard let entity = listWeather?[choisedEntityIndex] else {return ""}
+            string = entity.weather?.current.weather[0].icon ?? ""
+        }
         return string
     }
     
