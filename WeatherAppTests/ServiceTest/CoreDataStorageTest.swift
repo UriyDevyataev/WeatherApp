@@ -116,7 +116,7 @@ class CoreDataStorageTest: XCTestCase {
         XCTAssertEqual(countAfter, countBefore)
     }
     
-    func testDeleteAll() {
+    func test5DeleteAll() {
         //arrange
         let list = coreDataStorage.fetchList()
         let countBefore = list.count
@@ -132,5 +132,7 @@ class CoreDataStorageTest: XCTestCase {
         //assert
         XCTAssertNotEqual(countAfter, countBefore)
         XCTAssertEqual(countAfter, 0)
+        
+        
     }
 }
