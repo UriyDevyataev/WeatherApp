@@ -9,7 +9,6 @@
 import Foundation
 import CoreData
 
-
 extension Cities {
 
     @nonobjc public class func fetchRequest() -> NSFetchRequest<Cities> {
@@ -18,5 +17,4 @@ extension Cities {
 
     @NSManaged public var city: Data?
     @NSManaged public var date: Date?
-
 }

@@ -31,6 +31,7 @@
 		CB5E1F3F279C7FC900A721C6 /* WeatherAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB5E1F3E279C7FC900A721C6 /* WeatherAppTests.swift */; };
 		CB5E1F47279C83B700A721C6 /* WeatherListServiceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB5E1F46279C83B700A721C6 /* WeatherListServiceTest.swift */; };
 		CB5E1F49279C8B8800A721C6 /* cities.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB5E1F48279C8B8800A721C6 /* cities.swift */; };
+		CB6242AC27A696E7004CC6F1 /* xsxsParticle.sks in Resources */ = {isa = PBXBuildFile; fileRef = CB6242AB27A696E7004CC6F1 /* xsxsParticle.sks */; };
 		CB668952279710DE0078D00D /* Mist.sks in Resources */ = {isa = PBXBuildFile; fileRef = CB668951279710DE0078D00D /* Mist.sks */; };
 		CB66895727971DF80078D00D /* BackGroundService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB66895627971DF80078D00D /* BackGroundService.swift */; };
 		CB66895D2797226F0078D00D /* Night.sks in Resources */ = {isa = PBXBuildFile; fileRef = CB66895C2797226F0078D00D /* Night.sks */; };
@@ -126,6 +127,7 @@
 		CB5E1F3E279C7FC900A721C6 /* WeatherAppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherAppTests.swift; sourceTree = "<group>"; };
 		CB5E1F46279C83B700A721C6 /* WeatherListServiceTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherListServiceTest.swift; sourceTree = "<group>"; };
 		CB5E1F48279C8B8800A721C6 /* cities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = cities.swift; sourceTree = "<group>"; };
+		CB6242AB27A696E7004CC6F1 /* xsxsParticle.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = xsxsParticle.sks; sourceTree = "<group>"; };
 		CB668951279710DE0078D00D /* Mist.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Mist.sks; sourceTree = "<group>"; };
 		CB66895627971DF80078D00D /* BackGroundService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackGroundService.swift; sourceTree = "<group>"; };
 		CB66895C2797226F0078D00D /* Night.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Night.sks; sourceTree = "<group>"; };
@@ -471,6 +473,7 @@
 				CB668951279710DE0078D00D /* Mist.sks */,
 				CB66895C2797226F0078D00D /* Night.sks */,
 				CBC4DD5A2796BEF80069B99E /* Assets.xcassets */,
+				CB6242AB27A696E7004CC6F1 /* xsxsParticle.sks */,
 			);
 			path = SpriteKitFiles;
 			sourceTree = "<group>";
@@ -647,6 +650,7 @@
 				CBC4DD722796E36E0069B99E /* Sun.sks in Resources */,
 				CBC4DD6E2796E3470069B99E /* Clouds.sks in Resources */,
 				CB2455C3279B31E70025B1B2 /* Localizable.strings in Resources */,
+				CB6242AC27A696E7004CC6F1 /* xsxsParticle.sks in Resources */,
 				CBC4DD5B2796BEF80069B99E /* RainLight.sks in Resources */,
 				CB4798CE2781BF000006C86A /* Main.storyboard in Resources */,
 			);
