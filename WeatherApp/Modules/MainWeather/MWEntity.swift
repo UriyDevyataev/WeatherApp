@@ -6,9 +6,19 @@
 //
 
 import Foundation
+import UIKit
 
 struct MWEntity: Codable{
-    
-    let city: CityModel
-    var weather: WeatherResponse?
+    let count: Int
+    var choisedIndex: Int
+}
+
+struct Background: Codable {
+    let timesOfDay: String
+    let nodes: [Node]
+}
+
+struct Node: Codable {
+    let name: String
+    var position: CGPoint
 }

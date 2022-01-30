@@ -52,7 +52,7 @@ struct HourlyWeather: Codable{
     let pop: Double
     let rain: RainOneHour?
     let snow: SnowOneHour?
-    let weather: [Weather]
+    var weather: [Weather]
 }
 
 struct RainOneHour: Codable{
@@ -106,7 +106,7 @@ struct Weather: Codable {
     let id: Int
     let main: String
     let description: String
-    let icon: String
+    var icon: String
 }
 
 struct Alerts: Codable {

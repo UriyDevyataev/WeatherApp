@@ -13,16 +13,17 @@ class DayViewController: UIViewController {
     
     private var collectionView : UICollectionView?
     
-    var data = [DailyWeather]()
-//    let cellSize = CGSize.zero
-    let cellHeigh: Double = 50
-    var mainHeigh = 0
+    var data: [DailyWeather]?
     
-//    var dataSource: UICollectionViewDataSource?
-        
+    let cellHeigh: Double = 50
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         config()
+    }
+    
+    deinit {
+//        print("deinit DayViewController")
     }
     
     private func config(){
@@ -33,7 +34,6 @@ class DayViewController: UIViewController {
     func update(withData: [DailyWeather]?) {
         guard let data = withData else {return}
         self.data = data
-        mainHeigh = data.count * Int(cellHeigh)
         collectionView?.reloadData()
     }
     
@@ -62,6 +62,7 @@ class DayViewController: UIViewController {
             make.top.equalToSuperview().offset(0)
             make.bottom.equalToSuperview().offset(0)
         }
+        self.collectionView = collectionView
     }
     
     private func fill(cell: DayCollectionViewCell, withContent: DailyWeather) -> UICollectionViewCell {
@@ -70,10 +71,14 @@ class DayViewController: UIViewController {
         let maxTemp = "\(withContent.temp.max.rounded())\u{00B0}"
         let day = withContent.dt.strDayFromUTC()
         
+        var nameImage = withContent.weather[0].icon
+        nameImage = "\(nameImage.dropLast())d"
+        let image = UIImage(named: nameImage)
+        
         cell.dayLabel.text = day
         cell.minTempLabel.text = minTemp
         cell.maxTempLabel.text = maxTemp
-        cell.imageView.image = UIImage()
+        cell.imageView.image = image
     
         return cell
     }
@@ -82,7 +87,8 @@ class DayViewController: UIViewController {
 extension DayViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return data.count
+        guard let count = data?.count else {return 0}
+        return count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -93,6 +99,7 @@ extension DayViewController: UICollectionViewDataSource {
                     for: indexPath) as? DayCollectionViewCell
         else {return UICollectionViewCell()}
         
+        guard let data = data else {return dailyCell}
         let cell = fill(cell: dailyCell, withContent: data[indexPath.row])
         return cell
     }

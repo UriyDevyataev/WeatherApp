@@ -8,42 +8,52 @@
 final class MWPresenterImp: MWPresenterInput {
     
     weak var view: MWPresenterOutput?
-    weak var output: MWModuleOutput?
-    
     var interactor: MWInteractorInput!
     var router: MWRouterInput!
     
-    func viewIsReady(with entity: MWEntity?) {
+    func viewIsReady() {
         interactor.requestAccessLocation()
-        
-        if let _ = entity?.city {
-            interactor.updateEntity(entity)
-        } else {
-            interactor.loadEntity(atIndex: 0)
-        }
-    }
-    
-    func actionGetLocalWeather() {
-        interactor.loadEntity(atIndex: 0)
     }
     
     func actionShowChoiseCity() {
-        router.showCCViewController()
+        router.showCCViewController(output: self)
     }
     
-    func actionAdd(entity: MWEntity) {
-        interactor.addToList(entity: entity)
+    func actionShowLocalCity() {
+        interactor.updateCurrentIndex(index: 0)
+        let entity = interactor.getEntity()
+        view?.setState(entity: entity)
+        getBackGround()
+    }
+    
+    func swipeListTo(index: Int) {
+        interactor.updateCurrentIndex(index: index)
+        getBackGround()
+    }
+    
+    private func getBackGround() {
+        let background = interactor.getNewBackGround()
+        view?.updateBackground(background: background)
     }
 }
 
 extension MWPresenterImp: MWInteractorOutput {
+    
+    func didChangeAuthorizationLocation() {
+        let entity = interactor.getEntity()
+        view?.setState(entity: entity)
+        getBackGround()
+    }
+    
     func didUpdateEntity(entity: MWEntity) {
         view?.setState(entity: entity)
     }
 }
 
-extension MWPresenterImp: MWModuleOutput {
-    func didUpdateEntityOut(entity: MWEntity) {
+extension MWPresenterImp: MWModuleInput {
+    func needUpdateOut() {
+        let entity = interactor.getEntity()
         view?.setState(entity: entity)
+        getBackGround()
     }
 }

@@ -9,10 +9,7 @@ import Foundation
 
 //Router
 protocol CCRouterInput {
-    
-//    func showMWViewController()
-    func showMWViewController(with city: CityModel)
-    func showMWViewController(with entity: MWEntity)
+    func showCWViewController(output: CCModuleInput?)
 }
 
 protocol CCRouterOutput {
@@ -20,35 +17,45 @@ protocol CCRouterOutput {
 
 //Presenter
 protocol CCPresenterInput {
-    
     func viewIsReady()
-    func changedCity(text: String)
-    func choisedCity(city: CityModel)
-    func showMWController(entity: MWEntity)
-    func back()
+    
+    func changedSearch(text: String, lang: String)
+    func changedSearch(city: CityModel)
+    
+    func choisedCity(index: Int)
+    func deleteCity(at IndexPathRow: Int)
 }
 
 protocol CCPresenterOutput: AnyObject {
-    
     func setState(entity: CCEntity)
 }
 
 //Interactor
 protocol CCInteractorInput {
     
-    func getWeatherList() -> [MWEntity]?
+    func getWeatherList() -> [CWEntity]
+    func updateWeatherList()
+    func getCityList(for searchText: String,lang: String)
     
-    func reloadCityList(for searchText: String)
+    func updateTemporary(entity: CWEntity)
+    func updateCurrentIndex(index: Int)
+    func deleteCity(index: Int)
+    
+    func checkConnected() -> Bool
 }
 
 protocol CCInteractorOutput: AnyObject {
-    
     func didUpdateEntity(entity: CCEntity)
 }
 
 //Module
-protocol CCModuleInput {
+protocol CCModuleInput: AnyObject {
+    func needUpdateOut()
 }
 
 protocol CCModuleOutput: AnyObject {
+    func updateChoisedCity(index: Int)
 }
+
+
+//need renaiming!!!

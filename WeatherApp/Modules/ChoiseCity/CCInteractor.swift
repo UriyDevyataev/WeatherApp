@@ -6,51 +6,95 @@
 //
 
 import Foundation
+import CoreLocation
 
 final class CCInteractorImp: CCInteractorInput {
     
-    let weatherListService: WeatherListService = WeatherListServiceImp.shared
+    weak var output: CCInteractorOutput?
+
+    var weatherService: WeatherService!
+    var weatherListService: WeatherListService!
+    var cityService: CitiesService!
+    var backGroundService: BackGroundService!
+    var connectionService: Connect!
     
-    func getWeatherList() -> [MWEntity]? {
-        return weatherListService.loadList()
+    func getWeatherList() -> [CWEntity] {
+        return weatherListService.getList()
     }
     
-    weak var output: CCInteractorOutput?
+    func updateTemporary(entity: CWEntity) {
+        weatherListService.setTemporary(entity: entity)
+    }
     
-    let cityService = CitiesServiceImp()
-     
-    func reloadCityList(for searchText: String) {
+    func checkConnected() -> Bool {
+        connectionService.checkConnection()
+    }
     
-        cityService.receiveCities(for: searchText) { cities in
-            
+    func getCityList(for searchText: String, lang: String) {
+        
+        self.cityService.receiveCities(for: searchText, lang: lang) { cities in
             var dict = [String: CityModel]()
             cities.forEach { city in
                 
-                if dict[city.name] == nil {
-                    dict[city.name] = city
-                } else {
-                    guard let oldCity = dict[city.name] else {return}
-                    var newKey = "\(oldCity.name), \(oldCity.adminName1), \(oldCity.countryName)"
-                    if newKey.last == " " {
-                        newKey.removeLast(2)
-                    }
-                    dict[newKey] = oldCity
-                    dict.removeValue(forKey: oldCity.name)
-                    
-                    newKey = "\(city.name), \(city.adminName1), \(city.countryName)"
-                    if newKey.last == " " {
-                        newKey.removeLast(2)
-                    }
-                    dict[newKey] = city
+                var name = "\(city.name), \(city.adminName1), \(city.countryName)"
+                
+                if city.name == city.adminName1 {
+                    name = "\(city.name), \(city.countryName)"
+                }
+                
+                if dict[name] == nil {
+                    dict[name] = city
                 }
             }
-//            var array = [String]()
-//            cities.geonames.forEach { city in
-//                array.append(city.name)
-//            }
+                
+            let entity = CCEntity(isCityChoising: true,
+                                  cityDict: dict,
+                                  weatherList: nil)
+            self.output?.didUpdateEntity(entity: entity)
+        } error: { _ in }
+    }
+    
+    func updateCurrentIndex(index: Int) {
+        weatherListService.updateCurrentIndex(value: index)
+    }
+    
+    func updateWeatherList() {
+        let list = weatherListService.getList()
+        let group = DispatchGroup()
+        
+        for i in 0..<list.count {
+            var entityCW = list[i]
+            let location = CLLocationCoordinate2D(
+                latitude: Double(entityCW.city.lat) ?? 0,
+                longitude: Double(entityCW.city.lng) ?? 0)
             
-            let entity = CCEntity(isCityChoising: true, cityDict: dict, weatherList: [MWEntity]())
+            group.enter()
+            weatherService.receiveWeather(for: location) {[weak self] weather in
+                guard let self = self else {return}
+                
+                let condition = weather?.current.weather[0].icon ?? ""
+                let background = self.backGroundService.configFor(condition: condition)
+                
+                entityCW.weather = weather
+                entityCW.background = background
+                
+                self.weatherListService.updateList(entity: entityCW, index: i)
+                group.leave()
+            } error: { err in
+                print(err ?? "")
+            }
+        }
+        
+        group.notify(queue: .global(qos: .userInteractive)) {
+            let list = self.weatherListService.getList()
+            let entity = CCEntity(isCityChoising: false,
+                                  cityDict: nil,
+                                  weatherList: list)
             self.output?.didUpdateEntity(entity: entity)
         }
+    }
+    
+    func deleteCity(index: Int) {
+        weatherListService.deleteFromList(for: index)
     }
 }

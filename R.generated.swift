@@ -89,10 +89,12 @@ struct R: Rswift.Validatable {
   }
 
   #if os(iOS) || os(tvOS)
-  /// This `R.storyboard` struct is generated, and contains static references to 4 storyboards.
+  /// This `R.storyboard` struct is generated, and contains static references to 5 storyboards.
   struct storyboard {
     /// Storyboard `ChoiseCity`.
     static let choiseCity = _R.storyboard.choiseCity()
+    /// Storyboard `CityWeathe`.
+    static let cityWeathe = _R.storyboard.cityWeathe()
     /// Storyboard `LaunchScreen`.
     static let launchScreen = _R.storyboard.launchScreen()
     /// Storyboard `MainWeather`.
@@ -104,6 +106,13 @@ struct R: Rswift.Validatable {
     /// `UIStoryboard(name: "ChoiseCity", bundle: ...)`
     static func choiseCity(_: Void = ()) -> UIKit.UIStoryboard {
       return UIKit.UIStoryboard(resource: R.storyboard.choiseCity)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIStoryboard(name: "CityWeathe", bundle: ...)`
+    static func cityWeathe(_: Void = ()) -> UIKit.UIStoryboard {
+      return UIKit.UIStoryboard(resource: R.storyboard.cityWeathe)
     }
     #endif
 
@@ -157,6 +166,129 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
 
+  /// This `R.file` struct is generated, and contains static references to 6 files.
+  struct file {
+    /// Resource file `Clouds.sks`.
+    static let cloudsSks = Rswift.FileResource(bundle: R.hostingBundle, name: "Clouds", pathExtension: "sks")
+    /// Resource file `Mist.sks`.
+    static let mistSks = Rswift.FileResource(bundle: R.hostingBundle, name: "Mist", pathExtension: "sks")
+    /// Resource file `Night.sks`.
+    static let nightSks = Rswift.FileResource(bundle: R.hostingBundle, name: "Night", pathExtension: "sks")
+    /// Resource file `RainLight.sks`.
+    static let rainLightSks = Rswift.FileResource(bundle: R.hostingBundle, name: "RainLight", pathExtension: "sks")
+    /// Resource file `SnowLight.sks`.
+    static let snowLightSks = Rswift.FileResource(bundle: R.hostingBundle, name: "SnowLight", pathExtension: "sks")
+    /// Resource file `Sun.sks`.
+    static let sunSks = Rswift.FileResource(bundle: R.hostingBundle, name: "Sun", pathExtension: "sks")
+
+    /// `bundle.url(forResource: "Clouds", withExtension: "sks")`
+    static func cloudsSks(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.cloudsSks
+      return fileResource.bundle.url(forResource: fileResource)
+    }
+
+    /// `bundle.url(forResource: "Mist", withExtension: "sks")`
+    static func mistSks(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.mistSks
+      return fileResource.bundle.url(forResource: fileResource)
+    }
+
+    /// `bundle.url(forResource: "Night", withExtension: "sks")`
+    static func nightSks(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.nightSks
+      return fileResource.bundle.url(forResource: fileResource)
+    }
+
+    /// `bundle.url(forResource: "RainLight", withExtension: "sks")`
+    static func rainLightSks(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.rainLightSks
+      return fileResource.bundle.url(forResource: fileResource)
+    }
+
+    /// `bundle.url(forResource: "SnowLight", withExtension: "sks")`
+    static func snowLightSks(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.snowLightSks
+      return fileResource.bundle.url(forResource: fileResource)
+    }
+
+    /// `bundle.url(forResource: "Sun", withExtension: "sks")`
+    static func sunSks(_: Void = ()) -> Foundation.URL? {
+      let fileResource = R.file.sunSks
+      return fileResource.bundle.url(forResource: fileResource)
+    }
+
+    fileprivate init() {}
+  }
+
+  /// This `R.image` struct is generated, and contains static references to 7 images.
+  struct image {
+    /// Image `bokeh`.
+    static let bokeh = Rswift.ImageResource(bundle: R.hostingBundle, name: "bokeh")
+    /// Image `cloudss`.
+    static let cloudss = Rswift.ImageResource(bundle: R.hostingBundle, name: "cloudss")
+    /// Image `mist2`.
+    static let mist2 = Rswift.ImageResource(bundle: R.hostingBundle, name: "mist2")
+    /// Image `mist`.
+    static let mist = Rswift.ImageResource(bundle: R.hostingBundle, name: "mist")
+    /// Image `spark`.
+    static let spark = Rswift.ImageResource(bundle: R.hostingBundle, name: "spark")
+    /// Image `sun2`.
+    static let sun2 = Rswift.ImageResource(bundle: R.hostingBundle, name: "sun2")
+    /// Image `sun`.
+    static let sun = Rswift.ImageResource(bundle: R.hostingBundle, name: "sun")
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "bokeh", bundle: ..., traitCollection: ...)`
+    static func bokeh(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.bokeh, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "cloudss", bundle: ..., traitCollection: ...)`
+    static func cloudss(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.cloudss, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "mist", bundle: ..., traitCollection: ...)`
+    static func mist(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.mist, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "mist2", bundle: ..., traitCollection: ...)`
+    static func mist2(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.mist2, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "spark", bundle: ..., traitCollection: ...)`
+    static func spark(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.spark, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "sun", bundle: ..., traitCollection: ...)`
+    static func sun(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.sun, compatibleWith: traitCollection)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+    /// `UIImage(named: "sun2", bundle: ..., traitCollection: ...)`
+    static func sun2(compatibleWith traitCollection: UIKit.UITraitCollection? = nil) -> UIKit.UIImage? {
+      return UIKit.UIImage(resource: R.image.sun2, compatibleWith: traitCollection)
+    }
+    #endif
+
+    fileprivate init() {}
+  }
+
   /// This `R.info` struct is generated, and contains static references to 1 properties.
   struct info {
     struct uiApplicationSceneManifest {
@@ -188,16 +320,28 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
 
-  /// This `R.nib` struct is generated, and contains static references to 4 nibs.
+  /// This `R.nib` struct is generated, and contains static references to 6 nibs.
   struct nib {
+    /// Nib `AllWeatherCollectionViewCell`.
+    static let allWeatherCollectionViewCell = _R.nib._AllWeatherCollectionViewCell()
     /// Nib `CityTableViewCell`.
     static let cityTableViewCell = _R.nib._CityTableViewCell()
     /// Nib `DayCollectionViewCell`.
     static let dayCollectionViewCell = _R.nib._DayCollectionViewCell()
     /// Nib `HourCollectionViewCell`.
     static let hourCollectionViewCell = _R.nib._HourCollectionViewCell()
+    /// Nib `Tile`.
+    static let tile = _R.nib._Tile()
     /// Nib `WeatherTableViewCell`.
     static let weatherTableViewCell = _R.nib._WeatherTableViewCell()
+
+    #if os(iOS) || os(tvOS)
+    /// `UINib(name: "AllWeatherCollectionViewCell", in: bundle)`
+    @available(*, deprecated, message: "Use UINib(resource: R.nib.allWeatherCollectionViewCell) instead")
+    static func allWeatherCollectionViewCell(_: Void = ()) -> UIKit.UINib {
+      return UIKit.UINib(resource: R.nib.allWeatherCollectionViewCell)
+    }
+    #endif
 
     #if os(iOS) || os(tvOS)
     /// `UINib(name: "CityTableViewCell", in: bundle)`
@@ -224,12 +368,24 @@ struct R: Rswift.Validatable {
     #endif
 
     #if os(iOS) || os(tvOS)
+    /// `UINib(name: "Tile", in: bundle)`
+    @available(*, deprecated, message: "Use UINib(resource: R.nib.tile) instead")
+    static func tile(_: Void = ()) -> UIKit.UINib {
+      return UIKit.UINib(resource: R.nib.tile)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
     /// `UINib(name: "WeatherTableViewCell", in: bundle)`
     @available(*, deprecated, message: "Use UINib(resource: R.nib.weatherTableViewCell) instead")
     static func weatherTableViewCell(_: Void = ()) -> UIKit.UINib {
       return UIKit.UINib(resource: R.nib.weatherTableViewCell)
     }
     #endif
+
+    static func allWeatherCollectionViewCell(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> AllWeatherCollectionViewCell? {
+      return R.nib.allWeatherCollectionViewCell.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? AllWeatherCollectionViewCell
+    }
 
     static func cityTableViewCell(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> CityTableViewCell? {
       return R.nib.cityTableViewCell.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? CityTableViewCell
@@ -241,6 +397,10 @@ struct R: Rswift.Validatable {
 
     static func hourCollectionViewCell(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> HourCollectionViewCell? {
       return R.nib.hourCollectionViewCell.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? HourCollectionViewCell
+    }
+
+    static func tile(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> TileView? {
+      return R.nib.tile.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? TileView
     }
 
     static func weatherTableViewCell(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> WeatherTableViewCell? {
@@ -258,6 +418,190 @@ struct R: Rswift.Validatable {
     static let hourCollectionViewCellIdent: Rswift.ReuseIdentifier<HourCollectionViewCell> = Rswift.ReuseIdentifier(identifier: "HourCollectionViewCellIdent")
     /// Reuse identifier `WeatherTableViewCellIdentifire`.
     static let weatherTableViewCellIdentifire: Rswift.ReuseIdentifier<WeatherTableViewCell> = Rswift.ReuseIdentifier(identifier: "WeatherTableViewCellIdentifire")
+
+    fileprivate init() {}
+  }
+
+  /// This `R.string` struct is generated, and contains static references to 1 localization tables.
+  struct string {
+    /// This `R.string.localizable` struct is generated, and contains static references to 9 localization keys.
+    struct localizable {
+      /// en translation: Cancel
+      ///
+      /// Locales: en, ru
+      static let searhBarClear = Rswift.StringResource(key: "searh.bar.clear", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ru"], comment: nil)
+      /// en translation: Dew point now - 
+      ///
+      /// Locales: en, ru
+      static let tileNameInfoHumidity = Rswift.StringResource(key: "tile.name.info.humidity", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ru"], comment: nil)
+      /// en translation: FEEL LIKE
+      ///
+      /// Locales: en, ru
+      static let tileNameFeelLike = Rswift.StringResource(key: "tile.name.feel.like", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ru"], comment: nil)
+      /// en translation: HUMIDITY
+      ///
+      /// Locales: en, ru
+      static let tileNameHumidity = Rswift.StringResource(key: "tile.name.humidity", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ru"], comment: nil)
+      /// en translation: Max.: %@, min.: %@
+      ///
+      /// Locales: en, ru
+      static let maxMinLabel = Rswift.StringResource(key: "max.min.label", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ru"], comment: nil)
+      /// en translation: The app is not connected to the internet. Check your connection to search, then try again
+      ///
+      /// Locales: en, ru
+      static let connectLabel = Rswift.StringResource(key: "connect.label", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ru"], comment: nil)
+      /// en translation: Today
+      ///
+      /// Locales: en, ru
+      static let dayToday = Rswift.StringResource(key: "day.today", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ru"], comment: nil)
+      /// en translation: Weather
+      ///
+      /// Locales: en, ru
+      static let titleLabel = Rswift.StringResource(key: "title.label", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ru"], comment: nil)
+      /// en translation: search
+      ///
+      /// Locales: en, ru
+      static let searhBarPlaceholder = Rswift.StringResource(key: "searh.bar.placeholder", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ru"], comment: nil)
+
+      /// en translation: Cancel
+      ///
+      /// Locales: en, ru
+      static func searhBarClear(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("searh.bar.clear", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Localizable", preferredLanguages: preferredLanguages) else {
+          return "searh.bar.clear"
+        }
+
+        return NSLocalizedString("searh.bar.clear", bundle: bundle, comment: "")
+      }
+
+      /// en translation: Dew point now - 
+      ///
+      /// Locales: en, ru
+      static func tileNameInfoHumidity(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("tile.name.info.humidity", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Localizable", preferredLanguages: preferredLanguages) else {
+          return "tile.name.info.humidity"
+        }
+
+        return NSLocalizedString("tile.name.info.humidity", bundle: bundle, comment: "")
+      }
+
+      /// en translation: FEEL LIKE
+      ///
+      /// Locales: en, ru
+      static func tileNameFeelLike(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("tile.name.feel.like", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Localizable", preferredLanguages: preferredLanguages) else {
+          return "tile.name.feel.like"
+        }
+
+        return NSLocalizedString("tile.name.feel.like", bundle: bundle, comment: "")
+      }
+
+      /// en translation: HUMIDITY
+      ///
+      /// Locales: en, ru
+      static func tileNameHumidity(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("tile.name.humidity", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Localizable", preferredLanguages: preferredLanguages) else {
+          return "tile.name.humidity"
+        }
+
+        return NSLocalizedString("tile.name.humidity", bundle: bundle, comment: "")
+      }
+
+      /// en translation: Max.: %@, min.: %@
+      ///
+      /// Locales: en, ru
+      static func maxMinLabel(_ value1: String, _ value2: String, preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          let format = NSLocalizedString("max.min.label", bundle: hostingBundle, comment: "")
+          return String(format: format, locale: applicationLocale, value1, value2)
+        }
+
+        guard let (locale, bundle) = localeBundle(tableName: "Localizable", preferredLanguages: preferredLanguages) else {
+          return "max.min.label"
+        }
+
+        let format = NSLocalizedString("max.min.label", bundle: bundle, comment: "")
+        return String(format: format, locale: locale, value1, value2)
+      }
+
+      /// en translation: The app is not connected to the internet. Check your connection to search, then try again
+      ///
+      /// Locales: en, ru
+      static func connectLabel(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("connect.label", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Localizable", preferredLanguages: preferredLanguages) else {
+          return "connect.label"
+        }
+
+        return NSLocalizedString("connect.label", bundle: bundle, comment: "")
+      }
+
+      /// en translation: Today
+      ///
+      /// Locales: en, ru
+      static func dayToday(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("day.today", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Localizable", preferredLanguages: preferredLanguages) else {
+          return "day.today"
+        }
+
+        return NSLocalizedString("day.today", bundle: bundle, comment: "")
+      }
+
+      /// en translation: Weather
+      ///
+      /// Locales: en, ru
+      static func titleLabel(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("title.label", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Localizable", preferredLanguages: preferredLanguages) else {
+          return "title.label"
+        }
+
+        return NSLocalizedString("title.label", bundle: bundle, comment: "")
+      }
+
+      /// en translation: search
+      ///
+      /// Locales: en, ru
+      static func searhBarPlaceholder(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("searh.bar.placeholder", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Localizable", preferredLanguages: preferredLanguages) else {
+          return "searh.bar.placeholder"
+        }
+
+        return NSLocalizedString("searh.bar.placeholder", bundle: bundle, comment: "")
+      }
+
+      fileprivate init() {}
+    }
 
     fileprivate init() {}
   }
@@ -284,6 +628,17 @@ struct _R: Rswift.Validatable {
 
   #if os(iOS) || os(tvOS)
   struct nib {
+    struct _AllWeatherCollectionViewCell: Rswift.NibResourceType {
+      let bundle = R.hostingBundle
+      let name = "AllWeatherCollectionViewCell"
+
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> AllWeatherCollectionViewCell? {
+        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? AllWeatherCollectionViewCell
+      }
+
+      fileprivate init() {}
+    }
+
     struct _CityTableViewCell: Rswift.NibResourceType {
       let bundle = R.hostingBundle
       let name = "CityTableViewCell"
@@ -323,6 +678,17 @@ struct _R: Rswift.Validatable {
       fileprivate init() {}
     }
 
+    struct _Tile: Rswift.NibResourceType {
+      let bundle = R.hostingBundle
+      let name = "Tile"
+
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> TileView? {
+        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? TileView
+      }
+
+      fileprivate init() {}
+    }
+
     struct _WeatherTableViewCell: Rswift.NibResourceType, Rswift.ReuseIdentifierType {
       typealias ReusableType = WeatherTableViewCell
 
@@ -346,6 +712,9 @@ struct _R: Rswift.Validatable {
     static func validate() throws {
       #if os(iOS) || os(tvOS)
       try choiseCity.validate()
+      #endif
+      #if os(iOS) || os(tvOS)
+      try cityWeathe.validate()
       #endif
       #if os(iOS) || os(tvOS)
       try launchScreen.validate()
@@ -379,6 +748,26 @@ struct _R: Rswift.Validatable {
     #endif
 
     #if os(iOS) || os(tvOS)
+    struct cityWeathe: Rswift.StoryboardResourceType, Rswift.Validatable {
+      let bundle = R.hostingBundle
+      let cityWeatherVC = StoryboardViewControllerResource<CWViewController>(identifier: "CityWeatherVC")
+      let name = "CityWeathe"
+
+      func cityWeatherVC(_: Void = ()) -> CWViewController? {
+        return UIKit.UIStoryboard(resource: self).instantiateViewController(withResource: cityWeatherVC)
+      }
+
+      static func validate() throws {
+        if #available(iOS 11.0, tvOS 11.0, *) {
+        }
+        if _R.storyboard.cityWeathe().cityWeatherVC() == nil { throw Rswift.ValidationError(description:"[R.swift] ViewController with identifier 'cityWeatherVC' could not be loaded from storyboard 'CityWeathe' as 'CWViewController'.") }
+      }
+
+      fileprivate init() {}
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
     struct launchScreen: Rswift.StoryboardResourceWithInitialControllerType, Rswift.Validatable {
       typealias InitialController = UIKit.UIViewController
 
@@ -396,7 +785,7 @@ struct _R: Rswift.Validatable {
 
     #if os(iOS) || os(tvOS)
     struct main: Rswift.StoryboardResourceWithInitialControllerType, Rswift.Validatable {
-      typealias InitialController = MainViewController
+      typealias InitialController = UIKit.UINavigationController
 
       let bundle = R.hostingBundle
       let name = "Main"

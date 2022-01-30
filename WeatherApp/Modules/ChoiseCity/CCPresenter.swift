@@ -8,41 +8,52 @@
 import Foundation
 
 final class CCPresenterImp: CCPresenterInput {
+   
+    
     
     weak var view: CCPresenterOutput?
     var interactor: CCInteractorInput!
     var router: CCRouterImp!
+    var output: MWModuleInput?
     
     func viewIsReady() {
-        guard let list = interactor.getWeatherList() else {return}
+        let list = interactor.getWeatherList()
         let entity = CCEntity(isCityChoising: false,
-                              cityDict: [String: CityModel](),
+                              cityDict: nil,
                               weatherList: list)
+        interactor.updateWeatherList()
         view?.setState(entity: entity)
     }
     
-    func changedCity(text: String) {
-        if text == "" {
-            guard let list = interactor.getWeatherList() else {return}
-            let entity = CCEntity(isCityChoising: false,
-                                  cityDict: [String: CityModel](),
-                                  weatherList: list)
-            view?.setState(entity: entity)
+    func changedSearch(text: String, lang: String) {
+        if interactor.checkConnected() {
+            interactor.getCityList(for: text, lang: lang)
         } else {
-            interactor.reloadCityList(for: text)
+            let entity = CCEntity(isCityChoising: true,
+                                  cityDict: nil,
+                                  weatherList: nil)
+            view?.setState(entity: entity)
         }
     }
     
-    func choisedCity(city: CityModel) {
-        router.showMWViewController(with: city)
+    func changedSearch(city: CityModel) {
+        let entity = CWEntity(city: city, weather: nil, background: nil)
+        interactor.updateTemporary(entity: entity)
+        router.showCWViewController(output: self)
     }
     
-    func back() {
-//        router.showMWViewController()
+    func choisedCity(index: Int) {
+        interactor.updateCurrentIndex(index: index)
+        output?.needUpdateOut()
     }
     
-    func showMWController(entity: MWEntity) {
-        router.showMWViewController(with: entity)
+    func deleteCity(at IndexPathRow: Int) {
+        interactor.deleteCity(index: IndexPathRow)
+        let list = interactor.getWeatherList()
+        let entity = CCEntity(isCityChoising: false,
+                              cityDict: nil,
+                              weatherList: list)
+        view?.setState(entity: entity)
     }
 }
 
@@ -50,6 +61,13 @@ extension CCPresenterImp: CCInteractorOutput {
     
     func didUpdateEntity(entity: CCEntity) {
         view?.setState(entity: entity)
+    }
+}
+
+extension CCPresenterImp: CCModuleInput {
+    
+    func needUpdateOut() {
+        viewIsReady()
     }
 }
 

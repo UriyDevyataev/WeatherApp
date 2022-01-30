@@ -10,32 +10,8 @@ import UIKit
 class MWAssembly {
     
     static func configurateModule() -> UIViewController? {
-        let storyboard = UIStoryboard(name: "MainWeather", bundle: nil)
-        guard let controller = storyboard
-                .instantiateViewController(
-                    withIdentifier: "MainWeatherVC") as? MWViewController else {
-                    return nil
-                }
         
-        controller.modalPresentationStyle = .fullScreen
-        return configurate(controller: controller)
-    }
-    
-    static func configurateModule(with entity: MWEntity) -> UIViewController? {
-        
-        let storyboard = UIStoryboard(name: "MainWeather", bundle: nil)
-        guard let controller = storyboard
-                .instantiateViewController(
-                    withIdentifier: "MainWeatherVC") as? MWViewController else {
-                    return nil
-                }
-        
-        controller.entity = entity
-        return configurate(controller: controller)
-    }
-    
-    private static func configurate(controller: MWViewController) -> UIViewController {
-        
+        let controller = R.storyboard.mainWeather.mainWeatherVC()
         let presenter = MWPresenterImp()
         let interactor = MWInteractorImp()
         let router = MWRouterImp()
@@ -43,84 +19,16 @@ class MWAssembly {
         presenter.interactor = interactor
         presenter.router = router
         presenter.view = controller
-//        presenter.output =
         
         interactor.output = presenter
         router.view = controller
-        controller.presenter = presenter
+        controller?.presenter = presenter
+        
+        interactor.weatherService = WeatherServiceImp()
+        interactor.locationService = LocationServiceImp()
+        interactor.weatherListService = WeatherListServiceImp.shared
+        interactor.backGroundService = BackGroundServiceImp()
         
         return controller
     }
 }
-
-    
-//    static func configurateModule(with entity: MWEntity?) -> UIViewController? {
-//
-//        let storyboard = UIStoryboard(name: "MainWeather", bundle: nil)
-//        guard let controller = storyboard
-//                .instantiateViewController(
-//                    withIdentifier: "MainWeatherVC") as? MWViewController else {
-//                    return nil
-//                }
-//
-//        controller.entity = entity
-//
-//        let presenter = MWPresenterImp()
-//        let interactor = MWInteractorImp()
-//        let router = MWRouterImp()
-//
-//        presenter.interactor = interactor
-//        presenter.router = router
-//        presenter.view = controller
-////        presenter.output =
-//
-//        interactor.output = presenter
-//        router.view = controller
-//        controller.presenter = presenter
-//
-//        return controller
-//    }
-//}
-
-
-
-
-//class MWAssembly {
-//
-//    static func configurateModule() -> UIViewController? {
-//
-//    }
-//
-//    func d(controller: UIViewController)-> UIViewController? {
-//
-//    }
-//
-//
-//
-//    static func configurateModule(with entity: MWEntity?) -> UIViewController? {
-//
-//        let storyboard = UIStoryboard(name: "MainWeather", bundle: nil)
-//        guard let controller = storyboard
-//                .instantiateViewController(
-//                    withIdentifier: "MainWeatherVC") as? MWViewController else {
-//                    return nil
-//                }
-//
-//        controller.entity = entity
-//
-//        let presenter = MWPresenterImp()
-//        let interactor = MWInteractorImp()
-//        let router = MWRouterImp()
-//
-//        presenter.interactor = interactor
-//        presenter.router = router
-//        presenter.view = controller
-////        presenter.output =
-//
-//        interactor.output = presenter
-//        router.view = controller
-//        controller.presenter = presenter
-//
-//        return controller
-//    }
-//}

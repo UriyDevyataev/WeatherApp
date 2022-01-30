@@ -9,6 +9,6 @@ import Foundation
 
 struct CCEntity {
     var isCityChoising: Bool
-    let cityDict: [String: CityModel]
-    let weatherList: [MWEntity]
+    var cityDict: [String: CityModel]?
+    var weatherList: [CWEntity]?
 }

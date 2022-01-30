@@ -27,16 +27,3 @@ struct CityModel: Codable {
     let lat: String
     let fcode: String
 }
-
-//struct CityModel: Codable{
-//    let id: Double
-//    let name: String
-//    let state: String
-//    let country: String
-//    let coord: Coordinate
-//}
-//
-//struct Coordinate: Codable{
-//    let lon: Double
-//    let lat: Double
-//}
