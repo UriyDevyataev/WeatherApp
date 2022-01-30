@@ -12,10 +12,10 @@ class CWInteractorImp: CWInteractorInput {
     
     weak var output: CWInteractorOutput?
     
-    let weatherService: WeatherService = WeatherServiceImp()
-    let weatherListService: WeatherListService = WeatherListServiceImp.shared
-    let locationService: LocationService = LocationServiceImp()
-    let backGroundService: BackGroundService = BackGroundServiceImp()
+    var weatherService: WeatherService!
+    var weatherListService: WeatherListService!
+    var locationService: LocationService!
+    var backGroundService: BackGroundService!
     
     func loadEntity(atIndex: Int?) -> CWEntity? {
         guard let atIndex = atIndex else {
@@ -25,29 +25,36 @@ class CWInteractorImp: CWInteractorInput {
         return list[atIndex]
     }
     
-    func updateEntity(_ entity: CWEntity) {
+    func updateEntity(_ entity: CWEntity, index: Int?) {
         
-        let localEntity = weatherListService.getList().first
-        
-        if localEntity?.city.geonameId == entity.city.geonameId {
+        if index == 0 {
             updateLocalEntityCW()
         } else {
-            var newEntity = entity
+            
             let location = CLLocationCoordinate2D(
                 latitude: Double(entity.city.lat) ?? 0,
                 longitude: Double(entity.city.lng) ?? 0)
+
             weatherService.receiveWeather(for: location) {[weak self] weather in
-                
                 guard let self = self else {return}
                 
                 let condition = weather?.current.weather[0].icon ?? ""
                 let background = self.backGroundService.configFor(condition: condition)
                 
-                newEntity.weather = weather
-                newEntity.background = background
+                let entityCW = CWEntity(city: entity.city,
+                                      weather: weather,
+                                      background: background)
                 
-                self.weatherListService.updateList(entity: newEntity)
-                self.output?.didUpdateEntity(entity: newEntity)
+                guard let index = index else {
+                    self.weatherListService.setTemporary(entity: entityCW)
+                    self.output?.didUpdateEntity(entity: entityCW)
+                    return
+                }
+                
+                self.weatherListService.updateList(entity: entityCW, index: index)
+                self.output?.didUpdateEntity(entity: entityCW)
+            } error: {error in
+                print(error)
             }
         }
     }
@@ -68,13 +75,16 @@ class CWInteractorImp: CWInteractorInput {
                                         weather: weather,
                                         background: background)
                 
-                self.weatherListService.updateLocaly(entity: entityCW)
+                self.weatherListService.updateList(entity: entityCW, index: 0)
                 self.output?.didUpdateEntity(entity: entityCW)
-            }
+            } error: { _ in }
         }
     }
     
     func addTemporaryEntity() {
-        weatherListService.saveTemporaryEntity()
+        guard let entityCW = weatherListService.getTemporaryEntity() else {
+            return
+        }
+        weatherListService.addtoList(entity: entityCW)
     }
 }

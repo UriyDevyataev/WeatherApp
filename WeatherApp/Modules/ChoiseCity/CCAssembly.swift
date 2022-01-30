@@ -25,6 +25,12 @@ class CCAssembly {
         router.view = controller
         controller?.presenter = presenter
         
+        interactor.weatherService = WeatherServiceImp()
+        interactor.weatherListService = WeatherListServiceImp.shared
+        interactor.cityService = CitiesServiceImp()
+        interactor.backGroundService = BackGroundServiceImp()
+        interactor.connectionService = ConnectImp()
+        
         return controller
     }
 }

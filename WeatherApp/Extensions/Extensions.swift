@@ -96,7 +96,7 @@ extension Int {
         let unixTime = Date(timeInterval: TimeInterval(offset), since: date)
         let formatter = DateFormatter()
         formatter.timeZone = TimeZone(abbreviation: "UTC")
-        formatter.dateFormat = "HH:mm"
+        formatter.dateFormat = "HH"
         let str = formatter.string(from: unixTime)
         return str
     }
@@ -156,6 +156,25 @@ extension UIView {
         } else {
             return nil
         }
+    }
+}
+
+extension Bundle {
+    static func loadView<T>(fromNib name: String, withType type: T.Type) -> T {
+        if let view = Bundle.main.loadNibNamed(name, owner: nil, options: nil)?.first as? T {
+            return view
+        }
+        fatalError("Could not find view with this type " + String(describing: type))
+    }
+}
+
+extension String {
+    func capitalizingFirstLetter() -> String {
+        return prefix(1).capitalized + dropFirst()
+    }
+
+    mutating func capitalizeFirstLetter() {
+        self = self.capitalizingFirstLetter()
     }
 }
 

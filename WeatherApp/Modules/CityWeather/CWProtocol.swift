@@ -25,7 +25,7 @@ protocol CWInteractorInput {
     var output: CWInteractorOutput? { get set }
     
     func loadEntity(atIndex: Int?) -> CWEntity?     // ok
-    func updateEntity(_ entity: CWEntity)           // ok
+    func updateEntity(_ entity: CWEntity, index: Int?)           // ok
     func addTemporaryEntity()                       // ok
 }
 

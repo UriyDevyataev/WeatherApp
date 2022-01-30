@@ -19,8 +19,11 @@ final class MWPresenterImp: MWPresenterInput {
         router.showCCViewController(output: self)
     }
     
-    func actionGetLocalWeather() {
-//        interactor.loadEntity(atIndex: 0)
+    func actionShowLocalCity() {
+        interactor.updateCurrentIndex(index: 0)
+        let entity = interactor.getEntity()
+        view?.setState(entity: entity)
+        getBackGround()
     }
     
     func swipeListTo(index: Int) {

@@ -19,7 +19,7 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Погода" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="udh-49-ysg">
                                 <rect key="frame" x="20" y="64" width="374" height="35"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="29"/>
-                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <searchBar contentMode="redraw" searchBarStyle="minimal" placeholder="search" translatesAutoresizingMaskIntoConstraints="NO" id="OjB-Yb-xnw">
@@ -33,6 +33,14 @@
                                     <string>Title</string>
                                 </scopeButtonTitles>
                             </searchBar>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dPf-CY-hu5">
+                                <rect key="frame" x="10" y="160" width="394" height="245.5"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="tintColor" systemColor="tintColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" estimatedSectionHeaderHeight="-1" sectionFooterHeight="28" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="b8q-o3-6A5">
                                 <rect key="frame" x="15" y="160" width="384" height="736"/>
                             </tableView>
@@ -40,6 +48,7 @@
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="dPf-CY-hu5" firstAttribute="top" secondItem="OjB-Yb-xnw" secondAttribute="bottom" id="4F4-fN-ldx"/>
                             <constraint firstItem="OjB-Yb-xnw" firstAttribute="top" secondItem="udh-49-ysg" secondAttribute="bottom" constant="10" id="EBx-d3-55p"/>
                             <constraint firstItem="udh-49-ysg" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="20" id="P1n-aU-akX"/>
                             <constraint firstItem="b8q-o3-6A5" firstAttribute="top" secondItem="OjB-Yb-xnw" secondAttribute="bottom" id="WUK-E3-KXN"/>
@@ -50,11 +59,16 @@
                             <constraint firstItem="OjB-Yb-xnw" firstAttribute="leading" secondItem="5EZ-qb-Rvc" secondAttribute="leading" constant="5" id="iKy-C2-1Ep"/>
                             <constraint firstAttribute="trailing" secondItem="udh-49-ysg" secondAttribute="trailing" constant="20" id="mb4-7D-bgc"/>
                             <constraint firstItem="udh-49-ysg" firstAttribute="leading" secondItem="5EZ-qb-Rvc" secondAttribute="leading" constant="20" id="p8x-QO-caY"/>
+                            <constraint firstItem="dPf-CY-hu5" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="10" id="rzU-uX-Gfj"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="dPf-CY-hu5" secondAttribute="trailing" constant="10" id="s2S-cj-qb4"/>
+                            <constraint firstItem="dPf-CY-hu5" firstAttribute="height" secondItem="vDu-zF-Fre" secondAttribute="height" multiplier="0.3" id="v0u-Vy-lKh"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="connectLabel" destination="dPf-CY-hu5" id="mgR-S6-0j6"/>
                         <outlet property="searchBar" destination="OjB-Yb-xnw" id="sOo-8r-y6n"/>
                         <outlet property="tableView" destination="b8q-o3-6A5" id="VNy-Gz-bFF"/>
+                        <outlet property="titleLabel" destination="udh-49-ysg" id="zt3-Us-VaA"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

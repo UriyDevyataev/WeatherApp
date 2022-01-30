@@ -13,14 +13,13 @@ class CWPresenterImp: CWPresenterInput {
     var interactor: CWInteractorInput!
     weak var output: CCModuleInput?
     
-//    var interactor: CWInteractorInput!
-
     func viewIsReady(index: Int?) {
         
-        guard let entity = interactor?.loadEntity(atIndex: index)
-        else {return}
+        guard let entity = interactor?.loadEntity(atIndex: index) else {
+            return
+        }
         view?.setState(entity: entity)
-        interactor?.updateEntity(entity)
+        interactor?.updateEntity(entity, index: index)
     }
     
     func actionAdd() {

@@ -22,6 +22,11 @@ class CWAssembly {
         interactor.output = presenter
         controller?.presenter = presenter
             
+        interactor.weatherService = WeatherServiceImp()
+        interactor.weatherListService = WeatherListServiceImp.shared
+        interactor.locationService = LocationServiceImp()
+        interactor.backGroundService = BackGroundServiceImp()
+        
         return controller
     }
 }

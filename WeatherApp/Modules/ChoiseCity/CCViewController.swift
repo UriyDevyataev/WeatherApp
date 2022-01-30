@@ -11,26 +11,32 @@ class CCViewController: UIViewController {
     
     var presenter: CCPresenterInput!
     var entity: CCEntity?
-    
     var cityList = [String]()
     var weatherList = [CWEntity]()
     
+    @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
-
+    @IBOutlet weak var connectLabel: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         config()
     }
     
     deinit {
-        print("deinit CCViewController")
+//        print("deinit CCViewController")
     }
     func config() {
-        self.view.backgroundColor = .black
+        configUI()
         configSearcBar()
         configTableView()
         presenter.viewIsReady()
+    }
+    
+    func configUI(){
+        self.view.backgroundColor = .black
+        titleLabel.text = R.string.localizable.titleLabel()
     }
     
     func configSearcBar() {
@@ -67,7 +73,6 @@ class CCViewController: UIViewController {
         tableView.register(
             UINib(nibName: "CityTableViewCell", bundle: nil),
             forCellReuseIdentifier: "CityTableViewCellIdentifire")
-        
         tableView.register(
             UINib(nibName: "WeatherTableViewCell", bundle: nil),
             forCellReuseIdentifier: "WeatherTableViewCellIdentifire")
@@ -77,29 +82,41 @@ class CCViewController: UIViewController {
         
         self.entity = entity
         
+        DispatchQueue.main.async {
+            self.connectLabel.isHidden = true
+        }
+        
         switch entity.isCityChoising {
         case true:
-            cityList.removeAll()
-            entity.cityDict?.forEach { (key: String, value: CityModel) in
-                cityList.append(key)
+            if let dict = entity.cityDict {
+                cityList.removeAll()
+                dict.forEach { (key: String, value: CityModel) in
+                    cityList.append(key)
+                }
+            } else {
+                DispatchQueue.main.async {
+                    self.connectLabel.text = R.string.localizable.connectLabel()
+                    self.connectLabel.isHidden = false
+                }
             }
         case false:
             weatherList = entity.weatherList ?? [CWEntity]()
-            
             DispatchQueue.main.async {
-                self.searchBar.text = ""
-                self.searchBar.showsCancelButton = false
-                self.searchBar.resignFirstResponder()
+                self.clearSearch()
             }
         }
-        
         DispatchQueue.main.async {
             self.tableView.reloadData()
         }
     }
     
+    private func clearSearch() {
+        searchBar.text = ""
+        searchBar.showsCancelButton = false
+        searchBar.resignFirstResponder()
+    }
+    
     private func fill(cell: WeatherTableViewCell, withContent: CWEntity) -> UITableViewCell {
-
         guard let weather = withContent.weather else {return UITableViewCell()}
                 
         let cityName = withContent.city.name
@@ -113,15 +130,13 @@ class CCViewController: UIViewController {
         var info = ""
         
         if let alerts = weather.alerts {
-            
             if lang == "en" {
                 info = alerts[0].event
             } else {
                 info = alerts.count > 1 ? alerts[1].event : alerts[0].event
             }
-            
         } else {
-            info = weather.current.weather[0].description
+            info = weather.current.weather[0].description.capitalizingFirstLetter()
         }
 
         cell.cityLabel.text = cityName
@@ -130,7 +145,6 @@ class CCViewController: UIViewController {
         cell.infoLabel.text = info
         cell.maxMinTempLabel.text = maxMinTemp
         cell.configBackgroud(withContent.background)
-
         return cell
     }
 }
@@ -144,7 +158,6 @@ extension CCViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         var cell = UITableViewCell()
-        
         guard let entity = self.entity else {return cell}
         
         switch entity.isCityChoising {
@@ -154,18 +167,15 @@ extension CCViewController: UITableViewDataSource, UITableViewDelegate {
                 for: indexPath) as? CityTableViewCell else {
                     return cell
                 }
-            
             let nameCity = cityList[indexPath.row]
             cityCell.cityLabel.text = nameCity
             cell = cityCell
-            
         case false:
             guard let weatherCell = tableView.dequeueReusableCell(
                 withIdentifier: "WeatherTableViewCellIdentifire",
                 for: indexPath) as? WeatherTableViewCell else {
                     return cell
                 }
-            
             let content = weatherList[indexPath.row]
             cell = fill(cell: weatherCell, withContent: content)
             cell.selectionStyle = UITableViewCell.SelectionStyle.none
@@ -174,7 +184,6 @@ extension CCViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
         guard let entity = self.entity else {return}
         switch entity.isCityChoising {
         case true:
@@ -182,10 +191,9 @@ extension CCViewController: UITableViewDataSource, UITableViewDelegate {
                 at: indexPath) as? CityTableViewCell else {return}
             guard let city = entity.cityDict?[cell.cityLabel.text ?? ""]
             else {return}
-            presenter.choisedCity(city: city)
+            presenter.changedSearch(city: city)
         case false:
             presenter.choisedCity(index: indexPath.row)
-            
             self.dismiss(animated: true)
         }
     }
@@ -193,15 +201,12 @@ extension CCViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return indexPath.row != 0
     }
-    
 
-    
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         
         if indexPath.row != 0 {
             if editingStyle == .delete {
-                print("deleting")
-                presenter.deleteRow(at: indexPath.row)
+                presenter.deleteCity(at: indexPath.row)
                 tableView.deleteRows(at: [indexPath], with: .fade)
             }
         }
@@ -216,7 +221,8 @@ extension CCViewController: UITableViewDataSource, UITableViewDelegate {
 extension CCViewController: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        presenter.changedCity(text: searchText)
+        let lang = searchBar.textInputMode?.primaryLanguage ?? "en"
+        presenter.changedSearch(text: searchText, lang: lang)
     }
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
@@ -225,13 +231,11 @@ extension CCViewController: UISearchBarDelegate {
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         entity?.isCityChoising = false
-        
-        searchBar.showsCancelButton = false
-        searchBar.text = ""
-        searchBar.resignFirstResponder()
+        clearSearch()
         
         DispatchQueue.main.async {
             self.tableView.reloadData()
+            self.connectLabel.isHidden = true
         }
     }
     
@@ -242,9 +246,7 @@ extension CCViewController: UISearchBarDelegate {
 
 extension CCViewController: CCPresenterOutput {
     func setState(entity: CCEntity) {
-        print("CC_setState - \(Date.now)")
+//        print("CC_setState - \(Date.now)")
         updateView(entity: entity)
     }
 }
-
-

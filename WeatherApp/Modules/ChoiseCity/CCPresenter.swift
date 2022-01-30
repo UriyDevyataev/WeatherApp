@@ -8,6 +8,8 @@
 import Foundation
 
 final class CCPresenterImp: CCPresenterInput {
+   
+    
     
     weak var view: CCPresenterOutput?
     var interactor: CCInteractorInput!
@@ -23,12 +25,18 @@ final class CCPresenterImp: CCPresenterInput {
         view?.setState(entity: entity)
     }
     
-    func changedCity(text: String) {
-        
-        interactor.getCityList(for: text)
+    func changedSearch(text: String, lang: String) {
+        if interactor.checkConnected() {
+            interactor.getCityList(for: text, lang: lang)
+        } else {
+            let entity = CCEntity(isCityChoising: true,
+                                  cityDict: nil,
+                                  weatherList: nil)
+            view?.setState(entity: entity)
+        }
     }
     
-    func choisedCity(city: CityModel) {
+    func changedSearch(city: CityModel) {
         let entity = CWEntity(city: city, weather: nil, background: nil)
         interactor.updateTemporary(entity: entity)
         router.showCWViewController(output: self)
@@ -39,8 +47,8 @@ final class CCPresenterImp: CCPresenterInput {
         output?.needUpdateOut()
     }
     
-    func deleteRow(at IndexPathRow: Int) {
-        interactor.deleteEntity(index: IndexPathRow)
+    func deleteCity(at IndexPathRow: Int) {
+        interactor.deleteCity(index: IndexPathRow)
         let list = interactor.getWeatherList()
         let entity = CCEntity(isCityChoising: false,
                               cityDict: nil,
@@ -57,6 +65,7 @@ extension CCPresenterImp: CCInteractorOutput {
 }
 
 extension CCPresenterImp: CCModuleInput {
+    
     func needUpdateOut() {
         viewIsReady()
     }

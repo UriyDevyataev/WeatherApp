@@ -7,6 +7,10 @@
 
 import SystemConfiguration
 
+protocol Connect {
+    func checkConnection() -> Bool
+}
+
 class ConnectImp: Connect {
     
     func checkConnection() -> Bool {

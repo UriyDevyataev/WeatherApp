@@ -175,7 +175,14 @@ class MWViewController: UIViewController {
     //MARK: - Actions
     
     @objc func actionLocaly() {
-//        collectionView?.scrollToItem(at: IndexPath(row: 0, section: 0), at: .centeredVertically, animated: false)
+        presenter.actionShowLocalCity()
+        
+//        collectionView?.scrollToItem(at: IndexPath(row: 0, section: 0), at: .centeredVertically, animated: true) {
+//
+//        }
+        
+       
+        
 //        entity?.choisedIndex = 0
 //        updatePageControl()
 //        presenter.actionGetLocalWeather()
@@ -206,6 +213,7 @@ class MWViewController: UIViewController {
     func updateView(with entity: MWEntity) {
         self.entity = entity
         DispatchQueue.main.async {
+            
             self.collectionView?.reloadData()
             self.entity = entity
             if entity.count != 0 {
@@ -267,12 +275,11 @@ extension MWViewController: UICollectionViewDelegateFlowLayout  {
 extension MWViewController: MWPresenterOutput{
 
     func setState(entity: MWEntity) {
-        print("MW_setState")
+//        print("MW_setState")
         updateView(with: entity)
     }
     
     func updateBackground(background: Background) {
-        print("updateBackground")
         configBackgroud(background)
     }
 }

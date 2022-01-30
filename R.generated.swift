@@ -320,7 +320,7 @@ struct R: Rswift.Validatable {
     fileprivate init() {}
   }
 
-  /// This `R.nib` struct is generated, and contains static references to 5 nibs.
+  /// This `R.nib` struct is generated, and contains static references to 6 nibs.
   struct nib {
     /// Nib `AllWeatherCollectionViewCell`.
     static let allWeatherCollectionViewCell = _R.nib._AllWeatherCollectionViewCell()
@@ -330,6 +330,8 @@ struct R: Rswift.Validatable {
     static let dayCollectionViewCell = _R.nib._DayCollectionViewCell()
     /// Nib `HourCollectionViewCell`.
     static let hourCollectionViewCell = _R.nib._HourCollectionViewCell()
+    /// Nib `Tile`.
+    static let tile = _R.nib._Tile()
     /// Nib `WeatherTableViewCell`.
     static let weatherTableViewCell = _R.nib._WeatherTableViewCell()
 
@@ -366,6 +368,14 @@ struct R: Rswift.Validatable {
     #endif
 
     #if os(iOS) || os(tvOS)
+    /// `UINib(name: "Tile", in: bundle)`
+    @available(*, deprecated, message: "Use UINib(resource: R.nib.tile) instead")
+    static func tile(_: Void = ()) -> UIKit.UINib {
+      return UIKit.UINib(resource: R.nib.tile)
+    }
+    #endif
+
+    #if os(iOS) || os(tvOS)
     /// `UINib(name: "WeatherTableViewCell", in: bundle)`
     @available(*, deprecated, message: "Use UINib(resource: R.nib.weatherTableViewCell) instead")
     static func weatherTableViewCell(_: Void = ()) -> UIKit.UINib {
@@ -389,6 +399,10 @@ struct R: Rswift.Validatable {
       return R.nib.hourCollectionViewCell.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? HourCollectionViewCell
     }
 
+    static func tile(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> TileView? {
+      return R.nib.tile.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? TileView
+    }
+
     static func weatherTableViewCell(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> WeatherTableViewCell? {
       return R.nib.weatherTableViewCell.instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? WeatherTableViewCell
     }
@@ -410,26 +424,46 @@ struct R: Rswift.Validatable {
 
   /// This `R.string` struct is generated, and contains static references to 1 localization tables.
   struct string {
-    /// This `R.string.localizable` struct is generated, and contains static references to 4 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 9 localization keys.
     struct localizable {
-      /// en translation: Delete
+      /// en translation: Cancel
       ///
       /// Locales: en, ru
       static let searhBarClear = Rswift.StringResource(key: "searh.bar.clear", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ru"], comment: nil)
+      /// en translation: Dew point now - 
+      ///
+      /// Locales: en, ru
+      static let tileNameInfoHumidity = Rswift.StringResource(key: "tile.name.info.humidity", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ru"], comment: nil)
+      /// en translation: FEEL LIKE
+      ///
+      /// Locales: en, ru
+      static let tileNameFeelLike = Rswift.StringResource(key: "tile.name.feel.like", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ru"], comment: nil)
+      /// en translation: HUMIDITY
+      ///
+      /// Locales: en, ru
+      static let tileNameHumidity = Rswift.StringResource(key: "tile.name.humidity", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ru"], comment: nil)
       /// en translation: Max.: %@, min.: %@
       ///
       /// Locales: en, ru
       static let maxMinLabel = Rswift.StringResource(key: "max.min.label", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ru"], comment: nil)
+      /// en translation: The app is not connected to the internet. Check your connection to search, then try again
+      ///
+      /// Locales: en, ru
+      static let connectLabel = Rswift.StringResource(key: "connect.label", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ru"], comment: nil)
       /// en translation: Today
       ///
       /// Locales: en, ru
       static let dayToday = Rswift.StringResource(key: "day.today", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ru"], comment: nil)
+      /// en translation: Weather
+      ///
+      /// Locales: en, ru
+      static let titleLabel = Rswift.StringResource(key: "title.label", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ru"], comment: nil)
       /// en translation: search
       ///
       /// Locales: en, ru
       static let searhBarPlaceholder = Rswift.StringResource(key: "searh.bar.placeholder", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ru"], comment: nil)
 
-      /// en translation: Delete
+      /// en translation: Cancel
       ///
       /// Locales: en, ru
       static func searhBarClear(preferredLanguages: [String]? = nil) -> String {
@@ -442,6 +476,51 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("searh.bar.clear", bundle: bundle, comment: "")
+      }
+
+      /// en translation: Dew point now - 
+      ///
+      /// Locales: en, ru
+      static func tileNameInfoHumidity(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("tile.name.info.humidity", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Localizable", preferredLanguages: preferredLanguages) else {
+          return "tile.name.info.humidity"
+        }
+
+        return NSLocalizedString("tile.name.info.humidity", bundle: bundle, comment: "")
+      }
+
+      /// en translation: FEEL LIKE
+      ///
+      /// Locales: en, ru
+      static func tileNameFeelLike(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("tile.name.feel.like", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Localizable", preferredLanguages: preferredLanguages) else {
+          return "tile.name.feel.like"
+        }
+
+        return NSLocalizedString("tile.name.feel.like", bundle: bundle, comment: "")
+      }
+
+      /// en translation: HUMIDITY
+      ///
+      /// Locales: en, ru
+      static func tileNameHumidity(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("tile.name.humidity", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Localizable", preferredLanguages: preferredLanguages) else {
+          return "tile.name.humidity"
+        }
+
+        return NSLocalizedString("tile.name.humidity", bundle: bundle, comment: "")
       }
 
       /// en translation: Max.: %@, min.: %@
@@ -461,6 +540,21 @@ struct R: Rswift.Validatable {
         return String(format: format, locale: locale, value1, value2)
       }
 
+      /// en translation: The app is not connected to the internet. Check your connection to search, then try again
+      ///
+      /// Locales: en, ru
+      static func connectLabel(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("connect.label", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Localizable", preferredLanguages: preferredLanguages) else {
+          return "connect.label"
+        }
+
+        return NSLocalizedString("connect.label", bundle: bundle, comment: "")
+      }
+
       /// en translation: Today
       ///
       /// Locales: en, ru
@@ -474,6 +568,21 @@ struct R: Rswift.Validatable {
         }
 
         return NSLocalizedString("day.today", bundle: bundle, comment: "")
+      }
+
+      /// en translation: Weather
+      ///
+      /// Locales: en, ru
+      static func titleLabel(preferredLanguages: [String]? = nil) -> String {
+        guard let preferredLanguages = preferredLanguages else {
+          return NSLocalizedString("title.label", bundle: hostingBundle, comment: "")
+        }
+
+        guard let (_, bundle) = localeBundle(tableName: "Localizable", preferredLanguages: preferredLanguages) else {
+          return "title.label"
+        }
+
+        return NSLocalizedString("title.label", bundle: bundle, comment: "")
       }
 
       /// en translation: search
@@ -564,6 +673,17 @@ struct _R: Rswift.Validatable {
 
       func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> HourCollectionViewCell? {
         return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? HourCollectionViewCell
+      }
+
+      fileprivate init() {}
+    }
+
+    struct _Tile: Rswift.NibResourceType {
+      let bundle = R.hostingBundle
+      let name = "Tile"
+
+      func firstView(owner ownerOrNil: AnyObject?, options optionsOrNil: [UINib.OptionsKey : Any]? = nil) -> TileView? {
+        return instantiate(withOwner: ownerOrNil, options: optionsOrNil)[0] as? TileView
       }
 
       fileprivate init() {}

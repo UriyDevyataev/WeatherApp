@@ -12,7 +12,6 @@ import SnapKit
 class HourlyViewController: UIViewController {
     
     private var collectionView : UICollectionView?
-//    var data: [HourlyWeather]?
     var data: WeatherResponse?
     var sizeView = CGSize.zero
         
@@ -22,7 +21,7 @@ class HourlyViewController: UIViewController {
     }
     
     deinit {
-        print("deinit HourlyViewController")
+//        print("deinit HourlyViewController")
     }
     
     private func config(){
@@ -64,7 +63,6 @@ class HourlyViewController: UIViewController {
         let hourData = withContent.hourly[index]
 
         let hour = hourData.dt.strHourFromUTC(offset: offset)
-//        let hour = withContent.hourly[index].dt.strHourFromUTC()
         let temp = "\(Int(hourData.temp.rounded()))\u{00B0}"
         
         var nameImage = hourData.weather[0].icon

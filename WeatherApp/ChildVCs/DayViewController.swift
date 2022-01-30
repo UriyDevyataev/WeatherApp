@@ -14,7 +14,6 @@ class DayViewController: UIViewController {
     private var collectionView : UICollectionView?
     
     var data: [DailyWeather]?
-//    var data: WeatherResponse?
     
     let cellHeigh: Double = 50
     
@@ -24,7 +23,7 @@ class DayViewController: UIViewController {
     }
     
     deinit {
-        print("deinit DayViewController")
+//        print("deinit DayViewController")
     }
     
     private func config(){

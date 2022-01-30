@@ -22,7 +22,7 @@ protocol MWPresenterInput {
     
     func viewIsReady() //ok
     func actionShowChoiseCity()
-    func actionGetLocalWeather()
+    func actionShowLocalCity()
     func swipeListTo(index: Int) //ok
 }
 
@@ -50,7 +50,6 @@ protocol MWInteractorOutput: AnyObject {
 
 protocol MWModuleInput {
     func needUpdateOut()
-    
 }
 
 protocol MWModuleOutput {

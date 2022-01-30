@@ -8,5 +8,10 @@
 
 "max.min.label" = "Max.: %@, min.: %@";
 "day.today" = "Today";
-"searh.bar.clear" = "Delete";
+"searh.bar.clear" = "Cancel";
 "searh.bar.placeholder" = "search";
+"connect.label" = "The app is not connected to the internet. Check your connection to search, then try again";
+"title.label" = "Weather";
+"tile.name.humidity" = "HUMIDITY";
+"tile.name.feel.like" = "FEEL LIKE";
+"tile.name.info.humidity" = "Dew point\nnow - ";

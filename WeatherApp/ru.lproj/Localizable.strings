@@ -8,5 +8,10 @@
 
 "max.min.label" = "Макс.: %@, мин.: %@";
 "day.today" = "Сегодня";
-"searh.bar.clear" = "Удалить";
+"searh.bar.clear" = "Отменить";
 "searh.bar.placeholder" = "поиск";
+"connect.label" = "Приложение не подключено к интернету. Для поиска проверьте подключение, затем повторите попытку";
+"title.label" = "Погода";
+"tile.name.humidity" = "ВЛАЖНОСТЬ";
+"tile.name.feel.like" = "ОЩУЩАЕТСЯ КАК";
+"tile.name.info.humidity" = "Точка росы\nсейчас - ";

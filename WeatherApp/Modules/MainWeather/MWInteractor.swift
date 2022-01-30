@@ -12,12 +12,12 @@ import Rswift
 final class MWInteractorImp: NSObject, MWInteractorInput {
     
     weak var output: MWInteractorOutput?
-    
-    let weatherService: WeatherService = WeatherServiceImp()
-    let locationService: LocationService = LocationServiceImp()
     let locationManager = CLLocationManager()
-    let weatherListService: WeatherListService = WeatherListServiceImp.shared
-    let backGroundService: BackGroundService = BackGroundServiceImp()
+    
+    var weatherService: WeatherService!
+    var locationService: LocationService!
+    var weatherListService: WeatherListService!
+    var backGroundService: BackGroundService!
     
     func requestAccessLocation() {
         locationManager.delegate = self
@@ -27,26 +27,12 @@ final class MWInteractorImp: NSObject, MWInteractorInput {
     }
     
     func getEntity() -> MWEntity {
-        
         let count = weatherListService.getCountList()
         let index = weatherListService.getCurrentIndex()
-
         if count == 0 {
             createLocalEntityCW()
         }
-        
         return MWEntity(count: count, choisedIndex: index)
-        
-//        var count = weatherListService.getCountList()
-//        var index = 0
-//
-//        if count == 0 {
-//            count = 1
-//            createLocalEntityCW()
-//        } else {
-//            index = weatherListService.getCurrentIndex()
-//        }
-//        return MWEntity(count: count, choisedIndex: index)
     }
     
     func updateCurrentIndex(index: Int) {
@@ -75,11 +61,11 @@ final class MWInteractorImp: NSObject, MWInteractorInput {
                                         weather: weather,
                                         background: background)
                 
-                self.weatherListService.updateLocaly(entity: entityCW)
+                self.weatherListService.addtoList(entity: entityCW)
                 
                 let entityMW = MWEntity(count: 1, choisedIndex: 0)
                 self.output?.didUpdateEntity(entity: entityMW)
-            }
+            } error: { _ in }
         }
     }
 }
