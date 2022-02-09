@@ -52,53 +52,5 @@
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "A96EEACF-095D-4572-A383-412CD44076E6"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "WeatherAppTests/Module tests/MainWeather/Presenter/PresenterOutputMock.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "18"
-            endingLineNumber = "18"
-            landmarkName = "setState(entity:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "A96EEACF-095D-4572-A383-412CD44076E6 - 26c9132d57a1a3d1"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "WeatherAppTests.PresenterOutputMock.setState(entity: WeatherApp.MWEntity) -&gt; ()"
-                  moduleName = "WeatherAppTests"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/devyataevya/techMeSkills/WeatherApp/WeatherAppTests/Module%20tests/MainWeather/Presenter/PresenterOutputMock.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "17"
-                  endingLineNumber = "17"
-                  offsetFromSymbolStart = "76">
-               </Location>
-               <Location
-                  uuid = "A96EEACF-095D-4572-A383-412CD44076E6 - 26c9132d57a1a3f2"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "WeatherAppTests.PresenterOutputMock.setState(entity: WeatherApp.MWEntity) -&gt; ()"
-                  moduleName = "WeatherAppTests"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/devyataevya/techMeSkills/WeatherApp/WeatherAppTests/Module%20tests/MainWeather/Presenter/PresenterOutputMock.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "18"
-                  endingLineNumber = "18"
-                  offsetFromSymbolStart = "272">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

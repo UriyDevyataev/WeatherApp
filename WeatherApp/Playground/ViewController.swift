@@ -144,6 +144,4 @@ extension ViewController: UIPageViewControllerDataSource {
             return vcArr[curIndex! + 1]
         }
     }
-    
-    
 }
