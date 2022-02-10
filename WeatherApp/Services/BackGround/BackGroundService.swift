@@ -14,7 +14,6 @@ private enum TimeOfDay: String {
 }
 
 protocol BackGroundService {
-    
     func configFor(condition: String) -> Background
 }
 
@@ -34,7 +33,6 @@ class BackGroundServiceImp: BackGroundService {
         let nodesArray = updateNodes(for: condition)
         let backGround = Background(timesOfDay: timesOfDayColor, nodes: nodesArray)
         return backGround
-        
     }
     
     private func updateNodes(for condition: String) -> [Node] {
@@ -103,7 +101,6 @@ class BackGroundServiceImp: BackGroundService {
         case "Mist" :       node.position = CGPoint(x: 100, y: height - 100)
         default:            break
         }
-        
         return node
     }
 }

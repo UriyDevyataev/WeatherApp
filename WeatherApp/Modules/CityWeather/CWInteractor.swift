@@ -54,7 +54,7 @@ class CWInteractorImp: CWInteractorInput {
                 self.weatherListService.updateList(entity: entityCW, index: index)
                 self.output?.didUpdateEntity(entity: entityCW)
             } error: {error in
-                print(error)
+                print(error ?? "error")
             }
         }
     }

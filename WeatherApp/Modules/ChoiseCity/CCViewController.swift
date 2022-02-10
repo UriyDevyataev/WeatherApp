@@ -9,15 +9,17 @@ import UIKit
 
 class CCViewController: UIViewController {
     
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var searchBar: UISearchBar!
+    @IBOutlet weak var connectLabel: UILabel!
+    
     var presenter: CCPresenterInput!
     var entity: CCEntity?
     var cityList = [String]()
     var weatherList = [CWEntity]()
     
-    @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var searchBar: UISearchBar!
-    @IBOutlet weak var connectLabel: UILabel!
+    // MARK: - App live cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,6 +29,9 @@ class CCViewController: UIViewController {
     deinit {
 //        print("deinit CCViewController")
     }
+    
+    // MARK: - Funcs configurations
+    
     func config() {
         configUI()
         configSearcBar()
@@ -149,6 +154,8 @@ class CCViewController: UIViewController {
     }
 }
 
+// MARK: - Extension UITableViewDataSource
+
 extension CCViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         guard let entity = self.entity else {return 0}
@@ -184,6 +191,7 @@ extension CCViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
         guard let entity = self.entity else {return}
         switch entity.isCityChoising {
         case true:
@@ -218,6 +226,9 @@ extension CCViewController: UITableViewDataSource, UITableViewDelegate {
     }
 }
 
+
+// MARK: - Extension UISearchBarDelegate
+
 extension CCViewController: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
@@ -244,9 +255,10 @@ extension CCViewController: UISearchBarDelegate {
     }
 }
 
+// MARK: - Extension CCPresenterOutput
+
 extension CCViewController: CCPresenterOutput {
     func setState(entity: CCEntity) {
-//        print("CC_setState - \(Date.now)")
         updateView(entity: entity)
     }
 }

@@ -20,15 +20,15 @@ protocol MWPresenterInput {
     
     var view: MWPresenterOutput? {get set}
     
-    func viewIsReady() //ok
+    func viewIsReady()
     func actionShowChoiseCity()
     func actionShowLocalCity()
-    func swipeListTo(index: Int) //ok
+    func swipeListTo(index: Int)
 }
 
 protocol MWPresenterOutput: AnyObject {
-    func setState(entity: MWEntity) //ok
-    func updateBackground(background: Background) //ok
+    func setState(entity: MWEntity)
+    func updateBackground(background: Background)
 }
 
 //Interactor
@@ -36,15 +36,14 @@ protocol MWInteractorInput {
     
     var output: MWInteractorOutput? { get set }
     
-    func requestAccessLocation() // not ok
-    func getEntity() -> MWEntity // ok
-    func updateCurrentIndex(index: Int) // ok
-    func getNewBackGround() -> Background //ok
-    
+    func requestAccessLocation()
+    func getEntity() -> MWEntity
+    func updateCurrentIndex(index: Int)
+    func getNewBackGround() -> Background
 }
 
 protocol MWInteractorOutput: AnyObject {
-    func didUpdateEntity(entity: MWEntity) // ok
+    func didUpdateEntity(entity: MWEntity)
     func didChangeAuthorizationLocation()
 }
 

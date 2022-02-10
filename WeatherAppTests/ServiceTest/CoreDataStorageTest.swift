@@ -132,7 +132,5 @@ class CoreDataStorageTest: XCTestCase {
         //assert
         XCTAssertNotEqual(countAfter, countBefore)
         XCTAssertEqual(countAfter, 0)
-        
-        
     }
 }

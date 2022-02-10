@@ -10,9 +10,8 @@ protocol CWPresenterInput: AnyObject  {
     
     var view: CWPresenterOutput? {get set}
     
-    func viewIsReady(index: Int?)   // ok
-    func actionAdd()                //ok
-    func actionCancel()             // ok (not use)
+    func viewIsReady(index: Int?)
+    func actionAdd()
 }
 
 protocol CWPresenterOutput: AnyObject {
@@ -24,13 +23,13 @@ protocol CWInteractorInput {
     
     var output: CWInteractorOutput? { get set }
     
-    func loadEntity(atIndex: Int?) -> CWEntity?     // ok
-    func updateEntity(_ entity: CWEntity, index: Int?)           // ok
-    func addTemporaryEntity()                       // ok
+    func loadEntity(atIndex: Int?) -> CWEntity?
+    func updateEntity(_ entity: CWEntity, index: Int?)
+    func addTemporaryEntity()
 }
 
 protocol CWInteractorOutput: AnyObject {
-    func didUpdateEntity(entity: CWEntity) // ok
+    func didUpdateEntity(entity: CWEntity)
 }
 
 protocol CWRouterInput {
@@ -41,6 +40,5 @@ protocol CWRouterOutput {
 //Module
 protocol CWModuleInput {
 }
-
 protocol CWModuleOutput: AnyObject {
 }

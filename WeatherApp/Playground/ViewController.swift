@@ -17,8 +17,6 @@ class ViewController: UIPageViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
-        
 //        Affeltrangen
 //        47.52581
 //        9.03307
@@ -145,3 +143,60 @@ extension ViewController: UIPageViewControllerDataSource {
         }
     }
 }
+
+//    func createHourlyView() {
+//
+//        if controllerHourly == nil {
+//
+//            let container = createContainer()
+//            contentView.addSubview(container)
+//            container.snp.makeConstraints { make in
+//                make.top.equalToSuperview()
+//                make.leading.equalToSuperview().offset(0)
+//                make.trailing.equalToSuperview().offset(0)
+//                make.height.equalTo(100)
+//            }
+//            container.layoutIfNeeded()
+//            containerHourly = container
+//
+//            let controller = HourlyViewController()
+//            controller.data = entity?.weather
+//            controller.sizeView = container.frame.size
+//            controllerHourly = controller
+//            addChildViewController(container: container, controller: controller)
+//        } else {
+//            let data = entity?.weather
+//            controllerHourly?.update(withData: data)
+//        }
+//    }
+
+//    func createDailyView() {
+//
+//        if controllerDaily == nil {
+//
+//            let controller = DayViewController()
+//            let data = entity?.weather?.daily
+//            controller.data = data
+//            controllerDaily = controller
+//
+//            let cellHeight = data?.count ?? 7
+//            let height = Int(controller.cellHeigh) * cellHeight
+//
+//            let container = createContainer()
+//            contentView.addSubview(container)
+//            container.snp.makeConstraints { make in
+//                make.top.equalTo(containerHourly.snp.bottom).offset(15)
+//                make.leading.equalToSuperview().offset(0)
+//                make.trailing.equalToSuperview().offset(0)
+//                make.bottom.equalToSuperview().offset(-40)
+//                make.height.equalTo(height)
+//            }
+//            container.layoutIfNeeded()
+//            containerDaily = container
+//
+//            addChildViewController(container: containerDaily, controller: controller)
+//        } else {
+//            let data = entity?.weather?.daily
+//            controllerDaily?.update(withData: data)
+//        }
+//    }

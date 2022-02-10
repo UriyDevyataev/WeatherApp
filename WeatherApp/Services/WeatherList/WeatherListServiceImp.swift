@@ -69,7 +69,6 @@ final class WeatherListServiceImp: WeatherListService {
     func updateList(entity: CWEntity, index: Int) {
         let count = getCountList()
         if index < count {
-//            print("coreDataStorage: index - \(index), city - \(entity.city.name)")
             listWeather?[index] = entity
             coreDataStorage.updateList(index: index, entity: entity)
         }

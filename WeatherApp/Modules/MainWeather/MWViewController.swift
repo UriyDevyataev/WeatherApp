@@ -24,11 +24,21 @@ class MWViewController: UIViewController {
     var presenter: MWPresenterInput!
     var entity: MWEntity?
     
-    //MARK: - App Life Cycle
+    //MARK: - App Live Cycle
     
     override func loadView() {
         super.loadView()
         prepareView()
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        config()
+        presenter.viewIsReady()
+    }
+    
+    deinit {
+        print("deinit MWViewController")
     }
     
     private func prepareView() {
@@ -40,16 +50,6 @@ class MWViewController: UIViewController {
 
         skView.presentScene(scene)
         self.scene = scene
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        config()
-        presenter.viewIsReady()
-    }
-    
-    deinit {
-        print("deinit MWViewController")
     }
     
     //MARK: - Funcs configuration
@@ -176,16 +176,6 @@ class MWViewController: UIViewController {
     
     @objc func actionLocaly() {
         presenter.actionShowLocalCity()
-        
-//        collectionView?.scrollToItem(at: IndexPath(row: 0, section: 0), at: .centeredVertically, animated: true) {
-//
-//        }
-        
-       
-        
-//        entity?.choisedIndex = 0
-//        updatePageControl()
-//        presenter.actionGetLocalWeather()
     }
     
     @objc func actionList() {
@@ -238,6 +228,8 @@ class MWViewController: UIViewController {
     }
 }
 
+//MARK: - Extension UICollectionViewDelegate
+
 extension MWViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return entity?.count ?? 0
@@ -264,6 +256,8 @@ extension MWViewController: UICollectionViewDelegate, UICollectionViewDataSource
     }
 }
 
+//MARK: - Extension UICollectionViewDelegateFlowLayout
+
 extension MWViewController: UICollectionViewDelegateFlowLayout  {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return collectionView.frame.size
@@ -275,7 +269,6 @@ extension MWViewController: UICollectionViewDelegateFlowLayout  {
 extension MWViewController: MWPresenterOutput{
 
     func setState(entity: MWEntity) {
-//        print("MW_setState")
         updateView(with: entity)
     }
     
@@ -283,4 +276,3 @@ extension MWViewController: MWPresenterOutput{
         configBackgroud(background)
     }
 }
-
